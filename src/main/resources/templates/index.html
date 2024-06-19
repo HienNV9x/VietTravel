@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<!---->
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>VietTravel</title>
+	<link rel="icon" href="img_more/home/viettravel_logo_4.png" type="image/x-icon" />
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/responsive.css">
+	<link rel="stylesheet" href="css/message.css">
+	
+	<link rel="stylesheet" href="fonts/themify-icons/themify-icons.css">
+	<link rel="stylesheet" href="fonts_awesome/fontawesome-free-6.4.2-web/css/all.min.css">
+	<link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+	
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+</head>
+
+<body>
+	<div id="main">
+		<div id="header">
+			<!-- Begin: nav -->
+			<ul id="nav">
+				<li><a href="#">Home</a></li>
+				<li><a href="#introduce">Introduce</a></li>
+				<li>
+					<a href="#">Tour <i class="nav-arrow-down ti-angle-down"></i></a>
+					<ul class="list-tour">
+						<li><a href="#">North</a>
+							<ul class="tour-north">
+								<li><a href="/viettravel/hagiang" target="_blank">Ha Giang</a></li>
+								<li><a href="/viettravel/hanoi" target="_blank">Ha Noi</a></li>
+								<li><a href="/viettravel/halong" target="_blank">Ha Long</a></li>
+								<li><a href="/viettravel/ninhbinh" target="_blank">Ninh Binh</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">Central Region</a>
+							<ul class="tour-central">
+								<li><a href="/viettravel/danang" target="_blank">Da Nang</a></li>
+								<li><a href="/viettravel/hoian" target="_blank">Hoi An</a></li>
+								<li><a href="/viettravel/dalat" target="_blank">Da Lat</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">South</a>
+							<ul class="tour-south">
+								<li><a href="/viettravel/tphcm" target="_blank">Ho Chi Minh City</a></li>
+								<li><a href="/viettravel/phuquoc" target="_blank">Phu Quoc</a></li>
+								<li><a href="/viettravel/camau" target="_blank">Ca Mau</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li><a href="#package_tour">Package Tour</a></li>
+				<li><a href="#member">Member</a></li>
+				<li>
+					<a href="/viettravel/more" target="_blank">
+						More
+						<i class="nav-arrow-down ti-angle-down"></i>
+					</a>
+					<ul class="subnav">
+						<li><a href="/viettravel/more" target="_blank">About Us</a></li>
+						<li><a href="/viettravel/more#services-main" target="_blank">Services</a></li>
+						<li><a href="/viettravel/more#system-main" target="_blank">System</a></li>
+					</ul>
+				</li>
+			</ul>
+			<!-- End: nav -->
+			<!-- Begin: Login - Register -->
+			<div class="log-reg">
+				<div>
+					<button sec:authorize="not isAuthenticated()" class="log"><a href="/login">Login</button>
+					<button sec:authorize="isAuthenticated()" class="log">
+						<form id="logoutForm" method="POST" th:action="@{/logout}">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						</form>
+						<a onclick="document.forms['logoutForm'].submit()">Logout</a>
+					</button>
+
+					<button sec:authorize="not isAuthenticated()" class="reg"><a href="#member">Sign up</a></button>
+				</div>
+				<!--
+				<div sec:authorize="isAuthenticated()" class="user">
+					<img class="user-login" th:src="@{/img_more/testimonials/user.jpg}">
+				</div>
+				-->
+				<div sec:authorize="isAuthenticated()" class="user">
+					<form method="GET" th:object="${userForm}" th:action="@{/viettravel/role}">
+						<button class="check_role">
+							<img class="user-login" th:src="@{/img_more/testimonials/user.jpg}">
+						</button>
+					</form>
+				</div>
+
+			</div>
+			<!-- End: Login - Register -->
+			<!-- Begin: search button-->
+			<div class="search-btn">
+				<input id="search-input" class="input-btn" type="text" placeholder="Search..." />
+				<button class="btn-header">
+					<i class="search-icon ti-search"></i>
+				</button>
+			</div>
+
+			<div id="mobile-menu" class="mobile-menu-btn">
+				<i class="menu-icon ti-menu"></i>
+			</div>
+
+			<!-- End: search button-->
+		</div>
+		<!--End Header-->
+
+		<!-- SlideShow -->
+		<div id="slider">
+			<div class="image-item">
+				<img src="img_more/home/ha_giang.jpg" width="100%" height="575px" alt="">
+				<div class="img-item">
+					<p>Ha Giang</p>
+					<span>The first point of Viet Nam</span>
+				</div>
+			</div>
+			<div class="image-item">
+				<img src="img_more/home/ha_noi.jpg" width="100%" height="575px">
+				<div class="img-item color-content">
+					<p>Ha Noi</p>
+					<span>Capital of a thousand years of culture</span>
+				</div>
+			</div>
+			<div class="image-item">
+				<img src="img_more/home/ha_long.jpg" width="100%" height="575px">
+				<div class="img-item">
+					<p>Ha Long</p>
+					<span>Top 3 Most Impressive UNESCO Heritage Sites in Asia</span>
+				</div>
+			</div>
+			<div class="image-item ">
+				<img src="img_more/home/ninh_binh.jpg" width="100%" height="575px">
+				<div class="img-item color-content">
+					<p>Ninh Binh</p>
+					<span>Spiritual tourism - World heritage</span>
+				</div>
+			</div>
+			<div class="image-item">
+				<img src="img_more/home/da_nang.jpg" width="100%" height="575px">
+				<div class="img-item">
+					<p>Da Nang</p>
+					<span>Ba Na Hills - Road to paradise</span>
+				</div>
+			</div>
+			<div class="image-item">
+				<!--<img src="img_more/home/hoi_an.png" width="100%" height="575px">-->
+				<img width="100%" height="575px" th:src="@{/img_more/home/hoi_an.png}">
+				<div class="img-item">
+					<p>Hoi An</p>
+					<span>Peaceful and ancient</span>
+				</div>
+			</div>
+			<div class="image-item">
+				<img src="img_more/home/da_lat.jpg" width="100%" height="575px">
+				<div class="img-item">
+					<p>Da Lat</p>
+					<span>City of lovers</span>
+				</div>
+			</div>
+			<div class="image-item">
+				<img src="img_more/home/tp_hcm.jpg" width="100%" height="575px">
+				<div class="img-item">
+					<p>Ho Chi Minh City</p>
+					<span>The city doesn't sleep</span>
+				</div>
+			</div>
+			<div class="image-item">
+				<img src="img_more/home/phu_quoc.jpg" width="100%" height="575px">
+				<div class="img-item color-content">
+					<p>Phu Quoc</p>
+					<span>Vietnam's Pearl Island</span>
+				</div>
+			</div>
+			<div class="image-item">
+				<img src="img_more/home/ca_mau.jpg" width="100%" height="575px">
+				<div class="img-item">
+					<p>Ca Mau</p>
+					<span>The southernmost tip of Vietnam</span>
+				</div>
+			</div>
+		</div>
+		<!-- End SlideShow -->
+
+		<!-- Begin Content -->
+		<div id="content">
+			<!-- Introduce -->
+			<div id="introduce" class="content-section">
+				<h2 class="section-heading">VIET NAM</h2>
+				<p class="section-sub-heading">A heroic and peaceful country</p>
+				<p class="about-context">Located in Southeast Asia, Vietnam is a small and beautiful country with
+					thousands of years of heroic history, extremely friendly people and stunning landscapes.Great.
+					Although the country has gone through many wars to protect the nation, Vietnam is still beautiful
+					and peaceful in the eyes of the world. Gifted by nature favorable
+					location in the region, abundant resources and people's desire to move forward. This land is a
+					center of commerce, cultural interaction and exchange attractive and
+					growing. The natural landscape of Vietnam is quietly waiting for you to explore. Vietnamese cuisine
+					is boiling hot waiting for your review. Vietnamese people are
+					welcoming you with open arms. Come and feel it!
+				</p>
+				<div class="image">
+					<div class="image1">
+						<img src="img_more/home/vn_1.jpg" alt="Viet Nam" class="image_end">
+					</div>
+				</div>
+			</div>
+			<!-- End Introduce -->
+			<!-- Package Tour -->
+			<div id="package_tour" class="tour-section">
+				<div class="content-section">
+					<h2 class="section-heading text-while ">PACKAGE TOUR</h2>
+					<p class="section-sub-heading text-while ">Please come with us</p>
+					<!-- Places -->
+					<ul class="tickets-list">
+						<li>North <span class="local1">Ha Giang</span>
+							<span class="local2">Ha Noi</span>
+							<span class="local2">Ha Long</span>
+							<span class="local2">Ninh Binh</span>
+						</li>
+						<li>Central Region <span class="local3">Da Nang</span>
+							<span class="local2">Hoi An</span>
+							<span class="local2">Da Lat</span>
+						</li>
+						<li class="tickets-south"> South
+							<span class="local4">Ho Chi Minh City</span>
+							<span class="local2 local12-mobile">Phu Quoc</span>
+							<span class="local2 local12-mobile2">Ca Mau</span>
+						</li>
+					</ul>
+					<!-- Choice -->
+					<div class="choice-list row">
+						<div class="col-third col mt-16 s-col-full"> <!-- s-col-full -->
+							<img src="img_more/home/vn_6.jpeg" alt="Short Day" class="choice-img">
+							<div class="choice-body">
+								<h3 class="choice-heading">Short Day</h3>
+								<p class="choice-desc">Choose 1 location </p>
+								<button class="choice-buy-btn js-buy-tour s-full-width">Book Tour</button>
+							</div>
+						</div>
+						<div class="col-third col mt-16 s-col-full"> <!-- s-col-full -->
+							<img src="img_more/home/vn_7.jpg" alt="Long Days" class="choice-img">
+							<div class="choice-body">
+								<h3 class="choice-heading">Long Days</h3>
+								<p class="choice-desc">Choose a few locations</p>
+								<button class="choice-buy-btn js-buy-tour-2 s-full-width">Book Tour</button>
+							</div>
+						</div>
+						<div class="col-third col mt-16 s-col-full"> <!-- s-col-full -->
+							<img src="img_more/home/vn_8.jpg" alt="S - Shaped" class="choice-img">
+							<div class="choice-body">
+								<h3 class="choice-heading">S - Shaped</h3>
+								<p class="choice-desc">Explore 10 places from Ha Giang to Ca Mau</p>
+								<button class="choice-buy-btn js-buy-tour-3 s-full-width">Book Tour</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<!-- End Package Tour -->
+			<!-- Begin: Member -->
+			<div id="member" class="content-section content-contact">
+				<h2 class="section-heading">MEMBER</h2>
+				<p class="section-sub-heading">Save 5% or more with VietTralvel members</p>
+				<div class="row contact-content">
+					<div class="col col-half s-col-full contact-info">
+						<p><i class="fa-solid fa-location-dot"></i>Ha Noi, Viet Nam</p>
+						<p><i class="fa-solid fa-phone"></i>Phone: <a href="tel:+84966680989">+84966680989</a> </p>
+						<p><i class="fa-solid fa-envelope"></i>Email: <a
+								href="mailto:viettravel@gmail.com">viettravel@gmail.com</a> </p>
+					</div>
+					<div class="col col-half s-col-full contact-form">
+
+						<form method="POST" th:object="${userForm}" th:action="@{/viettravel/registration}">
+							<div class="row">
+								<div class="col col-half s-col-full">
+									<input type="text" name="username" required sec:field="*{username}"
+										class="form-control" placeholder="UserName">
+									<span class="has-error" sec:if="${#fields.hasErrors('username')}"
+										sec:errors="*{username}"></span>
+								</div>
+								<div class="col col-half s-col-full s-contact-form">
+									<input type="text" name="age" required sec:field="*{age}" class="form-control"
+										placeholder="Age">
+									<span class="has-error" sec:if="${#fields.hasErrors('age')}"
+										sec:errors="*{age}"></span>
+								</div>
+							</div>
+							<div class="row mt-8">
+								<div class="col col-half s-col-full">
+									<input type="text" name="country" required sec:field="*{country}"
+										class="form-control" placeholder="Country">
+									<span class="has-error" sec:if="${#fields.hasErrors('country')}"
+										sec:errors="*{country}"></span>
+								</div>
+								<div class="col col-half s-col-full s-contact-form">
+									<input type="text" name="city" required sec:field="*{city}" class="form-control"
+										placeholder="City">
+									<span class="has-error" sec:if="${#fields.hasErrors('city')}"
+										sec:errors="*{city}"></span>
+								</div>
+							</div>
+							<div class="row mt-8">
+								<div class="col col-full">
+									<input type="text" name="email" required sec:field="*{email}" class="form-control"
+										placeholder="Email">
+									<span class="has-error" sec:if="${#fields.hasErrors('email')}"
+										sec:errors="*{email}"></span>
+								</div>
+							</div>
+							<div class="row mt-8">
+								<div class="col col-full">
+									<input type="password" name="password" required sec:field="*{password}"
+										class="form-control" placeholder="Password">
+									<span class="has-error" sec:if="${#fields.hasErrors('password')}"
+										sec:errors="*{password}"></span>
+								</div>
+							</div>
+							<div class="row mt-8">
+								<div class="col col-full">
+									<input type="password" name="passwordConfirm" required
+										sec:field="*{passwordConfirm}" class="form-control"
+										placeholder="Confirm your password">
+									<span class="has-error" sec:if="${#fields.hasErrors('passwordConfirm')}"
+										sec:errors="*{passwordConfirm}"></span>
+								</div>
+							</div>
+							<div class="row mt-8">
+								<div class="col col-full">
+									<!--<input type="text" name="travel_hobby" required sec:field="*{travel_hobby}" class="form-control" placeholder="Travel Hobby">-->
+									<span class="has-error" sec:if="${#fields.hasErrors('travel_hobby')}"
+										sec:errors="*{travel_hobby}"></span>
+									<select name="travel_hobby" placeholder="Travel Hobby" sec:field="*{travel_hobby}"
+										required class="form-control">
+										<option value="">Travel Hobby</option>
+										<option value="Bustle">Bustle</option>
+										<option value="Mountain">Mountain</option>
+										<option value="Resort">Resort</option>
+										<option value="Sea">Sea</option>
+										<option value="Vintage">Vintage</option>
+										<option value="Spirituality">Spirituality</option>
+									</select>
+								</div>
+							</div>
+
+							<button class="contact-mobile-send mt-16 form-submit-btn s-full-width" type="submit">SIGN
+								UP</button>
+						</form>
+						<div class="line-or">
+                            <span class="vl-innertext">or</span>
+                        </div>
+                        <div class="oauth2">
+                            <a th:href="@{/oauth2/authorization/google}" class="google btn-oauth2">
+                                <i class="fa-brands fa-google"></i> <span class="line-between">|</span> Sign up with Google+
+                            </a>
+                        </div>
+					</div>
+				</div>
+			</div>
+			<!-- End: Member -->
+			<!-- Welcome to Viet Nam -->
+			<div class="welcome-section">
+				<img class="welcome-img welcome" src="img_more/home/welcome_to_vn.jpg" alt="Welcome to Viet Nam">
+			</div>
+
+			<!-- Footer -->
+			<div id="footer">
+				<div class="social-list">
+					<a href="https://www.google.com.vn/"><i class="fa-brands fa-square-facebook"></i></a>
+					<a href=""><i class="fa-brands fa-instagram"></i></a>
+					<a href=""><i class="fa-brands fa-snapchat"></i></a>
+					<a href=""><i class="fa-brands fa-pinterest-p"></i></a>
+					<a href=""><i class="fa-brands fa-square-x-twitter"></i></a>
+					<a href=""><i class="fa-brands fa-linkedin"></i></a>
+				</div>
+				<p class="copyright">Powered by <a href="">VietTravel</a></p>
+			</div>
+			<!-- End Footer -->
+		</div>
+		<!-- End Content -->
+	</div>
+	<!-- End Main-->
+	
+	<!-- Begin Toast Message -->
+		<div id="notification"></div>
+	<!-- End Toast Message -->
+
+	<!--Model Book Tour -->
+	<div class="modal js-modal">
+		<div class="modal-container js-modal-container">
+			<div class="modal-close js-modal-close">
+				<i class="ti-close"></i>
+			</div>
+
+			<header class="modal-header">
+				<i class="modal-header-icon ti-bag"></i>
+				Tour
+			</header>
+			<label for=""></label>
+			<div class="modal-body">
+				<label for="choice-place" class="modal-label">
+					<i class="fa-solid fa-face-smile-wink"></i>
+					Choose a province you want to explore!
+				</label>
+				<!--
+				<select id="choice-place" class="modal-input">
+					<option value="">Place</option>
+					<option value="a1">Ha Giang</option>
+					<option value="a2">Ha Noi</option>
+					<option value="a3">Ha Long</option>
+					<option value="a4">Ninh Binh</option>
+					<option value="a5">Da Nang</option>
+					<option value="a6">Hoi An</option>
+					<option value="a7">Da Lat</option>
+					<option value="a8">Ho Chi Minh City</option>
+					<option value="a9">Phu Quoc</option>
+					<option value="a10">Ca Mau</option>
+				</select>
+				
+				<label class="modal-label">
+					<i class="fa-solid fa-bed"></i>
+					Please book a room!
+				</label>
+				-->
+				<label class="modal-label">
+					<i class="fa-solid fa-dollar-sign"></i>
+					Room rental costs will be reduced by 5%
+				</label>
+				<!--
+				<input class="modal-input" placeholder="100 Dollars">
+				-->
+				<button id="btn-book-1" class="buy-tour">
+					Reserve <i class="ti-check"></i>
+				</button>
+			</div>
+
+			<footer class="modal-footer">
+				<p class="modal-help">Need<a href="#">help?</a>
+				</p>
+			</footer>
+		</div>
+	</div>
+
+	<div class="modal js-modal-2">
+		<div class="modal-container js-modal-container-2">
+			<div class="modal-close js-modal-close-2">
+				<i class="ti-close"></i>
+			</div>
+
+			<header class="modal-header">
+				<i class="modal-header-icon ti-bag"></i>
+				Tour
+			</header>
+			<label for=""></label>
+			<div class="modal-body">
+				<label for="choice-place" class="modal-label">
+					<i class="fa-solid fa-face-smile-wink"></i>
+					Choose a few provinces and cities you want to explore!
+				</label>
+				<!--
+				<input type="text" id="choice-place" class="modal-input" placeholder="Places">
+				
+				<label class="modal-label">
+					<i class="fa-solid fa-bed"></i>
+					Please book a room!
+				</label>
+				-->
+				<label class="modal-label">
+					<i class="fa-solid fa-dollar-sign"></i>
+					Room rental costs will be reduced by 8%
+				</label>
+				<!--
+				<input class="modal-input" placeholder="100 Dollars">
+				-->
+				<button id="btn-book-2" class="buy-tour">
+					Reserve <i class="ti-check"></i>
+				</button>
+			</div>
+
+			<footer class="modal-footer">
+				<p class="modal-help">Need<a href="#">help?</a>
+				</p>
+			</footer>
+		</div>
+	</div>
+
+	<div class="modal js-modal-3">
+		<div class="modal-container js-modal-container-3">
+			<div class="modal-close js-modal-close-3">
+				<i class="ti-close"></i>
+			</div>
+
+			<header class="modal-header">
+				<i class="modal-header-icon ti-bag"></i>
+				Tour
+			</header>
+			<label for=""></label>
+			<div class="modal-body">
+				<label for="choice-place" class="modal-label">
+					<i class="fa-solid fa-face-smile-wink"></i>
+					10 tourist destinations are waiting for you!
+				</label>
+				<!--
+				<label class="modal-label">
+					<i class="fa-solid fa-bed"></i>
+					Please book a room!
+				</label>
+				-->
+				<label class="modal-label">
+					<i class="fa-solid fa-dollar-sign"></i>
+					Room rental costs will be reduced by 10%
+				</label>
+				<!--
+				<input class="modal-input" placeholder="100 Dollars">
+				-->
+				<button id="btn-book-3" class="buy-tour">
+					Reserve <i class="ti-check"></i>
+				</buttonid="btn-book-1">
+			</div>
+
+			<footer class="modal-footer">
+				<p class="modal-help">Need<a href="#">help?</a>
+				</p>
+			</footer>
+		</div>
+	</div>
+	<!-- End Model Book Tour -->
+
+	<!-- JS Slideshow -->
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+		
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#slider').slick({
+				arrows: true,
+				prevArrow: "<i class='bx bx-chevron-left btn-prev'></i>",
+				nextArrow: "<i class='bx bx-chevron-right btn-next'></i>",
+				dots: true,
+				autoplay: true,
+				pauseOnHover: false
+			});
+		});
+	</script>
+	<!-- End JS Slideshow -->
+	
+	<!-- JS-->
+	<script src="/js/message.js"></script>
+	<script src="/js/js_cart/book_tour.js"></script>	
+	<script src="/js/reset_cart.js"></script>
+	<script src="/js/search/search_toward.js"></script>
+	<script src="js/home_page.js"></script>
+	<!-- End JS-->
+	
+</body>
+</html>

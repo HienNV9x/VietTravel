@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VietTravel</title>
+  <link rel="icon" href="./assets/img/viettravel_logo.png" type="image/x-icon"/>
+  
+  <link rel="stylesheet" href="./assets/fonts/themify-icons/themify-icons.css">
+  <link rel="stylesheet" href="./assets/fonts_awesome/fontawesome-free-6.4.2-web/css/all.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
+
+  <!-- Vendor CSS Files -->
+  <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="./assets/css/search_demo.css">
+
+</head>
+
+<body>
+  <!-- Header -->
+  <div id="header">
+    <!-- Begin: nav -->
+    <ul id="nav">
+        <li><a href="/#">Home</a></li>
+        <li><a href="/#introduce">Introduce</a></li>
+        <li>
+            <a href="#">Tour <i class="nav-arrow-down ti-angle-down"></i></a>
+            <ul class="list-tour">
+                <li><a href="#">North</a>
+                    <ul class="tour-north">
+                       <li><a href="/viettravel/hagiang" target="_top">Ha Giang</a></li>
+                       <li><a href="/viettravel/hanoi" target="_blank">Ha Noi</a></li>
+                       <li><a href="/viettravel/halong" target="_blank">Ha Long</a></li>
+                       <li><a href="/viettravel/ninhbinh" target="_blank">Ninh Binh</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Central Region</a>
+                    <ul class="tour-central">
+                       <li><a href="/viettravel/danang" target="_blank">Da Nang</a></li>
+                       <li><a href="/viettravel/hoian" target="_blank">Hoi An</a></li>
+                       <li><a href="/viettravel/dalat" target="_blank">Da Lat</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">South</a>
+                    <ul class="tour-south">
+                      <li><a href="/viettravel/tphcm" target="_blank">Ho Chi Minh City</a></li>
+                      <li><a href="/viettravel/phuquoc" target="_blank">Phu Quoc</a></li>
+                      <li><a href="/viettravel/camau" target="_blank">Ca Mau</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><a href="/#package_tour">Package Tour</a></li>
+        <li><a href="/#member">Member</a></li>
+        <li>
+            <a href="#">
+                More
+                <i class="nav-arrow-down ti-angle-down"></i>
+            </a>
+            <ul class="subnav">
+              <li><a href="/viettravel/more" target="_blank">About Us</a></li>
+              <li><a href="/viettravel/more#services-main" target="_blank">Services</a></li>
+              <li><a href="/viettravel/more#system-main" target="_blank">System</a></li>
+            </ul>
+        </li>
+    </ul>
+    <!-- End: nav -->
+    <!-- Begin: Login - Register -->
+            <div class="log-reg">
+                <div>
+                    <button sec:authorize="not isAuthenticated()" class="log"><a href="/login">Login</button>
+					<button sec:authorize="isAuthenticated()" class="log">
+						<form id="logoutForm" method="POST" th:action="@{/logout}">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						</form>
+						<a onclick="document.forms['logoutForm'].submit()">Logout</a>
+					</button>
+					<button sec:authorize="not isAuthenticated()" class="reg"><a href="/#member">Sign up</a></button>
+					<!-- <button sec:authorize="not isAuthenticated()" class="reg"><a href="/#member">Sign up</a></button> -->
+                </div>
+                <div sec:authorize="isAuthenticated()" class="user">
+                    <img class="user-login" src="./assets/img/user.jpg">
+                    <!-- <img class="user-login" th:src="@{/img_more/testimonials/user.jpg}"> -->
+                </div>
+            </div>
+         <!-- End: Login - Register -->
+         <!-- Begin: search button-->
+            <div class="search-btn">
+                <input class="input-btn" type="type" placeholder="Search..." />
+                <button class="btn-header">
+                    <i class="search-icon ti-search"></i>
+                </button>
+            </div>
+    <!-- End: search button-->
+  </div>
+  <!-- End Header -->	
+	
+  <!-- Main -->	
+  <main id="main">
+
+  </main>
+  <!-- End Main -->
+
+  <!-- Footer -->
+  <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>About VietTravel</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">How to Book</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Contact Us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Help Center</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Careers</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Blog</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Airline tickets</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Hotel</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Airport Transfer</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Savings combo</a></li>
+              <!-- <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li> -->
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Others</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy Policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms & Conditions</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Register Your Accommodation</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Register Your Experience Business</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">VietTravel Press Room</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-info">
+            <h3>Follow us on</h3>
+             <p>Follow Vietravel on social networking platforms to receive the fastest discount information and seasonal tours.</p>
+            <div class="social-links mt-3">
+              <a href="#" class="twitter"><i class="fa-brands fa-square-x-twitter"></i></a>
+              <a href="#" class="printerest"><i class="fa-brands fa-pinterest"></i></a>
+              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="#" class="linkedin"><i class="bx bxl-snapchat"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>VietTravel</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">VietTravel</a>
+      </div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Template Main JS File -->
+  <script src="./assets/js/search_demo.js"></script>
+  <!-- --------------------- -->
+
+</body>
+</html>

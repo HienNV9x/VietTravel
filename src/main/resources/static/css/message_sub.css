@@ -1,0 +1,130 @@
+* {
+    padding: 0;
+    margin: 0;
+    /*box-sizing: border-box;*/
+  }
+  
+  #notification {
+    position: fixed;
+    top: 32px;
+    /* right: 32px; */
+    left: 32px;
+    z-index: 999999;
+  }
+
+  .notification {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 20px 0;
+    min-width: 400px;
+    max-width: 450px;
+    height: 60px;		/*chiều cao của toast*/
+    border-left: 4px solid;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
+    transition: all linear 0.3s;
+    position: relative; /* Để thêm pseudo-element */
+    overflow: hidden; /* Ngăn không cho border-bottom chạy ra ngoài */
+  }
+  
+  .notification:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;  /* Đặt tại cạnh trái */
+    width: 0; /* Chiều rộng ban đầu là 0 */
+    border-bottom: 4px solid ; /* Màu sắc có thể tùy chỉnh */
+    border-color: var(--notification-border-bottom-color); /* Using the custom property */
+    animation: slideOut 5s forwards; /* Sử dụng keyframe đã chỉnh sửa */
+}
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(calc(-140px));
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideOut {
+    from {
+        width: 100%;  /* Bắt đầu từ chiều rộng là 100% */
+        right: 0;   /* Bắt đầu từ cạnh phải */
+    }
+    to {
+        width: 0; /* Chạy về chiều rộng của toat là 0 */
+        left: 0;     /* Chạy đến vị trí bên trái */
+    }
+  }
+  
+  .notification--success {
+    border-color: #47d864;
+  }
+  
+  .notification--success .notification__icon {
+    color: #47d864;
+  }
+  
+  .notification--info {
+    border-color: #2f86eb;
+  }
+  
+  .notification--info .notification__icon {
+    color: #2f86eb;
+  }
+  
+  .notification--warning {
+    border-color: #ffc021;
+  }
+  
+  .notification--warning .notification__icon {
+    color: #ffc021;
+  }
+  
+  .notification--error {
+    border-color: #ff623d;
+  }
+  
+  .notification--error .notification__icon {
+    color: #ff623d;
+  }
+  
+  .notification + .notification {
+    margin-top: 24px;
+  }
+  
+  .notification__icon {
+    font-size: 24px;
+  }
+  
+  .notification__icon,
+  .notification__close {
+    padding: 0 16px;
+  }
+  
+  .notification__body {
+    flex-grow: 1;
+  }
+  
+  .notification__title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .notification__msg {
+    font-size: 17px;
+    color: #888;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+  
+  .notification__close {
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }

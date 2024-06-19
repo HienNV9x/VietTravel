@@ -1,0 +1,167 @@
+@import url("https://fonts.googleapis.com/css2?family=Corben&family=Mulish&family=Outfit&family=Raleway:wght@300&display=swap");
+
+body {
+  width: auto;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+  background-color: #d3dfed;
+}
+
+#qrCodeBox {
+  height: 550px;
+  width: 355px;
+  background: #fffffd;
+  border: 1px solid #000;
+  border-radius: 20px 20px 20px 20px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+#qrCodeSquareFrame {
+  width: 320px;
+  height: 320px;
+  /* background-color: #f44336; */
+  background-color: #000;
+  border-radius: 10px;
+  margin: 17px;
+  /* border: solid 1px #4677c6; */
+  position: relative;
+}
+
+.centered {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #000;
+}
+
+#qrcode {
+  mix-blend-mode: screen;
+  height: 320px;
+  
+}
+
+.centered #qrcode img {
+  width: 320px;
+  height: 320px;
+  
+  
+}
+
+.text {
+  width: 90%;
+  flex-direction: column;
+  text-align: center;
+  font-family: Outfit;
+  font-size: 18px;
+  color: #75767a;
+  margin-top: 10px;
+  position: relative;
+}
+
+.one {
+  font-weight: 700;
+  font-size: 24px;
+  color: #101b39;
+  margin: 0px;
+  position: absolute;
+  left: 0px;
+  top: 4px;
+}
+.two {
+  font-weight: 700;
+  font-size: 24px;
+  color: #101b39;
+  margin: 0px;
+  position: absolute;
+  left: 0px;
+  top: 34px;
+}
+
+.three {
+  font-weight: 700;
+  font-size: 24px;
+  color: #101b39;
+  margin: 0px;
+  position: absolute;
+  left: 0px;
+  top: 64px;
+}
+
+.four {
+  font-weight: 700;
+  font-size: 16px;
+  color: #101b39;
+  margin: 0px;
+  position: absolute;
+  left: 0px;
+  top: 94px;
+}
+
+#qrCodeBox .text .btn-pay-qr {
+  width: 300px;
+  height: 46px;
+  background-color: #f44336;
+  position: absolute;
+  top: 144px;
+  left: 10.5px;
+  padding: 0;
+  border: 1px solid #000;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-pay-qr {
+  transition: .5s linear;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  text-transform: uppercase;
+}
+
+.btn-pay-qr:before {
+  position: absolute;
+  content: '';
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+  border-bottom: 4px solid transparent;
+  border-left: 4px solid transparent;
+  box-sizing: border-box;
+  transform: translateX(100%);
+}
+
+.btn-pay-qr:after {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  border-top: 4px solid transparent;
+  border-right: 4px solid transparent;
+  box-sizing: border-box;
+  transform: translateX(-100%);
+}
+
+.btn-pay-qr:hover:before {
+  border-color: #262626;
+  height: 100%;
+  transform: translateX(0);
+  transition: .3s transform linear, .3s height linear .3s;
+}
+
+.btn-pay-qr:hover:after {
+  border-color: #262626;
+  height: 100%;
+  transform: translateX(0);
+  transition: .3s transform linear, .3s height linear .5s;
+}
+

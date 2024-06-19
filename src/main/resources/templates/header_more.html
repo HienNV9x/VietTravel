@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>VietTravel</title>
+  <link rel="icon" href="/img_more/home/viettravel_logo_4.png" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <link rel="stylesheet" href="/css/message.css">
+  
+  <link rel="stylesheet" href="/fonts/themify-icons/themify-icons.css">
+  <link rel="stylesheet" href="/fonts_awesome/fontawesome-free-6.4.2-web/css/all.min.css">
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/style_more.css.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Begin Header -->
+  <div id="header">
+    <!-- Begin: nav -->
+    <ul id="nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/#introduce">Introduce</a></li>
+        <li>
+            <a href="#">Tour <i class="nav-arrow-down ti-angle-down"></i></a>
+            <ul class="list-tour">
+                <li><a href="#">North</a>
+                    <ul class="tour-north">
+                       <li><a href="/viettravel/hagiang" target="_blank">Ha Giang</a></li>
+                       <li><a href="/viettravel/hanoi" target="_blank">Ha Noi</a></li>
+                       <li><a href="/viettravel/halong" target="_blank">Ha Long</a></li>
+                       <li><a href="/viettravel/ninhbinh" target="_blank">Ninh Binh</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Central Region</a>
+                    <ul class="tour-central">
+                       <li><a href="/viettravel/danang" target="_blank">Da Nang</a></li>
+                       <li><a href="/viettravel/hoian" target="_blank">Hoi An</a></li>
+                       <li><a href="/viettravel/dalat" target="_blank">Da Lat</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">South</a>
+                    <ul class="tour-south">
+                      <li><a href="/viettravel/tphcm" target="_blank">Ho Chi Minh City</a></li>
+                      <li><a href="/viettravel/phuquoc" target="_blank">Phu Quoc</a></li>
+                      <li><a href="/viettravel/camau" target="_blank">Ca Mau</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><a href="/#package_tour">Package Tour</a></li>
+        <li><a href="/#member">Member</a></li>
+        <li>
+            <a href="#">
+                More
+                <i class="nav-arrow-down ti-angle-down"></i>
+            </a>
+            <ul class="subnav">
+              <li><a href="#">About Us</a></li>
+              <li><a href="#services-main">Services</a></li>
+              <li><a href="#system-main">System</a></li>
+            </ul>
+        </li>
+    </ul>
+    <!-- End: nav -->
+            <!-- Begin: Login - Register -->
+            <div class="log-reg">
+                <div>
+                    <button sec:authorize="not isAuthenticated()" class="log"><a href="/login">Login</button>
+					<button sec:authorize="isAuthenticated()" class="log">
+						<form id="logoutForm" method="POST" th:action="@{/logout}">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						</form>
+						<a onclick="document.forms['logoutForm'].submit()">Logout</a>
+					</button>
+					
+                    <button sec:authorize="not isAuthenticated()" class="reg"><a href="/#member">Sign up</a></button>
+                </div>
+                <div sec:authorize="isAuthenticated()" class="user">
+                    <img class="user-login" th:src="@{/img_more/testimonials/user.jpg}">
+                </div>
+            </div>
+            <!-- End: Login - Register -->
+            <!-- Begin: search button-->
+            <div class="search-btn">
+                <input id="search-input" class="input-btn" type="text" placeholder="Search..." />
+                <button class="btn-header">
+                    <i class="search-icon ti-search"></i>
+                </button>
+            </div>
+
+            <div id="mobile-menu" class="mobile-menu-btn">
+                <i class="menu-icon ti-menu"></i>
+            </div>
+            <!-- End: search button-->
+			<!-- Hover Cart -->
+			<ul id="top_tools">
+			  <li>
+			    <div>
+			      <a href="/cart" target="_blank" class="cart_bt"><i class="ti-shopping-cart"></i><strong id="numberOfProducts">0</strong></a>
+			    </div>
+			  </li>
+			</ul>
+  </div>
+  <!-- End Header -->
+  
+  <main id="main">
+    <!-- ======= About Us Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>About Us</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>About Us</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <!-- End About Us Section -->
+
+    <!-- ======= About Section ======= -->
+    <section class="about" data-aos="fade-up">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-6">
+            <img src="/img_more/About us.jpg" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+            <h3>VietTravel is the leading travel company in VietNam.</h3>
+            <p class="about-content">
+              VietTravel, VietNam's largest travel guidance platform, helps millions of people each month become better travelers, from planning to booking to taking a trip. 
+              Travelers across the globe use the VietTravel site and app to discover where to stay, what to do and where to eat based on guidance from those who have been there 
+              before. With more than 1 milions reviews and opinions of nearly 10 thousands businesses, travelers turn to VietTravel to find famous tourist destinations in Vietnam, 
+              deals on accommodations, book experiences, reserve tables at delicious restaurants and discover great places nearby. 
+            </p>
+            <p class="about-content">
+              As a travel guidance company available in 63 provinces and cities, VietTravel makes planning easy no matter the trip type. The subsidiaries of VietTravel, Inc. (Nasdaq: TRIP), own and operate a portfolio of 
+              travel media brands and businesses, operating under various websites and apps. Vietravel will bring you an impressive trip with many beautiful memories.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End About Section -->
+
+    <!-- ======= Facts Section ======= -->
+    <section class="facts section-bg" data-aos="fade-up">
+      <div class="container">
+
+        <div class="row counters">
+          <div>
+            <h3 class="facts-content">Number of customers Vietravel has served over the years</h3>
+          </div>
+          <div class="col-lg-3 col-6 text-center">
+            <span data-purecounter-start="0" data-purecounter-end="1156005" data-purecounter-duration="1" class="purecounter"></span>
+            <p>2020</p>
+          </div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-purecounter-start="0" data-purecounter-end="34688" data-purecounter-duration="1" class="purecounter"></span>
+            <p>2021</p>
+          </div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-purecounter-start="0" data-purecounter-end="1009634" data-purecounter-duration="1" class="purecounter"></span>
+            <p>2022</p>
+          </div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-purecounter-start="0" data-purecounter-end="12658538" data-purecounter-duration="1" class="purecounter"></span>
+            <p>2023</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Facts Section -->
+
+    <!-- ======= Our Services Section ======= -->
+    <section id="services-main" class="breadcrumbs breadcrumbs-add">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Our Services</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>Our Services</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <!-- End Our Services Section -->
+
+    <!-- ======= Services Section ======= -->
+    <section class="services">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up">
+            <div class="icon-box icon-box-pink">
+              <div class="icon"><i class="bx bxs-plane-alt"></i></div>
+              <h4 class="title"><a href="">Airline tickets</a></h4>
+              <p class="description">Domestic and international airline partners - Global airline partners will take you to every location in the world</p>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon-box icon-box-cyan">
+              <div class="icon"><i class="bx bxs-hotel"></i></div>
+              <h4 class="title"><a href="">Hotel</a></h4>
+              <p class="description">Domestic and international hotel partners - We partner with hotel chains across Vietnam to ensure the best vacation in every destination of your dreams!</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon-box icon-box-green">
+              <div class="icon"><i class="bx bxs-car"></i></div>
+              <h4 class="title"><a href="">Airport Transfer</a></h4>
+              <p class="description">We cooperate with leading domestic and foreign transportation companies to bring you a comfortable trip to and from the airport</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon-box icon-box-blue">
+              <div class="icon"><i class="bx bx-money-withdraw"></i></div>
+              <h4 class="title"><a href="">Savings combo</a></h4>
+              <p class="description">Special rates - Want to go on vacation but don't have much budget? Don't worry, book a flight and hotel savings combo to get even better deals!</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+    <!-- End Services Section -->
+
+    <!-- ======= Tetstimonials Section ======= -->
+    <section id="system-main" class="breadcrumbs breadcrumbs-add">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Our System</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>Our System</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials" data-aos="fade-up"> 
+      <div class="container">
+
+        <div class="section-title">
+          <!-- <h2>System</h2> -->
+          <p>VietTravel provides the 10 most prominent destinations in Vietnam, stretching from the country's starting point, Ha Giang, to the last point, Ca Mau. At each location, we always have tour guides who will help you experience the unique features of the locality.</p>
+        </div>
+
+        <div class="testimonials-carousel swiper">
+          <div class="swiper-wrapper">
+            <div class="testimonial-item swiper-slide">
+              <img src="/img_more/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+              <h3>Sơn Anh	Augustus</h3>
+              <h4>+84966459845</h4>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Ha Giang
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                38E Nguyen Trai, Nguyen Trai Ward, Ha Giang City, Ha Giang, Vietnam
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+            </div>
+
+            <div class="testimonial-item swiper-slide">
+              <img src="/img_more/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+              <h3>Cúc Daisy</h3>
+              <h4>+849895652323</h4>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Ha Noi
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                55B Phan Chu Trinh, Hoan Kiem District, Hanoi, Vietnam.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+            </div>
+
+            <div class="testimonial-item swiper-slide">
+              <img src="/img_more/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+              <h3>Vân Anh Agnes</h3>
+              <h4>+84396484206</h4>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Ha Long
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                80 Tien Ong, Group 5, Area 9A, Cai Dam, Bai Chay Ward, Ha Long City, Quang Ninh Province, Vietnam.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+            </div>
+
+            <div class="testimonial-item swiper-slide">
+              <img src="/img_more/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+              <h3>Dũng Maynard</h3>
+              <h4>+84989253789</h4>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Ninh Binh
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                No. 828, Tran Hung Dao Street, Tan Thanh, Ninh Binh, Ninh Binh Province, Vietnam.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+            </div>
+
+            <div class="testimonial-item swiper-slide">
+              <img src="/img_more/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+              <h3>Bao Anh Eudora</h3>
+              <h4>+84396586223</h4>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Da Nang
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                280 September 2 Street, Hoa Cuong Bac Ward, Hai Chau District, Da Nang, Hoa Cuong Bac, Hai Chau District, Da Nang, Vietnam.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+            </div>
+
+            <div class="testimonial-item swiper-slide">
+              <img src="/img_more/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+              <h3>Duy Phelan</h3>
+              <h4>+84396776396</h4>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Hoi An
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                12 Luong Nhu Bich, Cam Nam, Hoi An, Quang Nam Province, Vietnam.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+            </div>
+
+            <div class="testimonial-item swiper-slide">
+              <img src="/img_more/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+              <h3>Hiền Glenda</h3>
+              <h4>+84989476289</h4>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Da Lat
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                08 Phan Boi Chau, Ward 1, Da Lat, Lam Dong Province, Vietnam.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+            </div>
+
+            <div class="testimonial-item swiper-slide">
+              <img src="/img_more/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+              <h3>Hồng Charmaine</h3>
+              <h4>+84966342222</h4>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Ho Chi Minh City
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                43 Nguyen Thi Thap, Tan Phu Ward, District 7, Tan Phu, District 7, Ho Chi Minh City, Vietnam.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+            </div>
+
+            <div class="testimonial-item swiper-slide">
+              <img src="/img_more/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+              <h3>Quang	Clitus</h3>
+              <h4>+84912.984.279</h4>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Phu Quoc
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                100c/4 Tran Hung Dao, Duong Dong, Duong Dong Town, Phu Quoc, Kien Giang Province, Vietnam.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+            </div>
+
+            <div class="testimonial-item swiper-slide">
+              <img src="/img_more/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+              <h3>Quân Gideon</h3>
+              <h4>+84919.754.266</h4>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Ca Mau
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                23 Tran Hung Dao, Ward 5, Ward 5, Ca Mau City, Ca Mau Province, Vietnam.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section>
+    <!-- End Ttstimonials Section -->
+  </main>
+  <!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>About VietTravel</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">How to Book</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Contact Us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Help Center</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Careers</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Blog</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Airline tickets</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Hotel</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Airport Transfer</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Savings combo</a></li>
+              <!-- <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li> -->
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Others</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy Policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms & Conditions</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Register Your Accommodation</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Register Your Experience Business</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">VietTravel Press Room</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-info">
+            <h3>Follow us on</h3>
+             <p>Follow Vietravel on social networking platforms to receive the fastest discount information and seasonal tours.</p>
+            <div class="social-links mt-3">
+              <a href="#" class="twitter"><i class="fa-brands fa-square-x-twitter"></i></a>
+              <a href="#" class="printerest"><i class="fa-brands fa-pinterest"></i></a>
+              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="#" class="linkedin"><i class="bx bxl-snapchat"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>VietTravel</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">VietTravel</a>
+      </div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+  
+  <!-- Begin Toast Message -->
+  	<div id="notification"></div>
+  <!-- End Toast Message -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/js/message.js"></script>
+  <script src="/js/calculate_products.js"></script>
+  <script src="/js/reset_cart.js"></script>
+  <script src="/js/search/search_toward.js"></script>
+  <script src="/js/main.js"></script>
+  
+</body>
+</html>

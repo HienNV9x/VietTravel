@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VietTravel</title>
+  <link rel="icon" href="/img_more/home/viettravel_logo_4.png" type="image/x-icon" />
+
+  <!-- Favicons-->
+  <!--<link rel="shortcut icon" type="image/x-icon" href="/img_more/img/img_cart/favicon.ico">-->
+  <link rel="apple-touch-icon" type="image/x-icon" href="/img_more/img/img_cart/apple-touch-icon-57x57-precomposed.png">
+  <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
+    href="/img_more/img/img_cart/apple-touch-icon-72x72-precomposed.png">
+  <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
+    href="/img_more/img/img_cart/apple-touch-icon-114x114-precomposed.png">
+  <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
+    href="/img_more/img/img_cart/apple-touch-icon-144x144-precomposed.png">
+  <link rel="stylesheet" href="/fonts/themify-icons/themify-icons.css">
+  <link rel="stylesheet" href="/fonts_awesome/fontawesome-free-6.4.2-web/css/all.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' />
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"> 	
+
+  <!-- COMMON CSS -->
+  <link rel="stylesheet" href="/css/message.css">
+  <link rel="stylesheet" href="/css/css_cart/cart_first.css">   
+  <link href="/css/css_cart/bootstrap.min.css" rel="stylesheet">       	
+  <link href="/css/css_cart/style.css" rel="stylesheet">			
+  <link href="/css/css_cart/vendors.css" rel="stylesheet">  
+  
+  
+  <!-- Insert Calendar -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  
+</head>
+
+<body>
+  <!-- Header -->
+  <div id="header">
+    <!-- Begin: nav -->
+    <ul id="nav">
+      <li><a href="/#">Home</a></li>
+      <li><a href="/#introduce">Introduce</a></li>
+      <li>
+        <a href="#">Tour <i class="nav-arrow-down ti-angle-down"></i></a>
+        <ul class="list-tour">
+          <li><a href="#">North</a>
+            <ul class="tour-north">
+              <li><a href="/viettravel/hagiang" target="_top">Ha Giang</a></li>
+              <li><a href="/viettravel/hanoi" target="_blank">Ha Noi</a></li>
+              <li><a href="/viettravel/halong" target="_blank">Ha Long</a></li>
+              <li><a href="/viettravel/ninhbinh" target="_blank">Ninh Binh</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">Central Region</a>
+            <ul class="tour-central">
+              <li><a href="/viettravel/danang" target="_blank">Da Nang</a></li>
+              <li><a href="/viettravel/hoian" target="_blank">Hoi An</a></li>
+              <li><a href="/viettravel/dalat" target="_blank">Da Lat</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">South</a>
+            <ul class="tour-south">
+              <li><a href="/viettravel/tphcm" target="_blank">Ho Chi Minh City</a></li>
+              <li><a href="/viettravel/phuquoc" target="_blank">Phu Quoc</a></li>
+              <li><a href="/viettravel/camau" target="_blank">Ca Mau</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="/#package_tour">Package Tour</a></li>
+      <li><a href="/#member">Member</a></li>
+      <li>
+        <a href="#">
+          More
+          <i class="nav-arrow-down ti-angle-down"></i>
+        </a>
+        <ul class="subnav">
+          <li><a href="/viettravel/more" target="_blank">About Us</a></li>
+          <li><a href="/viettravel/more#services-main" target="_blank">Services</a></li>
+          <li><a href="/viettravel/more#system-main" target="_blank">System</a></li>
+        </ul>
+      </li>
+    </ul>
+    <!-- End: nav -->
+    <!-- Begin: Login - Register -->
+    <div class="log-reg">
+      <div>
+        <button sec:authorize="not isAuthenticated()" class="log"><a href="/login">Login</button>
+        <button sec:authorize="isAuthenticated()" class="log">
+          <form id="logoutForm" method="POST" th:action="@{/logout}">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+          </form>
+          <a onclick="document.forms['logoutForm'].submit()">Logout</a>
+        </button>
+        <button sec:authorize="not isAuthenticated()" class="reg"><a href="/#member" class="font-white">Sign
+            up</a></button>
+      </div>
+      <div sec:authorize="isAuthenticated()" class="user">
+        <img class="user-login" src="/img_more/testimonials/user.jpg">
+      </div>
+    </div>
+    <!-- End: Login - Register -->
+    <!-- Begin: search button-->
+    <div class="search-btn">
+      <input id="search-input" class="input-btn" type="text" placeholder="Search..." />
+      <button class="btn-header">
+        <i class="search-icon ti-search"></i>
+      </button>
+    </div>
+    <!-- End: search button-->
+
+    <!-- Hover Cart -->
+    <ul id="top_tools">
+      <li>
+        <div class="dropdown dropdown-cart">
+          <a href="#0" data-bs-toggle="dropdown" class="cart_bt"><i class="ti-shopping-cart"></i><strong id="numberOfProducts">0</strong></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <!-- End Header -->
+
+  <section id="hero_2">
+    <div class="opacity-mask">
+    <div class="intro_title">
+      <h1>Place your order</h1>
+    </div>
+    </div>
+  </section>
+  
+  <!-- Main -->
+  <main id="main">
+    <div class="container margin_60">
+      <div class="row">
+        <div class="col-lg-8">
+          <table class="table table-striped cart-list add_bottom_30">
+            <thead>
+              <tr>
+                <th>
+                  Item
+                </th>
+                <th>
+                  Quantity
+                </th>
+                <th class="day-use">
+                  Days
+                </th>
+                <th>
+                  Total
+                </th>
+                <th>
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody class="products">
+		    </tbody>
+		   
+		    <tbody class="cuisines">
+			</tbody>
+			
+			<tbody class="intertainments">
+		    </tbody>
+			
+		    <tbody class="move">
+            </tbody>
+			
+          </table>
+          <table class="table table-striped options_cart">
+            <thead>
+              <tr>
+                <th colspan="3">
+                  Add options / Services
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="width:10%">
+                  <i class="icon_set_1_icon-16"></i>
+                </td>
+                <td style="width:60%">
+                  Dedicated Tour guide <strong>+$34</strong>
+                </td>
+                <td style="width:35%">
+                  <label class="switch-light switch-ios float-end">
+                    <input type="checkbox" name="option_1" id="option_1" checked value="">
+                    <span>
+                      <span>No</span>
+                      <span>Yes</span>
+                    </span>
+                    <a></a>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <i class="icon_set_1_icon-26"></i>
+                </td>
+                <td>
+                  Pick up service <strong>+$34*</strong>
+                </td>
+                <td>
+                  <label class="switch-light switch-ios float-end">
+                    <input type="checkbox" name="option_2" id="option_2" value="">
+                    <span>
+                      <span>No</span>
+                      <span>Yes</span>
+                    </span>
+                    <a></a>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <i class="icon_set_1_icon-71"></i>
+                </td>
+                <td>
+                  Insurance <strong>+$24*</strong>
+                </td>
+                <td>
+                  <label class="switch-light switch-ios float-end">
+                    <input type="checkbox" name="option_3" id="option_3" value="" checked>
+                    <span>
+                      <span>No</span>
+                      <span>Yes</span>
+                    </span>
+                    <a></a>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <i class="icon_set_1_icon-15"></i>
+                </td>
+                <td>
+                  Welcome bottle <strong>+$24</strong>
+                </td>
+                <td>
+                  <label class="switch-light switch-ios float-end">
+                    <input type="checkbox" name="option_4" id="option_4" value="">
+                    <span>
+                      <span>No</span>
+                      <span>Yes</span>
+                    </span>
+                    <a></a>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <i class="icon_set_1_icon-59"></i>
+                </td>
+                <td>
+                  Coffe break <strong>+$12*</strong>
+                </td>
+                <td>
+                  <label class="switch-light switch-ios float-end">
+                    <input type="checkbox" name="option_5" id="option_5" value="">
+                    <span>
+                      <span>No</span>
+                      <span>Yes</span>
+                    </span>
+                    <a></a>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <i class="icon_set_1_icon-58"></i>
+                </td>
+                <td>
+                  Dinner <strong>+$26*</strong>
+                </td>
+                <td>
+                  <label class="switch-light switch-ios float-end">
+                    <input type="checkbox" name="option_6" id="option_6" value="">
+                    <span>
+                      <span>No</span>
+                      <span>Yes</span>
+                    </span>
+                    <a></a>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <i class="icon_set_1_icon-40"></i>
+                </td>
+                <td>
+                  Bike rent <strong>+$26*</strong>
+                </td>
+                <td>
+                  <label class="switch-light switch-ios float-end">
+                    <input type="checkbox" name="option_7" id="option_7" value="">
+                    <span>
+                      <span>No</span>
+                      <span>Yes</span>
+                    </span>
+                    <a></a>
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="add_bottom_15"><small>* Prices for person.</small>
+          </div>
+        </div>
+        <!-- End col -->
+
+        <aside class="col-lg-4">
+          <div class="box_style_1">
+            <h3 class="inner">- Summary -</h3>
+            <table class="table table_summary">
+              <tbody>
+                <tr>
+                  <td>
+                    SubTotal
+                  </td>
+                  <td class="text-end subtotal">
+                    $2
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Member
+                  </td>
+                  <td class="text-end member">
+					&#8595;5%
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Book Tour
+                  </td>
+                  <td class="text-end discount">
+					&#8595;5%
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    VAT
+                  </td>
+                  <td class="text-end vat">
+                    $34
+                  </td>
+                </tr>
+                <tr class="total">
+                  <td>
+                    Total cost
+                  </td>
+                  <td class="text-end totalEle">
+                    $154
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <a class="btn_full" href="#pay-dialog" id="access_link">Check out</a>
+            <a class="btn_full_outline" href="#" id="confirm"><i class="icon-right"></i>Confirm cart</a>
+          </div>
+          <div class="box_style_4">
+            <i class="icon_set_1_icon-57"></i>
+            <h4>Need <span>Help?</span></h4>
+            <a href="tel://004542344599" class="phone">+84 966 68 0989</a>
+            <small>Monday to Friday 9.00am - 7.30pm</small>
+          </div>
+        </aside>
+        <!-- End aside -->
+
+      </div>
+      <!--End row -->
+    </div>
+  </main>
+  <!-- End Main -->
+
+  <!-- Sign In Popup -->
+  <div id="pay-dialog" class="zoom-anim-dialog mfp-hide">
+    <div class="small-dialog-header">
+      <h3>PAY</h3>
+    </div>
+    <form>
+      <div class="sign-in-wrapper">
+        <a th:href="@{/viettravel/pay}" class="social_bt facebook" target="_blank" id="createVNPay">Payment via VNPay</a>
+        <div class="divider"><span>Or</span></div>
+        <a th:href="@{/viettravel/qrcode}" class="social_bt google" target="_blank">Payment via QRCode Bank</a>
+      </div>
+    </form>
+    <!--form -->
+  </div>
+  <!-- /Sign In Popup -->
+
+  <!-- Footer -->
+  <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>About VietTravel</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">How to Book</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Contact Us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Help Center</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Careers</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Blog</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Airline tickets</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Hotel</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Airport Transfer</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Savings combo</a></li>
+              <!-- <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li> -->
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Others</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy Policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms & Conditions</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Register Your Accommodation</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Register Your Experience Business</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">VietTravel Press Room</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-info">
+            <h3>Follow us on</h3>
+            <p>Follow Vietravel on social networking platforms to receive the fastest discount information and seasonal
+              tours.</p>
+            <div class="social-links mt-3">
+              <a href="#" class="twitter"><i class="fa-brands fa-square-x-twitter"></i></a>
+              <a href="#" class="printerest"><i class="fa-brands fa-pinterest"></i></a>
+              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="#" class="linkedin"><i class="bx bxl-snapchat"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>VietTravel</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">VietTravel</a>
+      </div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+  
+  <!-- Begin Toast Message -->
+  	<div id="notification"></div>
+  <!-- End Toast Message -->
+  
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Jquery Calendar -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>  
+
+  <!-- Template Main JS File -->
+  <script src="/js/js_cart/jquery-3.7.0.min.js"></script>
+  <script src="/js/js_cart/common_scripts_min.js"></script>
+  <script src="/js/js_cart/functions.js"></script>  
+  
+  <script src="/js/message.js"></script> 
+  <script src="/js/reset_cart.js"></script>	  
+  <script src="/js/search/search_toward.js"></script>
+  <script src="/js/js_cart/cart.js"></script>
+  <script src="/js/js_cart/cart_first.js"></script> 
+
+</body>
+</html>

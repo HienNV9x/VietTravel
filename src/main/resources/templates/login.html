@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <title>VietTravel</title>
+    <link rel="icon" href="img_more/home/viettravel_logo_4.png" type="image/x-icon" />
+    <link rel="stylesheet" href="fonts_awesome/fontawesome-free-6.4.2-web/css/all.min.css">
+
+    <style>
+        body {
+            background: url('/img_more/home/around_the_world.jpeg');
+            /* background-size: cover; */
+            /* width: 1368px;
+            height: 600px; */
+            background-size: 1368px 700px;
+            background-position-y: -80px;
+            font-size: 16px;
+        }
+        #wrapper {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #form-login {
+            max-width: 400px;
+            background: rgba(0, 0, 0, 0.8);
+            flex-grow: 1;
+            padding: 30px 30px 0px;
+            box-shadow: 0px 0px 17px 2px rgba(255, 255, 255, 0.8);
+        }
+        .form-heading {
+            font-size: 25px;
+            color: #f5f5f5;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            border-bottom: 1px solid #fff;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            display: flex;
+			height: 26px;
+        }
+        .form-group i {
+            color: #fff;
+            font-size: 14px;
+            padding-top: 5px;
+            padding-right: 10px;
+        }
+        .form-input {
+            background: transparent;
+            border: 0;
+            outline: 0;
+            color: #f5f5f5;
+            flex-grow: 1;
+			width: 296.250px;
+        }
+        .form-input::placeholder {
+            color: #f5f5f5;
+        }
+        #eye i {
+            padding-right: 0;
+            cursor: pointer;
+        }
+        .form-submit {
+            background: transparent;
+            border: 1px solid #f5f5f5;
+            color: #fff;
+            width: 100%;
+            text-transform: uppercase;
+            padding: 6px 10px;
+            transition: 0.25s ease-in-out;
+            margin-top: 10px;
+        }
+        .form-submit:hover {
+            border: 1px solid #54a0ff;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+        html {
+            font-family: sans-serif;
+            line-height: 1.15;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            text-align: left;
+            background-color: #fff;
+        }
+        h1,h4 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        input {
+            margin: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+        input {
+            overflow: visible;
+        }
+
+        [type="submit"] {
+            -webkit-appearance: button;
+        }
+        [type="submit"]:not(:disabled) {
+            cursor: pointer;
+        }
+        [type="submit"]::-moz-focus-inner {
+            padding: 0;
+            border-style: none;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            box-sizing: border-box;
+            padding: 0;
+        }
+        input[type="date"],
+        input[type="time"],
+        input[type="datetime-local"],
+        input[type="month"] {
+            -webkit-appearance: listbox;
+        }
+        
+        .form-register {
+			text-align: center;
+		}
+		.form-register a {
+			text-decoration: none;
+			color: #fff;
+			font-weight: normal;
+			font-size: 14px;
+		}
+		
+		/*Login Google - OAuth2*/
+        .oauth2 {
+            display: flex;
+            justify-content: center;
+        } 
+        .btn-oauth2 {
+            width: 200px;
+            padding: 8px;
+            border: 1px solid white;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-size: 14px;
+            line-height: 12px;
+            text-decoration: none;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .google {
+            color: white;
+        }
+        .bxl-google-plus {
+            font-size: 30px;
+        }
+        .line-between {
+            color: #000;
+            vertical-align: middle;
+        }
+        .btn-oauth2:hover {
+            border: 1px solid red;
+        }
+        
+        .line-or {
+            position: relative;
+            height: 1px;
+            width: 80px;
+            border-top: 1px solid #a1a1a1;
+            margin: 15px auto;
+        }
+        .vl-innertext {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -60%);
+            background-color: rgb(42 47 50);
+            padding: 0 6px;
+            color: #a1a1a1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <form method="POST" th:action="@{/login}" id="form-login">
+            <h1 class="form-heading">Form Login</h1>
+            <div class="form-group">
+                <i class="far fa-user"></i>
+                <span th:text="${message}"></span>
+                <input type="text" name="username" id="username" class="form-input" placeholder="User Name">
+            </div>
+            <div class="form-group">
+                <i class="fas fa-key"></i>
+                <input name="password" id="password" type="password" class="form-input" placeholder="Password">
+                <div id="eye">
+                    <i class="far fa-eye"></i>
+                </div>
+                <span class="has-error" th:text="${error}"></span>
+            </div>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <input type="submit" value="Login" class="form-submit">
+            <h4 class="form-register"><a href="/viettravel/registration">Create an account</a></h4>
+            
+            <div class="line-or">
+                <span class="vl-innertext">or</span>
+            </div>
+            <div class="oauth2">
+                <a th:href="@{/oauth2/authorization/google}" class="google btn-oauth2">
+                    <i class="fa-brands fa-google"></i> <span class="line-between">|</span> Sign in with Google+
+                </a>
+            </div>
+        </form>
+    </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#eye').click(function () {
+            $(this).toggleClass('open');
+            $(this).children('i').toggleClass('fa-eye-slash fa-eye');
+            if ($(this).hasClass('open')) {
+                $(this).prev().attr('type', 'text');
+            } else {
+                $(this).prev().attr('type', 'password');
+            }
+        });
+    });
+</script>
+
+</html>

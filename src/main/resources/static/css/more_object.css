@@ -1,0 +1,272 @@
+/* Cuisine */
+.container .cui {
+    margin-top: 26px;
+    margin-bottom: 4.5px;
+    position: relative;
+}
+.container .cui .cui_sub {
+    position: relative;
+}
+.container .cui .cuisin_2 {
+    position: absolute;
+    left: 50%;
+    top: 0;
+}
+.container .cui .cui_sub .cui_sub_2 {
+    position: absolute;
+    left: 30.5px;
+    bottom: -5px;
+}
+
+.container .main-hotel .btn-reserve,            /*CSS Button Reserve*/
+.container .main-hotel-sub .btn-reserve {
+    padding: 0 4px;
+    background-color: #f1dfdf;
+    /* padding: 15px 25px; */
+    border: unset;
+    /* border-radius: 15px; */
+    color: #212121;
+    z-index: 1;
+    /* background: #e8e8e8; */
+    position: relative;
+    /* font-weight: 1000; */
+    font-size: 17px;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms;
+    overflow: hidden;
+}
+
+.container .main-hotel .btn-reserve::before,
+.container .main-hotel-sub .btn-reserve::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    /* border-radius: 15px; */
+    background-color: #212121;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms
+}
+
+.container .main-hotel .btn-reserve:hover,
+.container .main-hotel-sub .btn-reserve:hover {
+    color: #e8e8e8;
+}
+
+.container .main-hotel .btn-reserve:hover::before,
+.container .main-hotel-sub .btn-reserve:hover::before {
+    width: 100%;
+}
+
+.container .main-hotel-sub {
+    position: relative;
+    height: 220px;
+}
+.container .main-hotel-sub .hotel-2 {
+    position: absolute;
+    left: 50%;
+}
+.container .main-hotel-sub .hotel-2 iframe {
+    height: 220px;
+    width: 566px;
+}
+.container .main-hotel-sub .hotel-1 {
+    width: 566px;
+}
+
+/* Transport */
+#tab_ui {
+    /* margin: 5% auto 0; */
+    max-width: 720px;
+}
+
+.tabs {
+    display: flex;
+    position: relative;
+}
+
+.tabs .line {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 6px;
+    border-radius: 15px;
+    /* background-color: #c23564; */
+    background-color: #f44336;
+    transition: all 0.2s ease;
+}
+
+.tab-item {
+    min-width: 80px;
+    padding: 0 20px;
+    font-size: 20px;
+    text-align: center;
+    /* color: #c23564; */
+    color: #000;
+    background-color: #fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 5px solid transparent;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.tab-icon {
+    font-size: 24px;
+    width: 32px;
+    position: relative;
+    top: 2px;
+}
+
+.tab-item:hover {
+    opacity: 1;
+    background-color: rgba(194, 53, 100, 0.05);
+    border-color: rgba(194, 53, 100, 0.1);
+}
+
+.tab-item.active {
+    opacity: 1;
+}
+
+.tab-content {
+    padding: 28px 0;
+}
+
+.tab-pane {
+    color: #333;
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.tab-pane h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+/* Ẩn hiện các button pre next trong Slick */
+.btn-prev {
+    display: none;
+  }
+
+/* Slick-Sub từng thực thể của Object Cuisine - Entertainment */
+.bx-chevron-left, 
+.bx-chevron-right {
+    cursor: pointer;
+}
+
+ .slider-cuisine {
+    position: relative;
+    margin-bottom: 0;
+    /* cursor: pointer; */
+}
+
+.slider-cuisine .service img {
+    width: 100%;
+    height: 238px;
+}
+
+.slick-dotted.slick-slider {
+	margin-bottom: 0;
+}
+
+.btn-main {
+    position: absolute;
+    top: 86%;
+    /* transform: translateY(-50%); */
+    font-size: 22px;
+    z-index: 999;
+    background: white;  
+    color: black;        
+    border: none;                   
+    border-radius: 20px;  
+    cursor: pointer;  
+}
+
+.slick-arrow.btn-prev-sub {
+    left: 10px;
+}
+
+.slick-arrow.btn-next-sub {
+    right: 10px;
+}
+
+.slider-cuisine .slick-arrow {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.slider-cuisine:hover .slick-arrow {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/*.slider-cuisine .slick-arrow.btn-next-sub {
+    opacity: 0; /* Ẩn nút "nextArrow" mặc định 
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.slider-cuisine:hover .slick-arrow.btn-next-sub {
+    opacity: 1; /* Hiển thị nút "nextArrow" khi hover vào phần tử đầu tiên trong slider 
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.slider-cuisine .slick-arrow.btn-prev-sub {
+    opacity: 0; /* Ẩn nút "prevArrow" mặc định 
+    visibility: hidden;
+    pointer-events: none;
+}*/
+
+.slider-cuisine .slick-dots {
+    bottom: 6px;
+}
+
+.slider-cuisine .slick-dots li {
+    margin: 0;
+}
+
+.slider-cuisine .slick-dots li button:before {
+    font-size: 9px;
+} 
+
+/*Animation Button Like Room */
+
+/* Truncate text if it exceeds 255px */
+.truncate-text {
+  display: block;
+  width: 255px; 				/* Giới hạn độ dài của chuỗi */
+  white-space: nowrap; 			/* Ngăn chặn việc xuống dòng */
+  overflow: hidden; 			/* Ẩn phần vượt quá độ dài */
+  text-overflow: ellipsis; 		/* Hiển thị dấu ba chấm (...) khi vượt quá */
+}
+
+.truncate-text-sub {
+  display: block;
+  width: 190px; 
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;	
+}
+
+.room-truncate {
+	display: flex;
+	position: relative;
+}
+.room-truncate .star {
+	position: absolute;
+	right: 0;
+}
+/*-----------------------------*/

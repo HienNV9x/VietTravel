@@ -1,0 +1,859 @@
+/* Common and Header*/
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+html {
+  font-family: Helvetica, Arial, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #444;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Roboto", sans-serif;
+}
+
+.clear {
+  clear: both;
+}
+
+.text-while {
+  color: #fff !important;
+}
+
+.row {
+  margin-left: -8px;
+  margin-right: -8px;
+}
+
+.row::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.col {
+  float: left;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.col-half {
+  width: 50%;
+}
+
+.col-full {
+  width: 100%;
+}
+
+.col-third {
+  width: 33.33333%;
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+/* Main  */
+#main {
+  margin-top: 60px;
+}
+
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 46.5px;
+  background-color: #000;
+  z-index: 1;
+  /* overflow: hidden; */
+}
+
+#nav {
+  display: inline-block;
+  padding: 0px;
+}
+
+#nav .subnav {
+  list-style-type: none;
+}
+
+#nav>li {
+  display: inline-block;
+}
+
+#nav li {
+  position: relative;
+}
+
+#nav>li>a {
+  color: #fff;
+  text-transform: uppercase;
+  /* border-bottom: 1px solid #fff; */
+}
+
+#nav li a {
+  text-decoration: none;
+  line-height: 46.5px;
+  padding: 0px 24px;
+  /* margin: 0px 16px; */
+  /* display: inline-block; */
+  display: block;
+}
+
+#nav>li:hover>a,
+#nav .subnav li:hover {
+  color: #000;
+  background-color: #ccc;
+}
+
+#nav li:hover .subnav {
+  display: block;
+}
+
+#nav .subnav {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  top: 100%;
+  left: 0;
+  padding: 0px;
+}
+
+#nav .subnav a {
+  color: #000;
+  width: 120px;
+}
+
+/* CSS riêng cho Tour */
+#nav .list-tour {
+  list-style-type: none;
+  padding: 0px;
+}
+
+#nav .list-tour li:hover {
+  color: #000;
+  background-color: #ccc;
+}
+
+#nav li:hover .list-tour {
+  display: inline-block;
+}
+
+#nav .list-tour {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  top: 100%;
+  left: 0;
+}
+
+#nav .list-tour a {
+  color: #000;
+  width: 160px;
+}
+
+/* -------------------- */
+/* CSS Tour North */
+#nav li>.list-tour li>.tour-north {
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  margin-top: -46.5px;
+  margin-left: 160px;
+  border-left: 2px solid #fff;
+  padding: 0px;
+}
+
+#nav .list-tour .tour-north a {
+  width: 125px;
+}
+
+#nav li>.list-tour li:hover .tour-north {
+  display: inline-block;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* --------------------- */
+/* CSS Tour Central Region */
+#nav li>.list-tour li>.tour-central {
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  margin-top: -46.5px;
+  margin-left: 160px;
+  border-left: 2px solid #fff;
+  padding: 0px;
+}
+
+#nav li>.list-tour li>.tour-central a {
+  width: 120px;
+}
+
+#nav li>.list-tour li:hover .tour-central {
+  display: inline-block;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+/* ---------------------- */
+
+/* CSS Tour South */
+#nav li>.list-tour li>.tour-south {
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  margin-top: -46.5px;
+  margin-left: 160px;
+  border-left: 2px solid #fff;
+  padding: 0px;
+}
+
+#nav .list-tour .tour-south a {
+  width: 175px;
+}
+
+#nav li>.list-tour li:hover .tour-south {
+  display: inline-block;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------------------- */
+/* Search Button */
+#nav .nav-arrow-down {
+  font-size: 10px;
+}
+
+#header .search-btn {
+  float: right;
+  /* padding: 0 21px; */
+}
+
+/* ----- */
+#header .search-btn {
+  right: 8px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#header .search-btn .btn-header:hover {
+  background-color: #f44336;
+  cursor: pointer;
+}
+
+#header .search-icon {
+  color: #fff;
+  font-size: 16px;
+  line-height: 46.5px;
+}
+
+.search-btn {
+  position: relative;
+}
+
+.search-btn .btn-header {
+  height: 46.5px;
+  width: 60px;
+  background-color: #000;
+  border: none;
+  display: inline;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: -20px;
+  transition: transform 0.3s ease;
+}
+
+.search-btn .input-btn {
+  outline: none;
+  border: none;
+  margin-top: 8px;
+  padding: 5px 10px;
+  width: 40px;
+  height: 30px;
+  transition: width 0.3s ease;
+  font-size: 13px;
+}
+
+.search-btn .input-btn::placeholder {
+  color: green;
+}
+
+.search-btn.active .input-btn {
+  width: 200px;
+}
+
+.search-btn.active .btn-header {
+  width: 0;
+}
+
+/* .search-btn.active .btn-header {
+    transform: translateX(210px);
+} */
+
+/* ------------*/
+/* ----- Login - Register ------ */
+#header .log-reg {
+  float: right;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  height: 46.5px;
+  margin-right: 6px;
+}
+
+#header .log-reg button {
+  font-size: 18px;
+  cursor: pointer;
+  border: 0;
+  border-radius: 4px;
+  font-weight: 300;
+  width: 90px;
+  height: 30px;
+  transition: 0.4s;
+}
+
+#header .log-reg .reg {
+  color: white;
+  /* background-color: #f44336; */
+  background-color: #000;
+  border: 1px solid #f44336;
+}
+
+#header .log-reg .log {
+  color: #e75d53;
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid #f44336;
+  background-color: #000;
+}
+
+#header .log-reg .log a {
+  text-decoration: none;
+  color: #f44336;
+  transition: 0.4s;
+}
+
+#header .log-reg .log:hover a {
+  color: #fff;
+}
+
+#header .log-reg button:hover {
+  color: white;
+  background-color: #f44336;
+}
+
+#header .log-reg .user {
+  /* margin-top: 3.25px; */
+  margin-left: 6px;
+}
+
+#header .log-reg .user-login {
+  height: 40px;
+  width: 46.5px;
+  border-radius: 100px;
+}
+
+/* #header .search-btn:hover {
+  background-color: #f44336;
+  cursor: pointer;
+} */
+
+/*--------------------------------------------------------------
+  # Back to top button
+  --------------------------------------------------------------*/
+.back-to-top {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  right: 15px;
+  bottom: 15px;
+  z-index: 99999;
+  background: #68A4C4;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  transition: all 0.4s;
+}
+
+.back-to-top i {
+  font-size: 24px;
+  color: #fff;
+  line-height: 0;
+}
+
+.back-to-top:hover {
+  background: #85b6cf;
+  color: #fff;
+}
+
+.back-to-top.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+/*----------------------------------------------------------*/
+section {
+  /* padding: 30px 0; */
+  padding: 30px 0 0;
+}
+
+/*-------------------- Breadcrumbs -------------------------*/
+.breadcrumbs {
+  /* padding: 10px 0 15px; */
+  padding: 0;
+  background-color: #f3f8fa;
+  min-height: 40px;
+}
+
+.breadcrumbs-add {
+  padding-top: 60px;
+}
+
+.breadcrumbs h2 {
+  font-size: 28px;
+  font-weight: 300;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumbs ol li+li {
+  padding-left: 10px;
+}
+
+.breadcrumbs ol li+li::before {
+  display: inline-block;
+  padding-right: 10px;
+  color: #6c757d;
+  content: "/";
+}
+
+@media (max-width: 768px) {
+  .breadcrumbs .d-flex {
+    display: block !important;
+  }
+
+  .breadcrumbs ol {
+    display: block;
+  }
+
+  .breadcrumbs ol li {
+    display: inline-block;
+  }
+}
+
+/*------------------------ Footer ----------------------------*/
+#footer {
+  background: #0b212d;
+  padding: 0 0 30px 0;
+  color: #fff;
+  font-size: 14px;
+}
+
+#footer .footer-newsletter {
+  padding: 50px 0;
+  background: #0d2735;
+}
+
+#footer .footer-newsletter h4 {
+  font-size: 24px;
+  margin: 0 0 20px 0;
+  padding: 0;
+  line-height: 1;
+  font-weight: 600;
+  color: #a2cce3;
+}
+
+#footer .footer-newsletter form {
+  margin-top: 30px;
+  background: #fff;
+  padding: 6px 10px;
+  position: relative;
+  border-radius: 50px;
+}
+
+#footer .footer-newsletter form input[type=email] {
+  border: 0;
+  padding: 4px;
+  width: calc(100% - 100px);
+}
+
+#footer .footer-newsletter form input[type=submit] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border: 0;
+  background: none;
+  font-size: 16px;
+  padding: 0 20px;
+  margin: 3px;
+  background: #68A4C4;
+  color: #fff;
+  transition: 0.3s;
+  border-radius: 50px;
+}
+
+#footer .footer-newsletter form input[type=submit]:hover {
+  background: #468db3;
+}
+
+#footer .footer-top {
+  background: #0d2735;
+  border-top: 1px solid #17455e;
+  border-bottom: 1px solid #123649;
+  padding: 60px 0 30px 0;
+}
+
+#footer .footer-top .footer-info {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+#footer .footer-top .footer-info h3 {
+  font-size: 18px;
+  margin: 0 0 20px 0;
+  padding: 2px 0 2px 0;
+  line-height: 1;
+  color: #a2cce3;
+  font-weight: 600;
+}
+
+#footer .footer-top .footer-info p {
+  font-size: 14px;
+  line-height: 24px;
+  margin-bottom: 0;
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+}
+
+#footer .footer-top .social-links a {
+  font-size: 18px;
+  display: inline-block;
+  background: #1e4356;
+  color: #fff;
+  line-height: 1;
+  padding: 8px 0;
+  margin-right: 4px;
+  border-radius: 50%;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  transition: 0.3s;
+}
+
+#footer .footer-top .social-links a:hover {
+  background: #68A4C4;
+  color: #fff;
+  text-decoration: none;
+}
+
+#footer .footer-top h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #a2cce3;
+  position: relative;
+  padding-bottom: 12px;
+  text-align: left;
+}
+
+#footer .footer-top .footer-links {
+  margin-bottom: 30px;
+}
+
+#footer .footer-top .footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#footer .footer-top .footer-links ul i {
+  padding-right: 2px;
+  color: #a2cce3;
+  font-size: 18px;
+  line-height: 1;
+}
+
+#footer .footer-top .footer-links ul li {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+#footer .footer-top .footer-links ul li:first-child {
+  padding-top: 0;
+}
+
+#footer .footer-top .footer-links ul a {
+  color: #fff;
+  transition: 0.3s;
+  display: inline-block;
+  line-height: 1;
+}
+
+#footer .footer-top .footer-links ul a:hover {
+  color: #a2cce3;
+}
+
+#footer .copyright {
+  text-align: center;
+  padding-top: 30px;
+  margin-top: 15px;
+  color: #fff;
+}
+
+#footer .credits {
+  padding-top: 10px;
+  text-align: center;
+  font-size: 13px;
+  color: #fff;
+}
+
+#footer .credits a {
+  color: #a2cce3;
+}
+
+/* ---------------------------------------------- */
+/* CSS List Hotel */
+.container_hotel {
+  padding: 0 40px;
+  margin-left: 0;
+  margin-right: 0;
+}
+.container_province {
+  padding: 0 40px;
+}
+
+.portfolio-details .hotel-info h4 {
+  margin: 0px;
+}
+
+.portfolio-details .hotel-info {
+  margin: 0px;
+}
+
+.portfolio-details .hotel-bed {
+  margin-right: 6px;
+}
+
+.main-hotel {
+  display: inline-flex;
+  justify-content: space-between;
+  /* margin-top: 12px; */
+  margin-top: 0px;
+}
+
+.hotel{
+  position: relative;
+}
+
+.hotel .hotel-content .room-price {
+  position: absolute;
+  bottom: 0;
+}
+
+.hotel .hotel-content .btn-reser {		
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.main-hotel .hotel .hotel-image img {
+  width: 100%;
+  /* height: 238px; */
+  height: 284.281px;
+  position: relative;
+  border-radius: 11px;
+}
+
+.main-hotel .heart-hotel {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.main-hotel .heart-btn {
+	background: none;
+	border: none;
+	outline: none;
+	width: 18px;
+	height: 18px;
+	border-radius: 20px;
+}
+
+.main-hotel .heart-icon {
+  color: #fff;
+  font-size: 20px;
+}
+
+/* background-color: rgba(0, 0, 0, 0.5); */
+.main-hotel .notification-heart {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: -60px;
+  background-color: #37465c;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.main-hotel .heart-icon-active {
+  color: red;
+}
+.main-hotel .heart-icon:hover, .main-hotel .heart-icon.heart-icon-active:hover {
+  cursor: pointer;
+  color: red;
+}
+
+.main-hotel {
+  padding: 0px;
+  /* height: 338px; */
+  height: 384.281px;
+}
+
+.list-hotels {
+  padding: 0px;
+}
+
+.main-hotel .hotel {
+  position: relative;
+  /* height: 338px; */
+  height: 384.266px;
+  /* width: 262px; */
+  width: 300px;
+}
+
+.hotel .hotel-content .room-info {
+  font-weight: bold;
+}
+
+.hotel .hotel-content .room-info-add {
+  text-decoration: line-through;
+  font-weight: bold;
+  color: #666666;
+}
+
+.hotel .hotel-content .room-content {
+  font-size: 15px;
+}
+
+.hotel .hotel-content .room-city {
+  padding-top: 6px;
+}
+
+.hotel .hotel-content .underlined {
+  text-decoration: underline;
+  color: #747373;
+}
+
+.main-hotel .room-properties p {
+  margin: 0px;
+  color: #797979;
+}
+
+.hotel .hotel-content .star {
+  float: right;
+}
+
+.hotel .hotel-content .star .star-icon {
+  font-size: 12px;
+}
+/* End List Hotel */
+
+/* Begin Listpage */
+.listPage {
+  padding: 10px;
+  text-align: center;							/*căn giữa pagination*/
+  list-style: none;							/*bỏ chỉ mục li*/
+}
+.listPage li {
+  /* background-color: #ccc; */
+  /* border: 2px solid transparent; */
+  border: 1px solid #f44336;
+  width: 20px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  /* padding: 5px; */
+  display: inline-block;						/*chia ra thành các khối theo hàng ngang*/
+  margin: 0 8px;
+  font-weight: 520;
+  transition: box-shadow 0.3s ease;
+}
+.listPage li:hover {
+  cursor: pointer;
+  /* background-color: #e7493e; */
+  /* border: 2px solid #f44336; */
+  box-shadow: 0 0 0 2px #f44336 inset;
+}
+/* --------------- */
+
+/* Truncate text if it exceeds 255px */
+.truncate-text {
+  display: block;
+  width: 296px; 				/* Giới hạn độ dài của chuỗi */
+  white-space: nowrap; 			/* Ngăn chặn việc xuống dòng */
+  overflow: hidden; 			/* Ẩn phần vượt quá độ dài */
+  text-overflow: ellipsis; 		/* Hiển thị dấu ba chấm (...) khi vượt quá */
+}
+
+.truncate-text-sub {
+  display: block;
+  width: 250px; 
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;	
+}
+
+.room-truncate {
+	display: flex;
+	position: relative;
+}
+.room-truncate .star {
+	position: absolute;
+	right: 0;
+}
+/*-----------------------------*/
+
+/*CSS Button active khi phân trang*/
+.listPage li.active {
+	background-color: #007bff;
+	color: white;
+	cursor: default;
+}

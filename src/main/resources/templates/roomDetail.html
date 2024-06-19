@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VietTravel - Room Detail</title>
+  <link rel="icon" href="/img_more/home/viettravel_logo_4.png" type="image/x-icon"/>
+  
+  <link rel="stylesheet" href="/fonts/themify-icons/themify-icons.css">
+  <link rel="stylesheet" href="/fonts_awesome/fontawesome-free-6.4.2-web/css/all.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
+  
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">  
+  
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="/css/message.css">
+  <link rel="stylesheet" href="/css/css_room_detail/room_detail_first.css">
+  <link rel="stylesheet" href="/css/css_room_detail/vendors.css">
+  <link rel="stylesheet" href="/css/css_room_detail/main.css"> 
+
+</head>
+
+<body>
+  <!-- Header -->
+  <div id="header">
+    <!-- Begin: nav -->
+    <ul id="nav">
+        <li><a href="/#">Home</a></li>
+        <li><a href="/#introduce">Introduce</a></li>
+        <li>
+            <a href="#">Tour <i class="nav-arrow-down ti-angle-down"></i></a>
+            <ul class="list-tour">
+                <li><a href="#">North</a>
+                    <ul class="tour-north">
+                       <li><a href="/viettravel/hagiang" target="_top">Ha Giang</a></li>
+                       <li><a href="/viettravel/hanoi" target="_blank">Ha Noi</a></li>
+                       <li><a href="/viettravel/halong" target="_blank">Ha Long</a></li>
+                       <li><a href="/viettravel/ninhbinh" target="_blank">Ninh Binh</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Central Region</a>
+                    <ul class="tour-central">
+                       <li><a href="/viettravel/danang" target="_blank">Da Nang</a></li>
+                       <li><a href="/viettravel/hoian" target="_blank">Hoi An</a></li>
+                       <li><a href="/viettravel/dalat" target="_blank">Da Lat</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">South</a>
+                    <ul class="tour-south">
+                      <li><a href="/viettravel/tphcm" target="_blank">Ho Chi Minh City</a></li>
+                      <li><a href="/viettravel/phuquoc" target="_blank">Phu Quoc</a></li>
+                      <li><a href="/viettravel/camau" target="_blank">Ca Mau</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><a href="/#package_tour">Package Tour</a></li>
+        <li><a href="/#member">Member</a></li>
+        <li>
+            <a href="#">
+                More
+                <i class="nav-arrow-down ti-angle-down"></i>
+            </a>
+            <ul class="subnav">
+              <li><a href="/viettravel/more" target="_blank">About Us</a></li>
+              <li><a href="/viettravel/more#services-main" target="_blank">Services</a></li>
+              <li><a href="/viettravel/more#system-main" target="_blank">System</a></li>
+            </ul>
+        </li>
+    </ul>
+    <!-- End: nav -->
+    <!-- Begin: Login - Register -->
+            <div class="log-reg">
+                <div>
+                    <button sec:authorize="not isAuthenticated()" class="log"><a href="/login">Login</button>
+					<button sec:authorize="isAuthenticated()" class="log">
+						<form id="logoutForm" method="POST" th:action="@{/logout}">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						</form>
+						<a onclick="document.forms['logoutForm'].submit()">Logout</a>
+					</button>
+					<button sec:authorize="not isAuthenticated()" class="reg"><a href="/#member">Sign up</a></button>
+                </div>
+                <div sec:authorize="isAuthenticated()" class="user">
+					<form method="GET" th:object="${userForm}" th:action="@{/viettravel/role}">
+						<button class="check_role">
+							<img class="user-login" th:src="@{/img_more/testimonials/user.jpg}">
+						</button>
+					</form>
+                </div>
+            </div>
+         <!-- End: Login - Register -->
+         <!-- Begin: search button-->
+            <div class="search-btn">
+                <input id="search-input" class="input-btn" type="text" placeholder="Search..." />
+                <button class="btn-header">
+                    <i class="search-icon ti-search"></i>
+                </button>
+            </div>
+    <!-- End: search button-->
+	
+	<!-- Hover Cart -->
+	<ul id="top_tools">
+	  <li>
+	    <div>
+	      <a href="/cart" target="_blank" class="cart_bt"><i class="ti-shopping-cart"></i><strong id="numberOfProducts">0</strong></a>
+	    </div>
+	  </li>
+	</ul>
+  </div>
+  <!-- End Header -->	
+	
+  <!-- Main -->	
+  <main id="main">
+    <!-- <div class="header-margin"></div> -->
+    <section class="pt-20">
+      <div class="container">
+        <div class="row y-gap-20 justify-between items-end fix_head">
+          <div class="col-auto">
+            <div class="row x-gap-20  items-center">
+              <div class="col-auto">
+                <h1 class="text-30 sm:text-25 fw-600" id="room_shortDecription"></h1>
+              </div>
+
+              <div class="col-auto">
+
+                <i class="icon-star text-10 text-yellow-1"></i>
+
+                <i class="icon-star text-10 text-yellow-1"></i>
+
+                <i class="icon-star text-10 text-yellow-1"></i>
+
+                <i class="icon-star text-10 text-yellow-1"></i>
+
+                <i class="icon-star text-10 text-yellow-1"></i>
+
+              </div>
+            </div>
+
+            <div class="row x-gap-20 y-gap-20 items-center">
+              <div class="col-auto">
+                <div class="d-flex items-center text-15 text-light-1">
+                  <i class="icon-location-2 text-16 mr-5"></i>
+				  <span id="room_service"></span>
+                </div>
+              </div>
+
+              <div class="col-auto">
+                <button data-x-click="mapFilter" class="text-blue-1 text-15 underline">Show on map</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-auto fix_head_2">
+            <div class="row x-gap-15 y-gap-15 items-center book-room">
+              <div class="col-auto">
+                <div class="text-14">
+                  From
+                  <span class="text-22 text-dark-1 fw-600">$<span id="room_price"></span> per night</span>
+                </div>
+              </div>
+
+              <div class="col-auto">
+
+                <a href="#" class="button h-50 px-24 -dark-1 bg-blue-1 text-white" id="addToCartButton">
+                  Book Room <div class="icon-arrow-top-right ml-15"></div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="galleryGrid -type-1 pt-30" id="room_image">
+          <div class="galleryGrid__item relative d-flex">
+            <img src="" alt="image" class="rounded-1 img-1">
+          </div>
+
+          <div class="galleryGrid__item">
+            <img src="" alt="image" class="rounded-1 img-2">
+          </div>
+
+          <div class="galleryGrid__item relative d-flex">
+            <img src="" alt="image" class="rounded-1 img-2">
+          </div>
+
+          <div class="galleryGrid__item">
+            <img src="" alt="image" class="rounded-1 img-2">
+          </div>
+
+          <div class="galleryGrid__item relative d-flex">
+            <img src="" alt="image" class="rounded-1 img-2">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pt-30">
+      <div class="container">
+        <div class="row y-gap-30">
+          <div class="col-xl-8">
+            <div class="row y-gap-40">
+              <div class="col-12">
+                <h3 class="text-22 fw-500">Property highlights</h3>
+                <div class="row y-gap-20 pt-30">
+
+                  <div class="col-lg-3 col-6">
+                    <div class="text-center">
+                      <i class="icon-city text-24 text-blue-1"></i>
+                      <div class="text-15 lh-1 mt-10">In London City Centre</div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3 col-6">
+                    <div class="text-center">
+                      <i class="icon-airplane text-24 text-blue-1"></i>
+                      <div class="text-15 lh-1 mt-10">Airport transfer</div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3 col-6">
+                    <div class="text-center">
+                      <i class="icon-bell-ring text-24 text-blue-1"></i>
+                      <div class="text-15 lh-1 mt-10">Front desk [24-hour]</div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3 col-6">
+                    <div class="text-center">
+                      <i class="icon-tv text-24 text-blue-1"></i>
+                      <div class="text-15 lh-1 mt-10">Premium TV channels</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div id="overview" class="col-12">
+                <h3 class="text-22 fw-500 pt-40 border-top-light">Overview</h3>
+                <p class="text-dark-1 text-15 mt-20" id="room_content"></p>
+                <a href="#" class="d-block text-14 text-blue-1 fw-500 underline mt-10">Show More</a>
+              </div>
+
+              <div class="col-12">
+                <h3 class="text-22 fw-500 pt-40 border-top-light">Most Popular Facilities</h3>
+                <div class="row y-gap-10 pt-20">
+
+                  <div class="col-md-5">
+                    <div class="d-flex x-gap-15 y-gap-15 items-center">
+                      <i class="icon-no-smoke"></i>
+                      <div class="text-15">Non-smoking rooms</div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5">
+                    <div class="d-flex x-gap-15 y-gap-15 items-center">
+                      <i class="icon-wifi"></i>
+                      <div class="text-15">Free WiFi</div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5">
+                    <div class="d-flex x-gap-15 y-gap-15 items-center">
+                      <i class="icon-parking"></i>
+                      <div class="text-15">Parking</div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5">
+                    <div class="d-flex x-gap-15 y-gap-15 items-center">
+                      <i class="icon-kitchen"></i>
+                      <div class="text-15">Kitchen</div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5">
+                    <div class="d-flex x-gap-15 y-gap-15 items-center">
+                      <i class="icon-living-room"></i>
+                      <div class="text-15">Living Area</div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5">
+                    <div class="d-flex x-gap-15 y-gap-15 items-center">
+                      <i class="icon-shield"></i>
+                      <div class="text-15">Safety &amp; security</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="review-wrapper">
+                  <h3 class="text-22 fw-500 pt-40 border-top-light">Customer Review</h3>
+                  <div class="d-flex align-items-center form-color"> <img src="/img_more/testimonials/user.jpg" width="50" class="rounded-circle mr-2"> 
+                    <input name="text" type="text" class="form-control" placeholder="Enter your comment..."> 
+                  </div>
+
+                  <div class="review-area pt-20">
+                      <ul class="comment y-gap-15" id="list-comment">
+                      </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-4">
+            <div class="ml-50 lg:ml-0">
+              <div class="px-30 py-30 border-light rounded-1 shadow-4 booking-form-wrap">
+                <h4>Book Your Room</h4>
+                <p>Reserve your ideal Room early for a hassle-free trip; secure comfort and convenience!</p>
+              </div>
+              <div class="border-light rounded-4 mt-30 banner2-card">
+                <img src="/img_more/img/img_room_detail/support-img.jpg" alt>
+                <div class="banner2-content-wrap">
+                    <div class="banner2-content">
+                        <div class="hotline-area">
+                            <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
+                                    viewBox="0 0 28 28">
+                                    <path
+                                        d="M27.2653 21.5995L21.598 17.8201C20.8788 17.3443 19.9147 17.5009 19.383 18.1798L17.7322 20.3024C17.6296 20.4377 17.4816 20.5314 17.3154 20.5664C17.1492 20.6014 16.9759 20.5752 16.8275 20.4928L16.5134 20.3196C15.4725 19.7522 14.1772 19.0458 11.5675 16.4352C8.95784 13.8246 8.25001 12.5284 7.6826 11.4893L7.51042 11.1753C7.42683 11.0269 7.39968 10.8532 7.43398 10.6864C7.46827 10.5195 7.56169 10.3707 7.69704 10.2673L9.81816 8.61693C10.4968 8.08517 10.6536 7.1214 10.1784 6.40198L6.39895 0.734676C5.91192 0.00208106 4.9348 -0.21784 4.18082 0.235398L1.81096 1.65898C1.06634 2.09672 0.520053 2.80571 0.286612 3.63733C-0.56677 6.74673 0.0752209 12.1131 7.98033 20.0191C14.2687 26.307 18.9501 27.9979 22.1677 27.9979C22.9083 28.0011 23.6459 27.9048 24.3608 27.7115C25.1925 27.4783 25.9016 26.932 26.3391 26.1871L27.7641 23.8187C28.218 23.0645 27.9982 22.0868 27.2653 21.5995ZM26.9601 23.3399L25.5384 25.7098C25.2242 26.2474 24.7142 26.6427 24.1152 26.8128C21.2447 27.6009 16.2298 26.9482 8.64053 19.3589C1.0513 11.7697 0.398595 6.75515 1.18669 3.88421C1.35709 3.28446 1.75283 2.77385 2.2911 2.45921L4.66096 1.03749C4.98811 0.840645 5.41221 0.93606 5.62354 1.25397L7.67659 4.3363L9.39976 6.92078C9.60612 7.23283 9.53831 7.65108 9.24392 7.88199L7.1223 9.53232C6.47665 10.026 6.29227 10.9193 6.68979 11.6283L6.85826 11.9344C7.45459 13.0281 8.19599 14.3887 10.9027 17.095C13.6095 19.8012 14.9696 20.5427 16.0628 21.139L16.3694 21.3079C17.0783 21.7053 17.9716 21.521 18.4653 20.8753L20.1157 18.7537C20.3466 18.4595 20.7647 18.3918 21.0769 18.5979L26.7437 22.3773C27.0618 22.5885 27.1572 23.0128 26.9601 23.3399ZM15.8658 4.66809C20.2446 4.67296 23.7931 8.22149 23.798 12.6003C23.798 12.858 24.0069 13.0669 24.2646 13.0669C24.5223 13.0669 24.7312 12.858 24.7312 12.6003C24.7257 7.7063 20.7598 3.74029 15.8658 3.73494C15.6081 3.73494 15.3992 3.94381 15.3992 4.20151C15.3992 4.45922 15.6081 4.66809 15.8658 4.66809Z">
+                                    </path>
+                                    <path
+                                        d="M15.865 7.46746C18.6983 7.4708 20.9943 9.76678 20.9976 12.6001C20.9976 12.7238 21.0468 12.8425 21.1343 12.93C21.2218 13.0175 21.3404 13.0666 21.4642 13.0666C21.5879 13.0666 21.7066 13.0175 21.7941 12.93C21.8816 12.8425 21.9308 12.7238 21.9308 12.6001C21.9269 9.2516 19.2134 6.53813 15.865 6.5343C15.6073 6.5343 15.3984 6.74318 15.3984 7.00088C15.3984 7.25859 15.6073 7.46746 15.865 7.46746Z">
+                                    </path>
+                                    <path
+                                        d="M15.865 10.267C17.1528 10.2686 18.1964 11.3122 18.198 12.6C18.198 12.7238 18.2472 12.8424 18.3347 12.9299C18.4222 13.0174 18.5409 13.0666 18.6646 13.0666C18.7883 13.0666 18.907 13.0174 18.9945 12.9299C19.082 12.8424 19.1312 12.7238 19.1312 12.6C19.1291 10.797 17.668 9.33589 15.865 9.33386C15.6073 9.33386 15.3984 9.54274 15.3984 9.80044C15.3984 10.0581 15.6073 10.267 15.865 10.267Z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div class="content">
+                                <span>To More Inquiry</span>
+                                <h6><a href="tel:+990737621432">+84 966 68 0989</a></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="reviews"></div> 
+    <section class="pt-20"></section>
+
+    <section class="layout-pt-md layout-pb-md bg-dark-2">
+      <div class="container">
+        <div class="row y-gap-30 justify-between items-center">
+          <div class="col-auto">
+            <div class="row y-gap-20  flex-wrap items-center">
+              <div class="col-auto">
+                <div class="icon-newsletter text-60 sm:text-40 text-white"></div>
+              </div>
+
+              <div class="col-auto">
+                <h4 class="text-26 text-white fw-600">Your Travel Journey Starts Here</h4>
+                <div class="text-white">Sign up and we'll send the best deals to you</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-auto">
+            <div class="single-field -w-410 d-flex x-gap-10 y-gap-20">
+              <div>
+                <input class="bg-white h-60" type="text" placeholder="Your Email">
+              </div>
+
+              <div>
+                <button class="button -md h-60 bg-blue-1 text-white">Subscribe</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- End Main -->
+
+  <!-- Footer -->
+  <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>About VietTravel</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">How to Book</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Contact Us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Help Center</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Careers</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Blog</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Airline tickets</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Hotel</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Airport Transfer</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Savings combo</a></li>
+              <!-- <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li> -->
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Others</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy Policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms & Conditions</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Register Your Accommodation</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Register Your Experience Business</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">VietTravel Press Room</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-info">
+            <h3>Follow us on</h3>
+             <p>Follow Vietravel on social networking platforms to receive the fastest discount information and seasonal tours.</p>
+            <div class="social-links mt-3">
+              <a href="#" class="twitter"><i class="fa-brands fa-square-x-twitter"></i></a>
+              <a href="#" class="printerest"><i class="fa-brands fa-pinterest"></i></a>
+              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="#" class="linkedin"><i class="bx bxl-snapchat"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>VietTravel</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">VietTravel</a>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Begin Toast Message -->
+	<div id="notification"></div>
+  <!-- End Toast Message -->
+  
+  <!-- End Footer -->
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Template Main JS File -->
+  <script src="/js/message.js"></script>
+  <script src="/js/calculate_products.js"></script>
+  <script src="/js/reset_cart.js"></script>  
+  <script src="/js/search/search_toward.js"></script>
+  <script src="/js/js_room_detail/room_detail.js"></script>
+  <script src="/js/js_room_detail/room_get_detail.js"></script>
+
+</body>
+</html>
