@@ -73,7 +73,7 @@ function renderCoursesSearch(data){
     listPage(coursesSearch.length);       
 }
 
-function listPage(length){											 //Tính toán hiển thị 3 page 1 lần
+function listPage(length){											 //Tính toán hiển thị 4 page 1 lần
     let count = Math.ceil(length / limit);
     let listPageElement = document.querySelector('.listPage');
     listPageElement.innerHTML = '';

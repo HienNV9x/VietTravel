@@ -1,5 +1,6 @@
 package com.viettravelbk.extra_object.cuisine;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +41,7 @@ public class Cuisine {
     @JoinColumn(name = "category_id") 				
     private Category category;
     
-    @OneToOne										//Table cuisine - image: 1-1
-    @JoinColumn(name = "image_id")
+    @OneToOne(cascade = CascadeType.REMOVE)			//Bản ghi ImageInfo sẽ xóa cùng bản ghi Cuisine								
+    @JoinColumn(name = "image_id")					//Table cuisine - image: 1-1
     private ImageInfo imageId;
 }

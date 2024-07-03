@@ -16,6 +16,9 @@ import com.viettravelbk.pageable.RoomOutput;
 import com.viettravelbk.repository.CategoryRepository;
 import com.viettravelbk.repository.RoomRepository;
 import com.viettravelbk.service.room.IRoomService;
+import com.viettravelbk.upload_image.FilesStorageService;			
+import com.viettravelbk.upload_image.ImageInfo;						
+import com.viettravelbk.upload_image.ImageRepository;				
 
 @Service
 public class RoomService implements IRoomService{
@@ -27,6 +30,12 @@ public class RoomService implements IRoomService{
 	
 	@Autowired
 	private RoomConverter roomConverter;
+	
+    @Autowired
+    private ImageRepository imageRepository;
+    
+    @Autowired
+    private FilesStorageService filesStorageService;
 
 	@Override													//post và put
 	public RoomDTO save(RoomDTO roomDTO) {						//Vì hàm save() có 2 vai trò là Thêm mới và Cập nhật nên 	
@@ -49,28 +58,28 @@ public class RoomService implements IRoomService{
 	    return roomConverter.toDTO(roomEntity);
 	}
 	
-	@Override													//delete
-	public void delete(long[] ids) {
-		for(long item: ids) {
-			roomRepository.deleteById(item);
-		}
-	}
-	
-	//Phân trang
-	@Override
-	public List<RoomDTO> findAll(Pageable pageable) {			
-		List<RoomDTO> results = new ArrayList<>();
-		List<Room> entities = roomRepository.findAll(pageable).getContent();	//Truyền pageable xuống entity
-		for (Room item: entities) {
-			RoomDTO roomDTO = roomConverter.toDTO(item);
-			results.add(roomDTO);
-		}
-		return results;
-	}
-	@Override
-	public int totalItem() {
-		return (int) roomRepository.count();
-	}
+    @Override
+    public void delete(long[] ids) {
+        for (long item : ids) {
+            Optional<Room> roomOptional = roomRepository.findById(item);
+            if (roomOptional.isPresent()) {
+                Room room = roomOptional.get();
+                ImageInfo imageInfo = room.getImageId();
+               
+                roomRepository.deleteById(item);				// Xóa đối tượng Room trước
+                
+                if (imageInfo != null) {						// Xóa các tệp ảnh và đối tượng ImageInfo sau
+                    String imageUrls = imageInfo.getImageUrls();
+                    String[] urls = imageUrls.split(", ");
+                    for (String url : urls) {
+                        String filename = url.substring(url.lastIndexOf("/") + 1);
+                        filesStorageService.delete(filename);
+                    }
+                    imageRepository.delete(imageInfo);
+                }
+            }
+        }
+    }
 	
 	//Lấy tất cả các trang - Lấy tất cả các room
 	@Override
@@ -115,6 +124,10 @@ public class RoomService implements IRoomService{
 	    roomOutput.setPage(pageable.getPageNumber() + 1); 						//Page index starts from 0
 	    roomOutput.setTotalPage(page.getTotalPages());
 	    return roomOutput;
+	}
+	@Override
+	public int totalItem() {
+		return (int) roomRepository.count();
 	}
 	
 	//Check và Update cart

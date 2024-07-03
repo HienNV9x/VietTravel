@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.viettravelbk.model.Category;
 import com.viettravelbk.repository.CategoryRepository;
+import com.viettravelbk.upload_image.FilesStorageService;
+import com.viettravelbk.upload_image.ImageInfo;
+import com.viettravelbk.upload_image.ImageRepository;
 
 @Service
 public class IntertainmentService implements IIntertainmentService{
@@ -20,6 +23,12 @@ public class IntertainmentService implements IIntertainmentService{
 	
 	@Autowired
 	private IntertainmentConverter intertainmentConverter;
+	
+    @Autowired
+    private ImageRepository imageRepository;
+    
+    @Autowired
+    private FilesStorageService filesStorageService;
 	
 	@Override																		//post và put
 	public IntertainmentDTO save(IntertainmentDTO intertainmentDTO) {				//Vì hàm save() có 2 vai trò là Thêm mới và Cập nhật nên 	
@@ -41,12 +50,28 @@ public class IntertainmentService implements IIntertainmentService{
 	    return intertainmentConverter.toDTO(intertainmentEntity);
 	}
 	
-	@Override																		//delete
-	public void delete(long[] ids) {
-		for(long item: ids) {
-			intertainmentRepository.deleteById(item);
-		}
-	}
+    @Override
+    public void delete(long[] ids) {
+        for (long item : ids) {
+            Optional<Intertainment> intertainmentOptional = intertainmentRepository.findById(item);
+            if (intertainmentOptional.isPresent()) {
+                Intertainment intertainment = intertainmentOptional.get();
+                ImageInfo imageInfo = intertainment.getImageId();
+               
+                intertainmentRepository.deleteById(item);							// Xóa đối tượng Intertainment trước
+                
+                if (imageInfo != null) {											// Xóa các tệp ảnh và đối tượng ImageInfo sau
+                    String imageUrls = imageInfo.getImageUrls();
+                    String[] urls = imageUrls.split(", ");
+                    for (String url : urls) {
+                        String filename = url.substring(url.lastIndexOf("/") + 1);
+                        filesStorageService.delete(filename);
+                    }
+                    imageRepository.delete(imageInfo);
+                }
+            }
+        }
+    }
 	
 	@Override																		//Lấy tất cả các trang - Lấy tất cả các cuisine
 	public List<IntertainmentDTO> findAll() {								

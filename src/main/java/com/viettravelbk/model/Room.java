@@ -2,8 +2,9 @@ package com.viettravelbk.model;
 
 import java.util.ArrayList;					
 import java.util.Arrays;					
-import java.util.List;						
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -55,8 +56,8 @@ public class Room extends BaseEntity{ 						//Nhận dữ liệu dưới dạng 
         }
     }
     
-    @OneToOne												//Table room - image: 1-1
-    @JoinColumn(name = "image_id")
+    @OneToOne(cascade = CascadeType.REMOVE)					//Bản ghi ImageInfo sẽ xóa cùng bản ghi Room	
+    @JoinColumn(name = "image_id")							//Table room - image: 1-1
     private ImageInfo imageId;
     
     //Tạo nhiều userId Like Room thành chuỗi

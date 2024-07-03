@@ -13,8 +13,10 @@ import com.viettravelbk.model.User;
 
 public interface RoomRepository extends JpaRepository<Room, Long>{
     @Query(value = "SELECT r FROM Room r WHERE r.category.name LIKE %:categoryName%",
-    countQuery = "SELECT count(r) FROM Room r WHERE r.category.name LIKE %:categoryName%")			//Phân trang new
+    countQuery = "SELECT count(r) FROM Room r WHERE r.category.name LIKE %:categoryName%")			//Tìm  kiếm theo từ khóa
     Page<Room> findByCategoryName(String categoryName, Pageable pageable);							//Phân trang new
+    
     List<Room> findByCategoryCode(String categoryCode);												//Get Room theo category
+    
     //List<Room> findByCategoryName(@Param("categoryName") String categoryName, Pageable pageable); //Khi phân trang new thì bỏ
 }

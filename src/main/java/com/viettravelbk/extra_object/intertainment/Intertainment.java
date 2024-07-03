@@ -1,5 +1,6 @@
 package com.viettravelbk.extra_object.intertainment;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +41,7 @@ public class Intertainment {
     @JoinColumn(name = "category_id") 				
     private Category category;
     
-    @OneToOne										//Table entertainment - image: 1-1
-    @JoinColumn(name = "image_id")
+    @OneToOne(cascade = CascadeType.REMOVE)			//Bản ghi ImageInfo sẽ xóa cùng bản ghi Intertainment								
+    @JoinColumn(name = "image_id")					//Table entertainment - image: 1-1
     private ImageInfo imageId;
 }

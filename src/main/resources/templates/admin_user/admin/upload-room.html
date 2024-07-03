@@ -256,7 +256,6 @@
                                     <div class="col-md-12 mb-30">
                                         <div class="form-inner">
                                             <label for="123">Content</label>
-											<!--<input type"text" placeholder="Content here" name="content" id="123">-->
                                             <textarea placeholder="Content here" name="content" id="123"></textarea>
                                         </div>
                                     </div>
@@ -270,9 +269,6 @@
 									<!--Only upload 5 images-->
 									<form id="uploadForm" method="post" th:action="@{/images/upload}" enctype="multipart/form-data">
 										<input id="input-file" type="file" name="files" accept="image/png, image/jpeg" multiple />
-										<!--<button class="btn btn-sm btn-outline-success float-right" type="submit">
-											Upload
-										</button>-->
 									</form>
 									<div id="error" style="display:none;"></div>
 									<div id="message" style="display:none;"></div>								

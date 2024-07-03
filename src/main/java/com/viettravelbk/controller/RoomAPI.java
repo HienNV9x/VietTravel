@@ -50,18 +50,18 @@ public class RoomAPI {
 	
 	//Phương thức GET lấy toàn bộ các trang, phân trang, tìm kiếm theo từ khóa
     @GetMapping(value = "/room")																//Phân trang							
-    public RoomOutput showNew(@RequestParam(value = "page", required = false) Integer page,		//Có thể phân trang và có thể ko, lấy tổng
+    public RoomOutput showRoom(@RequestParam(value = "page", required = false) Integer page,	//Có thể phân trang và có thể ko, lấy tổng
     						 @RequestParam(value = "limit", required = false) Integer limit, 	//Mặc định của required là true, nếu phân trang thì sẽ có page, limit thì là false
     						 @RequestParam(value = "search", required = false) String search) {	//Tìm kiếm theo từ khóa
     	RoomOutput result = new RoomOutput();
         if (search != null && !search.isEmpty()) {
             Pageable pageable = PageRequest.of(page != null ? page - 1 : 0, limit != null ? limit : 100); //limit là số trang có thể hiển thị
             return roomService.findByCategoryName(search, pageable);
-        } else {
+        }else {
         	if(page != null && limit != null) {
         		result.setPage(page);
         		Pageable pageable = PageRequest.of(page - 1, limit);	
-        		result.setListResult(roomService.findAll(pageable));
+        		//result.setListResult(roomService.findAll(pageable));
         		result.setTotalPage((int) Math.ceil((double) (roomService.totalItem()) / limit));
         	}else {
         		result.setListResult(roomService.findAll());
@@ -158,7 +158,7 @@ public class RoomAPI {
     }
     
     @DeleteMapping(value = "/room")
-    public void deleteNew(@RequestBody long[] ids) {
+    public void deleteRoom(@RequestBody long[] ids) {
     	roomService.delete(ids);
     }
     

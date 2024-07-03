@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.viettravelbk.model.Category;
 import com.viettravelbk.repository.CategoryRepository;
+import com.viettravelbk.upload_image.FilesStorageService;
+import com.viettravelbk.upload_image.ImageInfo;
+import com.viettravelbk.upload_image.ImageRepository;
 
 @Service
 public class CuisineService implements ICuisineService{
@@ -20,6 +23,12 @@ public class CuisineService implements ICuisineService{
 	
 	@Autowired
 	private CuisineConverter cuisineConverter;
+	
+    @Autowired
+    private ImageRepository imageRepository;
+    
+    @Autowired
+    private FilesStorageService filesStorageService;
 	
 	@Override														//post và put
 	public CuisineDTO save(CuisineDTO cuisineDTO) {					//Vì hàm save() có 2 vai trò là Thêm mới và Cập nhật nên 	
@@ -41,12 +50,28 @@ public class CuisineService implements ICuisineService{
 	    return cuisineConverter.toDTO(cuisineEntity);
 	}
 	
-	@Override														//delete
-	public void delete(long[] ids) {
-		for(long item: ids) {
-			cuisineRepository.deleteById(item);
-		}
-	}
+    @Override
+    public void delete(long[] ids) {
+        for (long item : ids) {
+            Optional<Cuisine> cuisineOptional = cuisineRepository.findById(item);
+            if (cuisineOptional.isPresent()) {
+                Cuisine cuisine = cuisineOptional.get();
+                ImageInfo imageInfo = cuisine.getImageId();
+               
+                cuisineRepository.deleteById(item);				// Xóa đối tượng Cuisine trước
+                
+                if (imageInfo != null) {						// Xóa các tệp ảnh và đối tượng ImageInfo sau
+                    String imageUrls = imageInfo.getImageUrls();
+                    String[] urls = imageUrls.split(", ");
+                    for (String url : urls) {
+                        String filename = url.substring(url.lastIndexOf("/") + 1);
+                        filesStorageService.delete(filename);
+                    }
+                    imageRepository.delete(imageInfo);
+                }
+            }
+        }
+    }
 	
 	@Override														//Lấy tất cả các trang - Lấy tất cả các cuisine
 	public List<CuisineDTO> findAll() {								

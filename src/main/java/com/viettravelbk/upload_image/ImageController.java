@@ -89,38 +89,4 @@ public class ImageController {
 	        this.message = message;
 	    }
 	}
-
-	@GetMapping("/images")
-	public String getListImages(Model model) {
-		List<ImageInfo> imageInfos = filesStorageService.loadAll().map(path -> {
-			String filename = path.getFileName().toString();
-			String url = MvcUriComponentsBuilder
-					.fromMethodName(ImageController.class, "getImage", path.getFileName().toString()).build()
-					.toString();
-
-			return new ImageInfo(filename, url);
-		}).collect(Collectors.toList());
-		model.addAttribute("images", imageInfos);
-		return "images";
-	}
-    
-	@GetMapping("/images/{filename:.+}")
-	public ResponseEntity<Resource> getImage(@PathVariable String filename) {
-		Resource file = filesStorageService.load(filename);
-
-		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
-				.body(file);
-	}
-	
-	@GetMapping("/images/delete/{filename}")							//Xóa 1 file trong folder
-	public String deleteImage(@PathVariable String filename, RedirectAttributes redirectAttributes) {
-	    try {
-	        filesStorageService.delete(filename);
-	        redirectAttributes.addFlashAttribute("message", "File " + filename + " has been deleted successfully");
-	    } catch (Exception e) {
-	        redirectAttributes.addFlashAttribute("error", "Error: " + e.getMessage());
-	    }
-	    return "redirect:/images";
-	}
 }
