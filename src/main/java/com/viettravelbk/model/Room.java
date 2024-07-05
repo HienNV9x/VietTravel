@@ -77,4 +77,12 @@ public class Room extends BaseEntity{ 						//Nhận dữ liệu dưới dạng 
             this.userIdLike = String.join(", ", userIds);
         }
     }
+    //Kiểm tra User đã Like Room
+    public boolean isLikedByUser(String userId) {
+        if (this.userIdLike != null && !this.userIdLike.isEmpty()) {
+            List<String> userIds = Arrays.asList(this.userIdLike.split(", "));
+            return userIds.contains(userId);
+        }
+        return false;
+    }
 }

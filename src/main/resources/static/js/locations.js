@@ -1,5 +1,4 @@
 //Begin: JS Object Room
-//var courseApi = 'http://localhost:8080/room';						//địa chỉ lấy All Room
 var roomByCategoryApi = 'http://localhost:8080/room/byCategory';  	//Get theo category				
 
 function start(){					
@@ -40,7 +39,7 @@ function renderCourses(data){											//courses là 1 mảng các đối tư�
         }
         if(roomPointDisplay != 'New'){
 	  	    roomPointDisplay = parseFloat(roomPointDisplay);
-	  	    voteDisplay = `(${vote})`; // Thêm thông tin vote nếu roomPointDisplay khác 'New'
+	  	    voteDisplay = `(${vote})`; 									// Thêm thông tin vote nếu roomPointDisplay khác 'New'
 	    }
 
 	  return `<div class="hotel hotel-hover course-item-${course.id}" data-id="${course.id}">
@@ -48,7 +47,7 @@ function renderCourses(data){											//courses là 1 mảng các đối tư�
                     <img src="${course.imageUrl}" alt="">
                     <div class="heart-hotel" onmouseover="showNotification(this)" onmouseout="hideNotification(this)" onclick="event.stopPropagation();">
                     	<button class="heart-btn" onclick="handleLikeButton(${course.id})">
-                    		<i class="fa-solid fa-heart heart-icon" onclick="toggleColor(this)"></i>
+                    		<i class="fa-solid fa-heart heart-icon" data-id="${course.id}" onclick="toggleColor(this)"></i>
                     	</button>  
                         <div class="notification-heart">Like</div>
                     </div>
@@ -72,6 +71,9 @@ function renderCourses(data){											//courses là 1 mảng các đối tư�
   });
   listCoursesBlock.innerHTML = htmls.join('');								//đưa mảng sau khi thay đổi sang dạng chuỗi vào thẻ ul trong html 
   
+  // Gọi sự kiện sau khi render dữ liệu
+  document.dispatchEvent(new Event('coursesRendered'));
+  
   // Gắn sự kiện click cho mỗi thẻ hotel
   var courseItems = document.querySelectorAll('.hotel-hover');
   courseItems.forEach(function(item) {
@@ -80,7 +82,49 @@ function renderCourses(data){											//courses là 1 mảng các đối tư�
          window.open('/detail?id=' + courseId, '_blank');
      });
   });
+  
+  // Kiểm tra trạng thái like của user cho mỗi phòng
+	courses.forEach(function(course) {
+      fetch('/api/userId')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('User not authenticated');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const userId = String(data);
+            fetch(`/room/isLiked/${course.id}/${userId}`)
+                .then(response => response.json())
+                .then(isLiked => {
+                    var heartIcon = document.querySelector(`.heart-icon[data-id="${course.id}"]`);
+                    if (heartIcon) {
+                        heartIcon.style.color = isLiked ? 'red' : 'white';
+                    }
+                    likeStatus[course.id] = isLiked;
+                    localStorage.setItem('likeStatus', JSON.stringify(likeStatus));
+                })
+                .catch(error => console.error('Error checking like status:', error));
+        })
+        .catch(error => console.error('Error fetching user ID:', error));
+	});
 }
+
+//Kiểm tra trạng thái Like từ LocalStorage
+document.addEventListener('DOMContentLoaded', function() {
+    var storedLikeStatus = localStorage.getItem('likeStatus');
+    if (storedLikeStatus) {
+        likeStatus = JSON.parse(storedLikeStatus);
+        for (var id in likeStatus) {
+            if (likeStatus.hasOwnProperty(id)) {
+                var heartIcon = document.querySelector(`.heart-icon[data-id="${id}"]`);
+                if (heartIcon) {
+                    heartIcon.style.color = likeStatus[id] ? 'red' : 'white';
+                }
+            }
+        }
+    }
+});
 
 //Attribute roomPoint
 var roomPointAPI = 'http://localhost:8080/roomPoint';						//Nếu đưa lên trên đầu thì sẽ chồng lấn API
@@ -159,7 +203,7 @@ function handleLikeButton(id) {
         })
         .then(data => {
 			const userId = String(data); 									// Chắc chắn chuyển thành String
-			console.log("userId: " + userId);
+			//console.log("userId: " + userId);
             handleLikeButtonSub(id, userId); 								// Thực hiện hàm handleLikeButtonSub nếu user đã đăng nhập
         })
         .catch(error => {
@@ -184,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
 var moveApi = 'http://localhost:8080/move';							//địa chỉ lấy data
 	
 function startMove(){
-  getMoves(renderMoves);											//thực hiện hàm getCourses. Hàm getCourse sẽ trả về callback hàm renderCourses
+  getMoves(renderMoves);											//thực hiện hàm getMoves. Hàm getMoves sẽ trả về callback hàm renderMoves
 }
 document.addEventListener('DOMContentLoaded', startMove);
 //startMove();
@@ -401,7 +445,10 @@ function renderCuisines(data){
 		       </div>
 		    </div>`
   });
-  listCuisinesBlock.innerHTML = html_cuisine.join('');	
+  listCuisinesBlock.innerHTML = html_cuisine.join('');
+  
+  // Gọi sự kiện sau khi render dữ liệu
+  document.dispatchEvent(new Event('cuisineRendered'));	
   
   // Initialize Slick for each slider-roomService
   cuisines.forEach(function(cuisine) {
@@ -543,6 +590,9 @@ function renderIntertainments(data){
 		     </div>`
   });
   listIntertainmentsBlock.innerHTML = html_intertainment.join('');		//đưa mảng sau khi thay đổi sang dạng chuỗi vào thẻ ul trong html 
+  
+  // Gọi sự kiện sau khi render dữ liệu
+  document.dispatchEvent(new Event('entertainmentRendered'));
   
   // Initialize Slick for each slider-interService
   intertainments.forEach(function(intertainment) {

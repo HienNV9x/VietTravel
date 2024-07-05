@@ -157,6 +157,17 @@ public class RoomAPI {
         return ResponseEntity.ok(updatedPoint);
     }
     
+    //Kiểm tra User đăng nhập đã Like Room
+    @GetMapping(value = "/room/isLiked/{roomId}/{userId}")
+    public ResponseEntity<Boolean> isRoomLikedByUser(@PathVariable("roomId") long roomId, @PathVariable("userId") String userId) {
+        Room room = roomRepository.findById(roomId).orElse(null);
+        if (room == null) {
+            return ResponseEntity.notFound().build();
+        }
+        boolean isLiked = room.isLikedByUser(userId);
+        return ResponseEntity.ok(isLiked);
+    }
+    
     @DeleteMapping(value = "/room")
     public void deleteRoom(@RequestBody long[] ids) {
     	roomService.delete(ids);

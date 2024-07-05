@@ -12,10 +12,16 @@ $(document).ready(function () {
       });
     }  
     
-    // Initialize sliders
-    window.onload = function() {
-    	initializeSlider('#slider-hotel');
-    	initializeSlider('#slider-cuisine');
-    	initializeSlider('#slider-entertainment');
-    };
+    //Chờ sự kiện 'coursesRendered' trước khi khởi tạo slider
+    document.addEventListener('coursesRendered', function() {
+        initializeSlider('#slider-hotel');
+    });
+    
+    document.addEventListener('cuisineRendered', function() {
+        initializeSlider('#slider-cuisine');
+    });
+    
+    document.addEventListener('entertainmentRendered', function() {
+        initializeSlider('#slider-entertainment');
+    });
 });
