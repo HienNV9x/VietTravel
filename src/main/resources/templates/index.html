@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<!---->
 
 <head>
 	<meta charset="UTF-8">
@@ -84,11 +83,6 @@
 
 					<button sec:authorize="not isAuthenticated()" class="reg"><a href="#member">Sign up</a></button>
 				</div>
-				<!--
-				<div sec:authorize="isAuthenticated()" class="user">
-					<img class="user-login" th:src="@{/img_more/testimonials/user.jpg}">
-				</div>
-				-->
 				<div sec:authorize="isAuthenticated()" class="user">
 					<form method="GET" th:object="${userForm}" th:action="@{/viettravel/role}">
 						<button class="check_role">
@@ -280,67 +274,48 @@
 					</div>
 					<div class="col col-half s-col-full contact-form">
 
-						<form method="POST" th:object="${userForm}" th:action="@{/viettravel/registration}">
+						<form id="registrationForm">
 							<div class="row">
 								<div class="col col-half s-col-full">
-									<input type="text" name="username" required sec:field="*{username}"
-										class="form-control" placeholder="UserName">
-									<span class="has-error" sec:if="${#fields.hasErrors('username')}"
-										sec:errors="*{username}"></span>
+									<input type="text" name="username" required class="form-control" placeholder="UserName">
+									<span class="has-error"></span>
 								</div>
 								<div class="col col-half s-col-full s-contact-form">
-									<input type="text" name="age" required sec:field="*{age}" class="form-control"
-										placeholder="Age">
-									<span class="has-error" sec:if="${#fields.hasErrors('age')}"
-										sec:errors="*{age}"></span>
+									<input type="text" name="age" required class="form-control" placeholder="Age">
+									<span class="has-error"></span>
 								</div>
 							</div>
 							<div class="row mt-8">
 								<div class="col col-half s-col-full">
-									<input type="text" name="country" required sec:field="*{country}"
-										class="form-control" placeholder="Country">
-									<span class="has-error" sec:if="${#fields.hasErrors('country')}"
-										sec:errors="*{country}"></span>
+									<input type="text" name="country" required class="form-control" placeholder="Country">
+									<span class="has-error"></span>
 								</div>
 								<div class="col col-half s-col-full s-contact-form">
-									<input type="text" name="city" required sec:field="*{city}" class="form-control"
-										placeholder="City">
-									<span class="has-error" sec:if="${#fields.hasErrors('city')}"
-										sec:errors="*{city}"></span>
+									<input type="text" name="city" required class="form-control" placeholder="City">
+									<span class="has-error"></span>
 								</div>
 							</div>
 							<div class="row mt-8">
 								<div class="col col-full">
-									<input type="text" name="email" required sec:field="*{email}" class="form-control"
-										placeholder="Email">
-									<span class="has-error" sec:if="${#fields.hasErrors('email')}"
-										sec:errors="*{email}"></span>
+									<input type="text" name="email" required class="form-control" placeholder="Email">
+									<span class="has-error"></span>
 								</div>
 							</div>
 							<div class="row mt-8">
 								<div class="col col-full">
-									<input type="password" name="password" required sec:field="*{password}"
-										class="form-control" placeholder="Password">
-									<span class="has-error" sec:if="${#fields.hasErrors('password')}"
-										sec:errors="*{password}"></span>
+									<input type="password" name="password" required class="form-control" placeholder="Password">
+									<span class="has-error"></span>
 								</div>
 							</div>
 							<div class="row mt-8">
 								<div class="col col-full">
-									<input type="password" name="passwordConfirm" required
-										sec:field="*{passwordConfirm}" class="form-control"
-										placeholder="Confirm your password">
-									<span class="has-error" sec:if="${#fields.hasErrors('passwordConfirm')}"
-										sec:errors="*{passwordConfirm}"></span>
+									<input type="password" name="passwordConfirm" required class="form-control" placeholder="Confirm your password">
+									<span class="has-error"></span>
 								</div>
 							</div>
 							<div class="row mt-8">
 								<div class="col col-full">
-									<!--<input type="text" name="travel_hobby" required sec:field="*{travel_hobby}" class="form-control" placeholder="Travel Hobby">-->
-									<span class="has-error" sec:if="${#fields.hasErrors('travel_hobby')}"
-										sec:errors="*{travel_hobby}"></span>
-									<select name="travel_hobby" placeholder="Travel Hobby" sec:field="*{travel_hobby}"
-										required class="form-control">
+									<select name="travel_hobby" required class="form-control" placeholder="Travel Hobby">
 										<option value="">Travel Hobby</option>
 										<option value="Bustle">Bustle</option>
 										<option value="Mountain">Mountain</option>
@@ -349,11 +324,11 @@
 										<option value="Vintage">Vintage</option>
 										<option value="Spirituality">Spirituality</option>
 									</select>
+									<span class="has-error"></span>
 								</div>
 							</div>
 
-							<button class="contact-mobile-send mt-16 form-submit-btn s-full-width" type="submit">SIGN
-								UP</button>
+							<button class="contact-mobile-send mt-16 form-submit-btn s-full-width" type="button" id="submitBtn">SIGN UP</button>
 						</form>
 						<div class="line-or">
                             <span class="vl-innertext">or</span>
@@ -411,33 +386,10 @@
 					<i class="fa-solid fa-face-smile-wink"></i>
 					Choose a province you want to explore!
 				</label>
-				<!--
-				<select id="choice-place" class="modal-input">
-					<option value="">Place</option>
-					<option value="a1">Ha Giang</option>
-					<option value="a2">Ha Noi</option>
-					<option value="a3">Ha Long</option>
-					<option value="a4">Ninh Binh</option>
-					<option value="a5">Da Nang</option>
-					<option value="a6">Hoi An</option>
-					<option value="a7">Da Lat</option>
-					<option value="a8">Ho Chi Minh City</option>
-					<option value="a9">Phu Quoc</option>
-					<option value="a10">Ca Mau</option>
-				</select>
-				
-				<label class="modal-label">
-					<i class="fa-solid fa-bed"></i>
-					Please book a room!
-				</label>
-				-->
 				<label class="modal-label">
 					<i class="fa-solid fa-dollar-sign"></i>
 					Room rental costs will be reduced by 5%
 				</label>
-				<!--
-				<input class="modal-input" placeholder="100 Dollars">
-				-->
 				<button id="btn-book-1" class="buy-tour">
 					Reserve <i class="ti-check"></i>
 				</button>
@@ -466,21 +418,10 @@
 					<i class="fa-solid fa-face-smile-wink"></i>
 					Choose a few provinces and cities you want to explore!
 				</label>
-				<!--
-				<input type="text" id="choice-place" class="modal-input" placeholder="Places">
-				
-				<label class="modal-label">
-					<i class="fa-solid fa-bed"></i>
-					Please book a room!
-				</label>
-				-->
 				<label class="modal-label">
 					<i class="fa-solid fa-dollar-sign"></i>
 					Room rental costs will be reduced by 8%
 				</label>
-				<!--
-				<input class="modal-input" placeholder="100 Dollars">
-				-->
 				<button id="btn-book-2" class="buy-tour">
 					Reserve <i class="ti-check"></i>
 				</button>
@@ -509,19 +450,10 @@
 					<i class="fa-solid fa-face-smile-wink"></i>
 					10 tourist destinations are waiting for you!
 				</label>
-				<!--
-				<label class="modal-label">
-					<i class="fa-solid fa-bed"></i>
-					Please book a room!
-				</label>
-				-->
 				<label class="modal-label">
 					<i class="fa-solid fa-dollar-sign"></i>
 					Room rental costs will be reduced by 10%
 				</label>
-				<!--
-				<input class="modal-input" placeholder="100 Dollars">
-				-->
 				<button id="btn-book-3" class="buy-tour">
 					Reserve <i class="ti-check"></i>
 				</buttonid="btn-book-1">
@@ -555,6 +487,7 @@
 	<!-- End JS Slideshow -->
 	
 	<!-- JS-->
+	<script src="/js/validation.js"></script>
 	<script src="/js/message.js"></script>
 	<script src="/js/js_cart/book_tour.js"></script>	
 	<script src="/js/reset_cart.js"></script>

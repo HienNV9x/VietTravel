@@ -71,10 +71,10 @@ function renderCourses(data){											//courses là 1 mảng các đối tư�
   });
   listCoursesBlock.innerHTML = htmls.join('');								//đưa mảng sau khi thay đổi sang dạng chuỗi vào thẻ ul trong html 
   
-  // Gọi sự kiện sau khi render dữ liệu
+  //Gọi sự kiện sau khi render dữ liệu
   document.dispatchEvent(new Event('coursesRendered'));
   
-  // Gắn sự kiện click cho mỗi thẻ hotel
+  //Gắn sự kiện click cho mỗi thẻ hotel
   var courseItems = document.querySelectorAll('.hotel-hover');
   courseItems.forEach(function(item) {
      item.addEventListener('click', function() {
@@ -83,7 +83,7 @@ function renderCourses(data){											//courses là 1 mảng các đối tư�
      });
   });
   
-  // Kiểm tra trạng thái like của user cho mỗi phòng
+  //Kiểm tra trạng thái like của user cho mỗi phòng
 	courses.forEach(function(course) {
       fetch('/api/userId')
         .then(response => {

@@ -1,12 +1,12 @@
 package com.viettravelbk.repository;
 
-import java.util.List;										//Tìm  kiếm theo từ khóa
+import java.util.List;																				//Tìm  kiếm theo từ khóa
 
-import org.springframework.data.domain.Page;				//Phân trang new
-import org.springframework.data.domain.Pageable;			//Tìm  kiếm theo từ khóa
+import org.springframework.data.domain.Page;														//Phân trang new
+import org.springframework.data.domain.Pageable;													//Tìm  kiếm theo từ khóa
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;		//Tìm  kiếm theo từ khóa
-import org.springframework.data.repository.query.Param;		//Tìm  kiếm theo từ khóa
+import org.springframework.data.jpa.repository.Query;												//Tìm  kiếm theo từ khóa
+import org.springframework.data.repository.query.Param;												//Tìm  kiếm theo từ khóa
 
 import com.viettravelbk.model.Room;
 import com.viettravelbk.model.User;
@@ -17,6 +17,4 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
     Page<Room> findByCategoryName(String categoryName, Pageable pageable);							//Phân trang new
     
     List<Room> findByCategoryCode(String categoryCode);												//Get Room theo category
-    
-    //List<Room> findByCategoryName(@Param("categoryName") String categoryName, Pageable pageable); //Khi phân trang new thì bỏ
 }

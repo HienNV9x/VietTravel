@@ -22,14 +22,6 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    /*
-    @Override
-    public void save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(roleRepository.findAll()));
-        userRepository.save(user);
-    }
-	*/
     @Override
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));			//Mã hóa mật khẩu    
@@ -50,5 +42,15 @@ public class UserServiceImpl implements UserService{
             return user.getId();
         }
         return null;
+    }
+    
+    @Override
+    public boolean existsByUsername(String username) {  
+        return userRepository.findByUsername(username) != null;
+    }
+    
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.findByEmail(email) != null;
     }
 }

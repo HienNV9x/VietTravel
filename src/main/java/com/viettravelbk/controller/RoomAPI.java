@@ -61,7 +61,6 @@ public class RoomAPI {
         	if(page != null && limit != null) {
         		result.setPage(page);
         		Pageable pageable = PageRequest.of(page - 1, limit);	
-        		//result.setListResult(roomService.findAll(pageable));
         		result.setTotalPage((int) Math.ceil((double) (roomService.totalItem()) / limit));
         	}else {
         		result.setListResult(roomService.findAll());
@@ -90,12 +89,6 @@ public class RoomAPI {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
-    /*
-    @PostMapping("/room")									//Khi thêm 1 bài viết mới thì id sẽ tự động tạo ra
-    public RoomDTO createNew(@RequestBody RoomDTO model) {
-            return roomService.save(model);
-    }
-    */
     //Post Room kèm ImageId
     @PostMapping("/room")
     public ResponseEntity<RoomDTO> createNew(@RequestBody RoomDTO model) {
@@ -122,20 +115,6 @@ public class RoomAPI {
     }
     
     //Update roomPoint
-    /*@PutMapping(value = "/roomPoint/{id}")
-    public ResponseEntity<Double> updateRoomPoint(@PathVariable("id") long id, @RequestBody Map<String, Object> changes) {
-        Double increment = (Double) changes.get("increment");
-        Room room = roomRepository.findById(id).orElse(null);
-        if (room == null) {
-            return ResponseEntity.notFound().build();
-        }
-        Double currentPoint = room.getRoomPoint() != null ? room.getRoomPoint() : 4;
-        double updatedPoint = currentPoint + increment;
-        updatedPoint = Math.round(updatedPoint * 100.0) / 100.0;	//Làm tròn updatedPoint đến hai chữ số thập phân
-        room.setRoomPoint(updatedPoint);
-        roomRepository.save(room);
-        return ResponseEntity.ok(updatedPoint);
-    }*/
     @PutMapping(value = "/roomPoint/{id}")
     public ResponseEntity<Double> updateRoomPoint(@PathVariable("id") long id, @RequestBody Map<String, Object> changes) {
         Double increment = (Double) changes.get("increment");
