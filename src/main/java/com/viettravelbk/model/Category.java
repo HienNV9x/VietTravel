@@ -22,7 +22,7 @@ public class Category extends BaseEntity {
 	@Column(name = "code")
 	private String code;
 
-	@OneToMany(mappedBy = "category")									//Table news-category: n-1
+	@OneToMany(mappedBy = "category")									//Table rooms-category: n-1
 	private List<Room> news = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "category")									//Table cuisines-category: n-1

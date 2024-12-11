@@ -26,6 +26,8 @@ import com.viettravelbk.model.User;
 import com.viettravelbk.service.SecurityService;
 import com.viettravelbk.service.UserService;
 
+import static java.util.Map.*;
+
 @Controller
 public class UserController {
 	@Autowired
@@ -58,7 +60,10 @@ public class UserController {
 			bindingResult.getFieldErrors().forEach(error -> {
 				errors.put(error.getField(), error.getDefaultMessage());
 			});
-			return ResponseEntity.badRequest().body(Map.of("errors", errors));
+			Map<String, Object> response = new HashMap<>();
+			response.put("errors", errors);
+			return ResponseEntity.badRequest().body(response);
+			//return ResponseEntity.badRequest().body(Map.of("errors", errors));
 		}
 		userService.save(userForm);
 		securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());

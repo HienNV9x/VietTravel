@@ -104,3 +104,63 @@ document.addEventListener("click", (event) => {
         parent.classList.remove("active");      // Nếu không, loại bỏ lớp "active" khỏi parent
     }
 });
+
+// ------------------------------------------------------------
+//Tab Header Underline
+const tabs = document.querySelectorAll(".tab-item");
+const tabActive = document.querySelector(".tab-item.active");
+const line = document.querySelector(".tabs .line");
+
+function updateLinePosition(element) {
+    const aElement = element.querySelector("a");                                        // Lấy thẻ <a> bên trong tab
+    const rect = aElement.getBoundingClientRect();                                      // Lấy tọa độ và kích thước của thẻ <a>
+    const navRect = document.querySelector("#nav").getBoundingClientRect();             // Lấy tọa độ của container chứa tất cả tab
+
+    // Lấy giá trị padding từ CSS của thẻ <a>
+    const style = window.getComputedStyle(aElement);
+    const paddingLeft = parseFloat(style.paddingLeft);                                  // Padding bên trái
+    const paddingRight = parseFloat(style.paddingRight);                                // Padding bên phải
+
+    line.style.left = rect.left - navRect.left + paddingLeft + "px";                    // Di chuyển dòng đến vị trí của thẻ <a> (bù trừ padding)
+    line.style.width = rect.width - paddingLeft - paddingRight + "px";                  // Điều chỉnh chiều rộng của dòng để khớp với nội dung thẻ <a>
+}
+
+// Cập nhật vị trí cho tab active ban đầu
+requestIdleCallback(() => updateLinePosition(tabActive));
+
+// Lắng nghe sự kiện click và cập nhật line
+tabs.forEach((tab) => {
+    tab.onclick = function () {
+        document.querySelector(".tab-item.active").classList.remove("active");
+        this.classList.add("active");
+        updateLinePosition(this);
+    };
+});
+// ------------------------------------------------------------
+
+// Tab Header Navigation
+document.addEventListener("DOMContentLoaded", function () {
+    const navLinks = document.querySelectorAll('#nav a[href^="#"]');                    // Lấy tất cả các liên kết trong menu điều hướng
+    navLinks.forEach(link => {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href").substring(1);
+            if (targetId === "") {
+                window.scrollTo({                                                       // Nếu liên kết là "#", cuộn lên đầu trang
+                    top: 0,
+                    behavior: "smooth"                                                  // Cuộn mượt mà
+                });
+            } else {
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    const headerHeight = document.querySelector(".tabs").offsetHeight;   // Tính toán vị trí mục tiêu cộng thêm khoảng trống
+                    const offsetPosition = targetElement.offsetTop - headerHeight;
+                    window.scrollTo({                                                    // Cuộn đến vị trí đã tính toán
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            }
+        });
+    });
+});

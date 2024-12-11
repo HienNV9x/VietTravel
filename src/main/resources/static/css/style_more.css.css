@@ -69,164 +69,24 @@ h6 {
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
-/*
-#header {
-  height: 80px;
-  transition: all 0.5s;
-  z-index: 997;
-  transition: all 0.5s;
-  background: #1e4356;
+#nav-first .slogan p {
+    margin-bottom: 0;
 }
-*/
-
-#header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 46.5px;
-  background-color: #000;
-  z-index: 2;
-  /* overflow: hidden; */
+#nav-first .log-reg ul {
+    margin-bottom: 0;
 }
-
-#nav{
-  display: inline-block;
-  /* margin: 0px; */
-  padding: 0px;
-}
-
+#nav,
+#nav .list-tour,
+#nav .list-tour .tour-north,
+#nav .list-tour .tour-central,
+#nav .list-tour .tour-south,
 #nav .subnav {
-  list-style-type: none;
-}
-
-#nav > li {
-  display: inline-block;
-}
-#nav li{
-  position: relative;
-}
-
-#nav > li > a {
-  color: #fff;
-  text-transform: uppercase;
-}
-#nav li a {
-  text-decoration: none;
-  line-height: 46.5px;
-  padding: 0px 24px;
-  display: block;
-}
-
-#nav > li:hover > a,
-#nav .subnav li:hover {
-  color: #000;
-  background-color: #ccc;
-}
-
-#nav li:hover .subnav {
-  display: block;
-}
-#nav .subnav {
-  display: none;
-  position: absolute;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  top: 100%;
-  left: 0;
-  padding: 0px;
-}
-
-#nav .subnav a {
-  color: #000;
-  width: 120px;
-}
-/* CSS riêng cho Tour */
-#nav .list-tour{
-  list-style-type: none;
-  padding: 0px;
-}
-#nav .list-tour li:hover {
-  color: #000;
-  background-color: #ccc;
-}
-#nav li:hover .list-tour {
-  display: inline-block;
-}
-#nav .list-tour {
-  display: none;
-  position: absolute;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  top: 100%;
-  left: 0;
-}
-#nav .list-tour a {
-  color: #000;
-  width: 160px;
-}
-/* -------------------- */
-/* CSS Tour North */
-#nav li>.list-tour li>.tour-north {
-  display: none;
-  position: absolute;
-  list-style-type: none;
-  margin-top: -46.5px;
-  margin-left: 160px;
-  border-left: 2px solid #fff;
-  padding: 0px;
-}
-#nav .list-tour .tour-north a {
-  width: 125px;
-}
-#nav li>.list-tour li:hover .tour-north {
-  display: inline-block;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-/* --------------------- */
-/* CSS Tour Central Region */
-#nav li>.list-tour li>.tour-central {
-  display: none;
-  position: absolute;
-  list-style-type: none;
-  margin-top: -46.5px;
-  margin-left: 160px;
-  border-left: 2px solid #fff;
-  padding: 0px;
-}
-#nav li>.list-tour li>.tour-central a {
-  width: 120px;
-}
-#nav li>.list-tour li:hover .tour-central {
-  display: inline-block;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-/* ---------------------- */
-/* CSS Tour South */
-#nav li>.list-tour li>.tour-south {
-  display: none;
-  position: absolute;
-  list-style-type: none;
-  margin-top: -46.5px;
-  margin-left: 160px;
-  border-left: 2px solid #fff;
-  padding: 0px;
-}
-#nav .list-tour .tour-south a {
-  width: 175px;
-}
-#nav li>.list-tour li:hover .tour-south {
-  display: inline-block;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding-left: 0;
 }
 /* ---------------------- */
 #main {
   margin-top: 60px;
 }
-
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
@@ -342,7 +202,7 @@ h6 {
 }
 
 /**
-* Mobile Navigation 
+* Mobile Navigation
 */
 .mobile-nav-toggle {
   color: #fff;
@@ -497,7 +357,8 @@ section {
 # Breadcrumbs
 --------------------------------------------------------------*/
 .breadcrumbs {
-  padding: 10px 0 15px;
+  /*padding: 10px 0 15px;*/
+  padding: 50px 0 15px;
   background-color: #f3f8fa;
   min-height: 40px;
 }
@@ -1200,61 +1061,3 @@ section {
   right: 8px;
 }
 /* End List Hotel */
-
-/*CSS Hover Cart*/
-strong {
-    font-weight: 600
-}
-
-ul#top_tools {
-    list-style: none;
-    padding: 0;
-    position: absolute;
-    right: 3px;
-    top: 48px;
-    z-index: 999;
-}
-
-ul#top_tools a {
-    color: #000;
-}
-
-ul#top_tools a:hover {
-    color: #e04f67
-}
-
-.sticky ul#top_tools a {
-    color: #333
-}
-
-ul#top_tools li {
-    display: inline-block;
-    padding: 0 10px
-}
-
-ul#top_tools li i {
-    font-size: 26px;
-    font-weight: 400
-}
-
-a.cart_bt {
-    position: relative
-}
-
-a.cart_bt strong {
-    font-size: 11px;
-    width: 15px;
-    height: 15px;
-    display: block;
-    background-color: #e04f67;
-    color: #fff;
-    text-align: center;
-    position: absolute;
-    bottom: -5px;
-    /*bottom: -1px;*/
-    right: -8px;
-    line-height: 15px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%
-}

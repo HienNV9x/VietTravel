@@ -213,23 +213,14 @@ function hideNotification(element) {
   var notification = element.querySelector(".notification-heart");
   notification.style.display = "none";
 }
-/*
-function toggleColor(element) {
-      var currentColor = element.style.color;
-      if (currentColor === 'rgb(255, 255, 255)' || currentColor === '' || currentColor === 'white') {
-          element.style.color = 'red'; // Red
-      } else {
-          element.style.color = '#fff'; // White
-      }
-}*/
-//------------------------------------------
+
 // Search Button
 let input = document.querySelector(".input-btn");
 let btn = document.querySelector(".btn-header");
 let parent = document.querySelector(".search-btn");
 
 btn.addEventListener("click", (event) => {
-    event.stopPropagation();            // Ngăn chặn sự kiện click từ việc lan ra các phần tử cha
+    event.stopPropagation();            		// Ngăn chặn sự kiện click từ việc lan ra các phần tử cha
     parent.classList.toggle("active");
     input.focus();
 });
@@ -239,10 +230,7 @@ document.addEventListener("click", (event) => {
     }
 });
 
-//Hover Cart
-//var numberOfProducts = document.getElementById('numberOfProducts');
 // Hiển thị số lượng sản phẩm ra giao diện
-//numberOfProducts.textContent = JSON.parse(localStorage.getItem('numberOfProducts'));
 document.addEventListener('DOMContentLoaded', function() {
     updateNumberOfProductsDisplay();
 });

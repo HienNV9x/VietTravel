@@ -14,6 +14,5 @@
       } else {
         showWarningToast_3();
       }
-      
       document.getElementById('search-input').value = '';
     }

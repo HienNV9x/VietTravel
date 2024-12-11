@@ -8,7 +8,6 @@
 	<title>VietTravel</title>
 	<link rel="icon" href="img_more/home/viettravel_logo_4.png" type="image/x-icon" />
 	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/responsive.css">
 	<link rel="stylesheet" href="css/message.css">
 	
 	<link rel="stylesheet" href="fonts/themify-icons/themify-icons.css">
@@ -21,13 +20,56 @@
 
 <body>
 	<div id="main">
+		<!-- Begin Header -->
 		<div id="header">
+			<!-- Begin: nav-first -->
+			<div id="nav-first">
+				<div class="header-logo">
+					<a href="/"><img alt="image" class="img-fluid" src="img_more/home/viettravel_logo_4.png"></a>
+					<a href="/" class="logo-dashboard">VietTravel</a>
+				</div>
+				<div class="slogan">
+					<p>Your one stop gateway to VietNam</p>
+					<img src="img_more/home/Flag-VN.png" alt="VietNam">
+				</div>
+
+				<!-- Begin: Login - Register -->
+				<div class="log-reg">
+					<!-- Hover Cart -->
+					<ul id="top_tools">
+						<li>
+							<div>
+								<a href="/cart" target="_blank" class="cart_bt"><i class="ti-shopping-cart"></i><strong id="numberOfProducts">0</strong></a>
+							</div>
+						</li>
+					</ul>
+					<div>
+						<button sec:authorize="not isAuthenticated()" class="log"><a href="/login">Login</a></button>
+						<button sec:authorize="isAuthenticated()" class="log">
+							<form id="logoutForm" method="POST" th:action="@{/logout}">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							</form>
+							<a onclick="document.forms['logoutForm'].submit()">Logout</a>
+						</button>
+						<button sec:authorize="not isAuthenticated()" class="reg"><a href="#member">Sign up</a></button>
+					</div>
+					<div sec:authorize="isAuthenticated()" class="user">
+						<form method="GET" th:object="${userForm}" th:action="@{/viettravel/role}">
+							<button class="check_role">
+								<img class="user-login" th:src="@{/img_more/testimonials/user.jpg}">
+							</button>
+						</form>
+					</div>
+				</div>
+				<!-- End: Login - Register -->
+			</div>
+			<!-- End: nav-first -->
 			<!-- Begin: nav -->
-			<ul id="nav">
-				<li><a href="#">Home</a></li>
-				<li><a href="#introduce">Introduce</a></li>
-				<li>
-					<a href="#">Tour <i class="nav-arrow-down ti-angle-down"></i></a>
+			<ul id="nav" class="tabs">
+				<li class="tab-item active"><a href="#"><i class="ti-home nav-icon"></i>Home</a></li>
+				<li class="tab-item"><a href="#introduce"><i class="ti-star nav-icon"></i>Introduce</a></li>
+				<li class="tab-item">
+					<a href="#"><i class="ti-map-alt nav-icon"></i>Tour <i class="nav-arrow-down ti-angle-down"></i></a>
 					<ul class="list-tour">
 						<li><a href="#">North</a>
 							<ul class="tour-north">
@@ -55,10 +97,11 @@
 						</li>
 					</ul>
 				</li>
-				<li><a href="#package_tour">Package Tour</a></li>
-				<li><a href="#member">Member</a></li>
-				<li>
+				<li class="tab-item"><a href="#package_tour"><i class="ti-flag-alt nav-icon"></i>Package Tour</a></li>
+				<li class="tab-item"><a href="#member"><i class="ti-face-smile nav-icon"></i>Member</a></li>
+				<li class="tab-item">
 					<a href="/viettravel/more" target="_blank">
+						<i class="ti-shine nav-icon"></i>
 						More
 						<i class="nav-arrow-down ti-angle-down"></i>
 					</a>
@@ -68,31 +111,9 @@
 						<li><a href="/viettravel/more#system-main" target="_blank">System</a></li>
 					</ul>
 				</li>
+				<div class="line"></div>
 			</ul>
 			<!-- End: nav -->
-			<!-- Begin: Login - Register -->
-			<div class="log-reg">
-				<div>
-					<button sec:authorize="not isAuthenticated()" class="log"><a href="/login">Login</button>
-					<button sec:authorize="isAuthenticated()" class="log">
-						<form id="logoutForm" method="POST" th:action="@{/logout}">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-						</form>
-						<a onclick="document.forms['logoutForm'].submit()">Logout</a>
-					</button>
-
-					<button sec:authorize="not isAuthenticated()" class="reg"><a href="#member">Sign up</a></button>
-				</div>
-				<div sec:authorize="isAuthenticated()" class="user">
-					<form method="GET" th:object="${userForm}" th:action="@{/viettravel/role}">
-						<button class="check_role">
-							<img class="user-login" th:src="@{/img_more/testimonials/user.jpg}">
-						</button>
-					</form>
-				</div>
-
-			</div>
-			<!-- End: Login - Register -->
 			<!-- Begin: search button-->
 			<div class="search-btn">
 				<input id="search-input" class="input-btn" type="text" placeholder="Search..." />
@@ -100,11 +121,7 @@
 					<i class="search-icon ti-search"></i>
 				</button>
 			</div>
-
-			<div id="mobile-menu" class="mobile-menu-btn">
-				<i class="menu-icon ti-menu"></i>
-			</div>
-
+			<div id="mobile-menu" class="mobile-menu-btn"></div>
 			<!-- End: search button-->
 		</div>
 		<!--End Header-->
@@ -112,35 +129,35 @@
 		<!-- SlideShow -->
 		<div id="slider">
 			<div class="image-item">
-				<img src="img_more/home/ha_giang.jpg" width="100%" height="575px" alt="">
+				<img src="img_more/home/ha_giang.jpg" width="100%" height="527px" alt="">
 				<div class="img-item">
 					<p>Ha Giang</p>
 					<span>The first point of Viet Nam</span>
 				</div>
 			</div>
 			<div class="image-item">
-				<img src="img_more/home/ha_noi.jpg" width="100%" height="575px">
+				<img src="img_more/home/ha_noi.jpg" width="100%" height="527px">
 				<div class="img-item color-content">
 					<p>Ha Noi</p>
 					<span>Capital of a thousand years of culture</span>
 				</div>
 			</div>
 			<div class="image-item">
-				<img src="img_more/home/ha_long.jpg" width="100%" height="575px">
+				<img src="img_more/home/ha_long.jpg" width="100%" height="527px">
 				<div class="img-item">
 					<p>Ha Long</p>
 					<span>Top 3 Most Impressive UNESCO Heritage Sites in Asia</span>
 				</div>
 			</div>
 			<div class="image-item ">
-				<img src="img_more/home/ninh_binh.jpg" width="100%" height="575px">
+				<img src="img_more/home/ninh_binh.jpg" width="100%" height="527px">
 				<div class="img-item color-content">
 					<p>Ninh Binh</p>
 					<span>Spiritual tourism - World heritage</span>
 				</div>
 			</div>
 			<div class="image-item">
-				<img src="img_more/home/da_nang.jpg" width="100%" height="575px">
+				<img src="img_more/home/da_nang.jpg" width="100%" height="527px">
 				<div class="img-item">
 					<p>Da Nang</p>
 					<span>Ba Na Hills - Road to paradise</span>
@@ -148,35 +165,35 @@
 			</div>
 			<div class="image-item">
 				<!--<img src="img_more/home/hoi_an.png" width="100%" height="575px">-->
-				<img width="100%" height="575px" th:src="@{/img_more/home/hoi_an.png}">
+				<img width="100%" height="527px" th:src="@{/img_more/home/hoi_an.png}">
 				<div class="img-item">
 					<p>Hoi An</p>
 					<span>Peaceful and ancient</span>
 				</div>
 			</div>
 			<div class="image-item">
-				<img src="img_more/home/da_lat.jpg" width="100%" height="575px">
+				<img src="img_more/home/da_lat.jpg" width="100%" height="527px">
 				<div class="img-item">
 					<p>Da Lat</p>
 					<span>City of lovers</span>
 				</div>
 			</div>
 			<div class="image-item">
-				<img src="img_more/home/tp_hcm.jpg" width="100%" height="575px">
+				<img src="img_more/home/tp_hcm.jpg" width="100%" height="527px">
 				<div class="img-item">
 					<p>Ho Chi Minh City</p>
 					<span>The city doesn't sleep</span>
 				</div>
 			</div>
 			<div class="image-item">
-				<img src="img_more/home/phu_quoc.jpg" width="100%" height="575px">
+				<img src="img_more/home/phu_quoc.jpg" width="100%" height="527px">
 				<div class="img-item color-content">
 					<p>Phu Quoc</p>
 					<span>Vietnam's Pearl Island</span>
 				</div>
 			</div>
 			<div class="image-item">
-				<img src="img_more/home/ca_mau.jpg" width="100%" height="575px">
+				<img src="img_more/home/ca_mau.jpg" width="100%" height="527px">
 				<div class="img-item">
 					<p>Ca Mau</p>
 					<span>The southernmost tip of Vietnam</span>
@@ -215,19 +232,21 @@
 					<p class="section-sub-heading text-while ">Please come with us</p>
 					<!-- Places -->
 					<ul class="tickets-list">
-						<li>North <span class="local1">Ha Giang</span>
-							<span class="local2">Ha Noi</span>
-							<span class="local2">Ha Long</span>
-							<span class="local2">Ninh Binh</span>
+						<li>North
+							<a href="/viettravel/hagiang" target="_blank"><span class="local1">Ha Giang</span></a>
+							<a href="/viettravel/hanoi" target="_blank"><span class="local2">Ha Noi</span></a>
+							<a href="/viettravel/halong" target="_blank"><span class="local2">Ha Long</span></a>
+							<a href="/viettravel/ninhbinh" target="_blank"><span class="local2">Ninh Binh</span></a>
 						</li>
-						<li>Central Region <span class="local3">Da Nang</span>
-							<span class="local2">Hoi An</span>
-							<span class="local2">Da Lat</span>
+						<li>Central Region
+							<a href="/viettravel/danang" target="_blank"><span class="local3">Da Nang</span></a>
+							<a href="/viettravel/hoian" target="_blank"><span class="local2">Hoi An</span></a>
+							<a href="/viettravel/dalat" target="_blank"><span class="local2">Da Lat</span></a>
 						</li>
 						<li class="tickets-south"> South
-							<span class="local4">Ho Chi Minh City</span>
-							<span class="local2 local12-mobile">Phu Quoc</span>
-							<span class="local2 local12-mobile2">Ca Mau</span>
+							<a href="/viettravel/tphcm" target="_blank"><span class="local4">Ho Chi Minh City</span></a>
+							<a href="/viettravel/phuquoc" target="_blank"><span class="local2 local12-mobile">Phu Quoc</span></a>
+							<a href="/viettravel/camau" target="_blank"><span class="local2 local12-mobile2">Ca Mau</span></a>
 						</li>
 					</ul>
 					<!-- Choice -->
@@ -350,12 +369,12 @@
 			<!-- Footer -->
 			<div id="footer">
 				<div class="social-list">
-					<a href="https://www.google.com.vn/"><i class="fa-brands fa-square-facebook"></i></a>
-					<a href=""><i class="fa-brands fa-instagram"></i></a>
-					<a href=""><i class="fa-brands fa-snapchat"></i></a>
-					<a href=""><i class="fa-brands fa-pinterest-p"></i></a>
-					<a href=""><i class="fa-brands fa-square-x-twitter"></i></a>
-					<a href=""><i class="fa-brands fa-linkedin"></i></a>
+					<a href="https://web.facebook.com/" target="_blank"><i class="fa-brands fa-square-facebook"></i></a>
+					<a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+					<a href="https://www.snapchat.com/" target="_blank"><i class="fa-brands fa-snapchat"></i></a>
+					<a href="https://www.pinterest.com/" target="_blank"><i class="fa-brands fa-pinterest-p"></i></a>
+					<a href="https://x.com/" target="_blank"><i class="fa-brands fa-square-x-twitter"></i></a>
+					<a href="https://www.linkedin.com/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
 				</div>
 				<p class="copyright">Powered by <a href="">VietTravel</a></p>
 			</div>
@@ -380,9 +399,8 @@
 				<i class="modal-header-icon ti-bag"></i>
 				Tour
 			</header>
-			<label for=""></label>
 			<div class="modal-body">
-				<label for="choice-place" class="modal-label">
+				<label class="modal-label">
 					<i class="fa-solid fa-face-smile-wink"></i>
 					Choose a province you want to explore!
 				</label>
@@ -412,9 +430,8 @@
 				<i class="modal-header-icon ti-bag"></i>
 				Tour
 			</header>
-			<label for=""></label>
 			<div class="modal-body">
-				<label for="choice-place" class="modal-label">
+				<label class="modal-label">
 					<i class="fa-solid fa-face-smile-wink"></i>
 					Choose a few provinces and cities you want to explore!
 				</label>
@@ -444,9 +461,8 @@
 				<i class="modal-header-icon ti-bag"></i>
 				Tour
 			</header>
-			<label for=""></label>
 			<div class="modal-body">
-				<label for="choice-place" class="modal-label">
+				<label class="modal-label">
 					<i class="fa-solid fa-face-smile-wink"></i>
 					10 tourist destinations are waiting for you!
 				</label>
@@ -456,7 +472,7 @@
 				</label>
 				<button id="btn-book-3" class="buy-tour">
 					Reserve <i class="ti-check"></i>
-				</buttonid="btn-book-1">
+				</button>
 			</div>
 
 			<footer class="modal-footer">
@@ -492,7 +508,7 @@
 	<script src="/js/js_cart/book_tour.js"></script>	
 	<script src="/js/reset_cart.js"></script>
 	<script src="/js/search/search_toward.js"></script>
-	<script src="js/home_page.js"></script>
+	<script src="/js/home_page.js"></script>
 	<!-- End JS-->
 	
 </body>

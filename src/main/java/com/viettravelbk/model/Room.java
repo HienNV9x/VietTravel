@@ -44,7 +44,7 @@ public class Room extends BaseEntity{ 						//Nhận dữ liệu dưới dạng 
 	@Column(name="userIdLike")
 	private String userIdLike;
 	
-    @ManyToOne												//Table news - category: n-1					
+    @ManyToOne												//Table rooms - category: n-1
     @JoinColumn(name = "category_id") 				
     private Category category;
     
