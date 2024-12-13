@@ -13129,60 +13129,8 @@ table.table-5 td {
   right: 77px;
 }
 
-/*CSS Hover Cart*/
-strong {
-    font-weight: 600
-}
-
-ul#top_tools {
-    list-style: none;
-    padding: 0;
-    position: absolute;
-    right: 3px;
-    top: 48px;
-    z-index: 999;
-}
-
-ul#top_tools a {
-    color: #000;
-}
-
-ul#top_tools a:hover {
-    color: #e04f67
-}
-
-.sticky ul#top_tools a {
-    color: #333
-}
-
-ul#top_tools li {
-    display: inline-block;
-    padding: 0 10px
-}
-
-ul#top_tools li i {
+/*Add Tab Header*/
+#nav-first .slogan p {
     font-size: 26px;
-    font-weight: 400
-}
-
-a.cart_bt {
-    position: relative
-}
-
-a.cart_bt strong {
-    font-size: 11px;
-    width: 15px;
-    height: 15px;
-    display: block;
-    background-color: #e04f67;
-    color: #fff;
-    text-align: center;
-    position: absolute;
-    /*bottom: -5px;*/
-    bottom: -1px;
-    right: -8px;
-    line-height: 15px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%
+    color: #000;
 }

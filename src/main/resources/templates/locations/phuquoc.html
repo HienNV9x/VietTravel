@@ -6,7 +6,6 @@
   <title>VietTravel</title>
   <link rel="icon" href="/img_more/home/viettravel_logo_4.png" type="image/x-icon" />
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/responsive.css">
   <link rel="stylesheet" href="/fonts/themify-icons/themify-icons.css">
   <link rel="stylesheet" href="/fonts_awesome/fontawesome-free-6.4.2-web/css/all.min.css">
 
@@ -25,104 +24,113 @@
   <!-- ----------- -->
   <!-- Template Main CSS File -->
   <link rel="stylesheet" href="/css/message.css">
-  <link href="/css/style_more.css.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style_more.css.css">
   <link rel="stylesheet" href="/css/more_object.css">
   
 </head>
 <body>
   <!-- ======= Header ======= -->
   <div id="header">
-    <!-- Begin: nav -->
-    <ul id="nav">
-        <li><a href="/#">Home</a></li>
-        <li><a href="/#introduce">Introduce</a></li>
-        <li>
-            <a href="#">Tour <i class="nav-arrow-down ti-angle-down"></i></a>
-            <ul class="list-tour">
-                <li><a href="#">North</a>
-                    <ul class="tour-north">
-                       <li><a href="/viettravel/hagiang" target="_blank">Ha Giang</a></li>
-                       <li><a href="/viettravel/hanoi" target="_blank">Ha Noi</a></li>
-                       <li><a href="/viettravel/halong" target="_blank">Ha Long</a></li>
-                       <li><a href="/viettravel/ninhbinh" target="_blank">Ninh Binh</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Central Region</a>
-                    <ul class="tour-central">
-                       <li><a href="/viettravel/danang" target="_blank">Da Nang</a></li>
-                       <li><a href="/viettravel/hoian" target="_blank">Hoi An</a></li>
-                       <li><a href="/viettravel/dalat" target="_blank">Da Lat</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">South</a>
-                    <ul class="tour-south">
-                      <li><a href="/viettravel/tphcm" target="_blank">Ho Chi Minh City</a></li>
-                      <li><a href="/viettravel/phuquoc" target="_top">Phu Quoc</a></li>
-                      <li><a href="/viettravel/camau" target="_blank">Ca Mau</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        <li><a href="/#package_tour">Package Tour</a></li>
-        <li><a href="/#member">Member</a></li>
-        <li>
-            <a href="#">
-                More
-                <i class="nav-arrow-down ti-angle-down"></i>
-            </a>
-            <ul class="subnav">
-              <li><a href="/viettravel/more" target="_blank">About Us</a></li>
-              <li><a href="/viettravel/more#services-main" target="_blank">Services</a></li>
-              <li><a href="/viettravel/more#system-main" target="_blank">System</a></li>
-            </ul>
-        </li>
-    </ul>
-    <!-- End: nav -->
-            <!-- Begin: Login - Register -->
-            <div class="log-reg">
-				<div>
-					<button sec:authorize="not isAuthenticated()" class="log"><a href="/login">Login</button>
-					<button sec:authorize="isAuthenticated()" class="log">
-						<form id="logoutForm" method="POST" th:action="@{/logout}">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-						</form>
-						<a onclick="document.forms['logoutForm'].submit()">Logout</a>
-					</button>
-					
-					<button sec:authorize="not isAuthenticated()" class="reg"><a href="/#member">Sign up</a></button>
-				</div>
-				
-				<div sec:authorize="isAuthenticated()" class="user">
-					<form method="GET" th:object="${userForm}" th:action="@{/viettravel/role}">
-						<button class="check_role">
-							<img class="user-login" th:src="@{/img_more/testimonials/user.jpg}">
-						</button>
-					</form>
-                </div>
-            </div>
-            <!-- End: Login - Register -->
-            <!-- Begin: search button-->
-            <div class="search-btn">
-                <input id="search-input" class="input-btn" type="text" placeholder="Search..." />
-                <button class="btn-header">
-                    <i class="search-icon ti-search"></i>
-                </button>
-            </div>
+      <!-- Begin: nav-first -->
+      <div id="nav-first">
+          <div class="header-logo">
+              <a href="/"><img alt="image" class="img-fluid" src="/img_more/home/viettravel_logo_4.png"></a>
+              <a href="/" class="logo-dashboard">VietTravel</a>
+          </div>
+          <div class="slogan">
+              <p>Your one stop gateway to VietNam</p>
+              <img src="/img_more/home/Flag-VN.png" alt="VietNam">
+          </div>
 
-            <div id="mobile-menu" class="mobile-menu-btn">
-                <i class="menu-icon ti-menu"></i>
-            </div>
-            <!-- End: search button-->
-			<!-- Hover Cart -->
-			<ul id="top_tools">
-			  <li>
-			    <div>
-			      <a href="/cart" target="_blank" class="cart_bt"><i class="ti-shopping-cart"></i><strong id="numberOfProducts">0</strong></a>
-			    </div>
-			  </li>
-			</ul>
+          <!-- Begin: Login - Register -->
+          <div class="log-reg">
+              <!-- Hover Cart -->
+              <ul id="top_tools">
+                  <li>
+                      <div>
+                          <a href="/cart" target="_blank" class="cart_bt"><i class="ti-shopping-cart"></i><strong id="numberOfProducts">0</strong></a>
+                      </div>
+                  </li>
+              </ul>
+              <div>
+                  <button sec:authorize="not isAuthenticated()" class="log"><a href="/login">Login</a></button>
+                  <button sec:authorize="isAuthenticated()" class="log">
+                      <form id="logoutForm" method="POST" th:action="@{/logout}">
+                          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                      </form>
+                      <a onclick="document.forms['logoutForm'].submit()">Logout</a>
+                  </button>
+                  <button sec:authorize="not isAuthenticated()" class="reg"><a href="#member">Sign up</a></button>
+              </div>
+              <div sec:authorize="isAuthenticated()" class="user">
+                  <form method="GET" th:object="${userForm}" th:action="@{/viettravel/role}" class="img_user">
+                      <button class="check_role">
+                          <img class="user-login" th:src="@{/img_more/testimonials/user.jpg}">
+                      </button>
+                  </form>
+              </div>
+          </div>
+          <!-- End: Login - Register -->
+      </div>
+      <!-- End: nav-first -->
+      <!-- Begin: nav -->
+      <ul id="nav" class="tabs">
+          <li><a href="/#" target="_blank"><i class="ti-home nav-icon"></i>Home</a></li>
+          <li><a href="/#introduce" target="_blank"><i class="ti-star nav-icon"></i>Introduce</a></li>
+          <li>
+              <a href="#"><i class="ti-map-alt nav-icon"></i>Tour <i class="nav-arrow-down ti-angle-down"></i></a>
+              <ul class="list-tour">
+                  <li><a href="#">North</a>
+                      <ul class="tour-north">
+                          <li><a href="/viettravel/hagiang" target="_blank">Ha Giang</a></li>
+                          <li><a href="/viettravel/hanoi" target="_blank">Ha Noi</a></li>
+                          <li><a href="/viettravel/halong" target="_blank">Ha Long</a></li>
+                          <li><a href="/viettravel/ninhbinh" target="_blank">Ninh Binh</a></li>
+                      </ul>
+                  </li>
+                  <li>
+                      <a href="#">Central Region</a>
+                      <ul class="tour-central">
+                          <li><a href="/viettravel/danang" target="_blank">Da Nang</a></li>
+                          <li><a href="/viettravel/hoian" target="_blank">Hoi An</a></li>
+                          <li><a href="/viettravel/dalat" target="_blank">Da Lat</a></li>
+                      </ul>
+                  </li>
+                  <li>
+                      <a href="#">South</a>
+                      <ul class="tour-south">
+                          <li><a href="/viettravel/tphcm" target="_blank">Ho Chi Minh City</a></li>
+                          <li><a href="/viettravel/phuquoc" target="_blank">Phu Quoc</a></li>
+                          <li><a href="/viettravel/camau" target="_blank">Ca Mau</a></li>
+                      </ul>
+                  </li>
+              </ul>
+          </li>
+          <li><a href="/#package_tour" target="_blank"><i class="ti-flag-alt nav-icon"></i>Package Tour</a></li>
+          <li><a href="/#member" target="_blank"><i class="ti-face-smile nav-icon"></i>Member</a></li>
+          <li>
+              <a href="/viettravel/more" target="_blank">
+                  <i class="ti-shine nav-icon"></i>
+                  More
+                  <i class="nav-arrow-down ti-angle-down"></i>
+              </a>
+              <ul class="subnav">
+                  <li><a href="/viettravel/more" target="_blank">About Us</a></li>
+                  <li><a href="/viettravel/more#services-main" target="_blank">Services</a></li>
+                  <li><a href="/viettravel/more#system-main" target="_blank">System</a></li>
+              </ul>
+          </li>
+      </ul>
+      <!-- End: nav -->
+      <!-- Begin: search button-->
+      <div class="search-btn">
+          <input id="search-input" class="input-btn" type="text" placeholder="Search..." />
+          <button class="btn-header">
+              <i class="search-icon ti-search"></i>
+          </button>
+      </div>
+      <div id="mobile-menu" class="mobile-menu-btn"></div>
+      <!-- End: search button-->
   </div>
   <!-- End Header -->
 

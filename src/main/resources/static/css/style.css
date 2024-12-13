@@ -58,7 +58,7 @@ html {
     right: 0;
     height: 94.5px;
     background-color: #000;
-    z-index: 1;
+    z-index: 999;
 }
 
 /*---------- Begin: nav-first -----------*/
@@ -177,6 +177,10 @@ html {
 #header .log-reg .user:hover {
 	cursor: pointer;
 }
+#header .log-reg .img_user {
+    height: 44px;
+}
+
 /* ---------End: Login-Register--*/
 /* ---------Begin: Hover Cart----*/
 strong {

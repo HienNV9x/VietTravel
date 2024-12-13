@@ -58,7 +58,7 @@
           <button sec:authorize="not isAuthenticated()" class="reg"><a href="#member">Sign up</a></button>
         </div>
         <div sec:authorize="isAuthenticated()" class="user">
-          <form method="GET" th:object="${userForm}" th:action="@{/viettravel/role}">
+          <form method="GET" th:object="${userForm}" th:action="@{/viettravel/role}" class="img_user">
             <button class="check_role">
               <img class="user-login" th:src="@{/img_more/testimonials/user.jpg}">
             </button>
@@ -70,8 +70,8 @@
     <!-- End: nav-first -->
     <!-- Begin: nav -->
     <ul id="nav" class="tabs">
-      <li class="tab-item active"><a href="/#"><i class="ti-home nav-icon"></i>Home</a></li>
-      <li class="tab-item"><a href="/#introduce"><i class="ti-star nav-icon"></i>Introduce</a></li>
+      <li class="tab-item active"><a href="/#" target="_blank"><i class="ti-home nav-icon"></i>Home</a></li>
+      <li class="tab-item"><a href="/#introduce" target="_blank"><i class="ti-star nav-icon"></i>Introduce</a></li>
       <li class="tab-item">
         <a href="#"><i class="ti-map-alt nav-icon"></i>Tour <i class="nav-arrow-down ti-angle-down"></i></a>
         <ul class="list-tour">
@@ -101,8 +101,8 @@
           </li>
         </ul>
       </li>
-      <li class="tab-item"><a href="/#package_tour"><i class="ti-flag-alt nav-icon"></i>Package Tour</a></li>
-      <li class="tab-item"><a href="/#member"><i class="ti-face-smile nav-icon"></i>Member</a></li>
+      <li class="tab-item"><a href="/#package_tour" target="_blank"><i class="ti-flag-alt nav-icon"></i>Package Tour</a></li>
+      <li class="tab-item"><a href="/#member" target="_blank"><i class="ti-face-smile nav-icon"></i>Member</a></li>
       <li class="tab-item">
         <a href="/viettravel/more" target="_blank">
           <i class="ti-shine nav-icon"></i>
@@ -115,7 +115,6 @@
           <li><a href="/viettravel/more#system-main" target="_blank">System</a></li>
         </ul>
       </li>
-      <div class="line"></div>
     </ul>
     <!-- End: nav -->
     <!-- Begin: search button-->
