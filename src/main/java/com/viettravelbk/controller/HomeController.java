@@ -117,5 +117,5 @@ public class HomeController {
     public String qrcode() {
     	return "admin_user/user/popup_qrcode";
     }
-    
+
 }
