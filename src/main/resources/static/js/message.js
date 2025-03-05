@@ -10,7 +10,7 @@ function showSuccess1(){
 function showSuccess2(){
 	notification({
 		title: "Success!",
-		message: "You have successfully booked a long-term Tour",
+		message: "You have successfully booked a Long-Term Tour",
 		type: "success",
 		duration: 5000
 	});
@@ -43,6 +43,24 @@ function showSuccessToast_2() {
 	});
 }
 
+function showSuccessToast_Email_1() {
+	notification({
+		title: "Success!",
+		message: "Notification has been sent successfully via Email",
+		type: "success",
+		duration: 5000
+	});
+}
+
+function showSuccessToast_Email_2() {
+	notification({
+		title: "Success!",
+		message: "Invoice has been sent successfully via Email",
+		type: "success",
+		duration: 5000
+	});
+}
+
 function showWarningToast() {
 	notification({
 		title: "Warning!",
@@ -70,15 +88,6 @@ function showWarningToast_3() {
 	});
 }
 
-function showErrorToast() {
-	notification({
-		title: "Error!",
-		message: "Please log in to use this feature",
-		type: "error",
-		duration: 5000
-	});
-}
-
 function showWarningToastComment() {
 	notification({
 		title: "Warning!",
@@ -88,20 +97,38 @@ function showWarningToastComment() {
 	});
 }
 
-function showSuccessToast_Email_1() {
+function showWarningToast_Check() {
 	notification({
-		title: "Success!",
-		message: "Notification has been sent successfully via Email",
-		type: "success",
+		title: "Warning!",
+		message: "Please check the product information and Payment amount again",
+		type: "warning",
 		duration: 5000
 	});
 }
 
-function showSuccessToast_Email_2() {
+function showWarningBook_Service() {
 	notification({
-		title: "Success!",
-		message: "Invoice has been sent successfully via Email",
-		type: "success",
+		title: "Warning!",
+		message: "Please book services!",
+		type: "warning",
+		duration: 5000
+	});
+}
+
+function showWarningFirt_Confirm() {
+	notification({
+		title: "Warning!",
+		message: "Please confirm your cart first",
+		type: "warning",
+		duration: 5000
+	});
+}
+
+function showErrorToast() {
+	notification({
+		title: "Error!",
+		message: "Please log in to use this feature",
+		type: "error",
 		duration: 5000
 	});
 }
@@ -129,15 +156,6 @@ function showErrorToast_Email_3() {
 		title: "Error!",
 		message: "Failed to send email. Please try again later",
 		type: "error",
-		duration: 5000
-	});
-}
-
-function showWarningToast_Check() {
-	notification({
-		title: "Warning!",
-		message: "Please check the product information and Payment amount again",
-		type: "warning",
 		duration: 5000
 	});
 }

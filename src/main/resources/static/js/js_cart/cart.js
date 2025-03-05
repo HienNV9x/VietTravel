@@ -5,7 +5,6 @@ let products = JSON.parse(localStorage.getItem('cart')) || [];
 // Tính số lượng phần tử Room
 let numberOfItemsRoom = products.length;
 
-
 // === TRUY CẬP VÀO CÁC THÀNH PHẦN ===
 let productsEle = document.querySelector('.products');
 let subTotalEl = document.querySelector('.subtotal');
@@ -136,7 +135,16 @@ function updateTotalMoney(arr) {
     const pre_tax = totalMoney - (totalMoney*(0.05 + discount/100));        
     const vat = pre_tax * 0.1;
     vatEl.innerText = "$" + vat.toFixed(2);           		//Tính VAT, làm tròn và chuyển thành chuỗi
-    totalEle.innerText = "$" + (pre_tax + vat).toFixed(2);  
+    const paymentTotal = pre_tax + vat;
+    totalEle.innerText = "$" + paymentTotal.toFixed(2);
+
+    const totalCrypto = document.querySelector('#total-crypto');
+    const firstPaymentCrypto = document.querySelector('#crypto-payment-first');
+    const secondPaymentCrypto = document.querySelector('#crypto-payment-second');
+    const paymentTotalCrypto = (paymentTotal/2080.90).toFixed(4);
+    totalCrypto.innerText = paymentTotalCrypto;
+    firstPaymentCrypto.innerText = (paymentTotalCrypto*0.2).toFixed(4);
+    secondPaymentCrypto.innerText = (paymentTotalCrypto-paymentTotalCrypto*0.2).toFixed(4);
 }
 
 //window.onload = renderUI(products);
@@ -643,22 +651,101 @@ function handleRevenueForm(){											//khi click vào phần tử button thì
 }
 
 // Thêm sự kiện click cho button CONFIRM
+var clickConfirm = false;
 document.querySelector('#confirm').addEventListener('click', function(event) {
-  //alert('Please check the product information and Payment amount again');
-  showWarningToast_Check();
-  
-  event.preventDefault(); 												// Ngăn chặn hành vi mặc định của form nếu có
-  Promise.all([
-       updateRooms().then(() => {
-          updateTotalMoney();
-    	  }),
-       updateCuisine(),
-       updateIntertainment(),
-       //updateMove()
-   ]).then(() => {
-       handleRevenueForm();                                            
-  });
+    event.preventDefault(); 										    // Ngăn chặn hành vi mặc định của form nếu có
+	fetch('/api/userId')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('User not authenticated');
+            }
+            return response.json();
+        })
+        .then(() => {
+            return Promise.all([
+                updateRooms().then(() => {
+                   updateTotalMoney();
+                }),
+                   updateCuisine(),
+                   updateIntertainment(),
+                   clickConfirm = true,
+            ]);
+        })
+        .then(() => {
+            if(quantityProducts == 0){
+                showWarningBook_Service();
+            } else if(quantityProducts != 0){
+                showWarningToast_Check();
+                handleRevenueForm();
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user ID:', error);
+            showErrorToast();
+        });
 });
+
+// Thêm sự kiện click cho button CHECK OUT
+document.querySelector('#createVNPay').addEventListener('click', function(event) {
+    event.preventDefault();
+    handlePayment('/viettravel/pay');
+    //sendEmail();                                                        //Gửi InvoicePDF
+});
+document.querySelector('#createQRCode').addEventListener('click', function(event) {
+    event.preventDefault();
+    handlePayment('/viettravel/qrcode');
+});
+document.querySelector('#createCrypto').addEventListener('click', function(event) {
+    event.preventDefault();
+    fetch('/api/userId')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('User not authenticated');
+            }
+            return response.json();
+        })
+        .then(() => {
+            if (clickConfirm && quantityProducts != 0) {
+                $.magnificPopup.close();                         // Đóng popup PAY
+                setTimeout(() => {                               // Mở popup CRYPTO
+                    $.magnificPopup.open({
+                        items: {
+                            src: '#pay-dialog-crypto'
+                        },
+                        type: 'inline',
+                        midClick: true
+                    });
+                }, 300);                                         // Thêm độ trễ nhỏ để đảm bảo đóng popup trước khi mở cái mới
+            } else {
+                showWarningFirt_Confirm();
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user ID:', error);
+            showErrorToast();
+        });
+});
+
+function handlePayment(url) {
+    fetch('/api/userId')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('User not authenticated');
+            }
+            return response.json();
+        })
+        .then(() => {
+            if(clickConfirm && quantityProducts != 0){
+                window.open(url, '_blank');
+            } else {
+                showWarningFirt_Confirm();
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user ID:', error);
+            showErrorToast();
+        });
+}
 
 // Gọi API gửi email PDF
 var emailApi = 'http://localhost:8080/send_email_attachment';			//api gửi mail file pdf thông tin đặt phòng
@@ -667,19 +754,12 @@ function sendEmail() {
     .then(response => {
       if (response.ok) {
 		showSuccessToast_Email_2();
-        //alert("Email has been sent successfully!");
       } else {
 		showErrorToast_Email_3();
-        //alert("Failed to send email. Please try again later.");
       }
     })
     .catch(error => {
       console.error('Error:', error);
       showErrorToast_Email_2();
-      //alert("An error occurred. Please try again later.");
     });
 }
-//Click Button PAY sẽ gửi InvoicePDF
-document.querySelector('#createVNPay').addEventListener('click', function(event) {
-	sendEmail();
-});

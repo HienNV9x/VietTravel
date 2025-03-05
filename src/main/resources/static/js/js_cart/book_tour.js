@@ -1,3 +1,67 @@
+//Click Hidden Button BookTour and Reserve
+const buyBtns = document.querySelector('.js-buy-tour')
+const buyBtnss = document.querySelector('.js-buy-tour-2')
+const buyBtnsss = document.querySelector('.js-buy-tour-3')
+
+const modal = document.querySelector('.js-modal')
+const modals = document.querySelector('.js-modal-2')
+const modalss = document.querySelector('.js-modal-3')
+
+const modalClose = document.querySelector('.js-modal-close')
+const modalClosee = document.querySelector('.js-modal-close-2')
+const modalCloseee = document.querySelector('.js-modal-close-3')
+
+const modalContainer = document.querySelector('.js-modal-container')
+const modalContainerr = document.querySelector('.js-modal-container-2')
+const modalContainerrr = document.querySelector('.js-modal-container-3')
+
+//Hàm hiển thị modal mua vé(thêm class open vào modal)
+function showBuyTours() {
+    modal.classList.add('open')
+}
+function showBuyTourss() {
+    modals.classList.add('open')
+}
+function showBuyToursss() {
+    modalss.classList.add('open')
+}
+
+//Hàm ẩn modal mua vé (gỡ bỏ class open của modal)
+function hideBuyTours() {
+    modal.classList.remove('open')
+}
+function hideBuyTourss() {
+    modals.classList.remove('open')
+}
+function hideBuyToursss() {
+    modalss.classList.remove('open')
+}
+
+buyBtns.addEventListener('click', showBuyTours)
+buyBtnss.addEventListener('click', showBuyTourss)
+buyBtnsss.addEventListener('click', showBuyToursss)
+
+//Nghe hành vi click vào button close
+modalClose.addEventListener('click', hideBuyTours)
+modalClosee.addEventListener('click', hideBuyTourss)
+modalCloseee.addEventListener('click', hideBuyToursss)
+
+modal.addEventListener('click', hideBuyTours)
+modals.addEventListener('click', hideBuyTourss)
+modalss.addEventListener('click', hideBuyToursss)
+
+modalContainer.addEventListener('click', function (event) {
+    event.stopPropagation()
+})
+modalContainerr.addEventListener('click', function (event) {
+    event.stopPropagation()
+})
+modalContainerrr.addEventListener('click', function (event) {
+    event.stopPropagation()
+})
+
+// ---------------------------------------------------------------
+//Click display message
 var bookTour1 = document.getElementById('btn-book-1');
 var bookTour2 = document.getElementById('btn-book-2');
 var bookTour3 = document.getElementById('btn-book-3');
@@ -37,14 +101,15 @@ let stack = new Stack();
 // Thêm các phần tử vào ngăn xếp và cập nhật discount
 function bookTour(tourId) {
 	stack.push(tourId);
-	//console.log(stack.peek());
-	localStorage.setItem('discount', stack.peek()); // Lưu phần tử trên cùng trong stack vào localStorage
-	//console.log("Front index.html => discount: " + stack.peek());
+	localStorage.setItem('discount', stack.peek());             // Lưu phần tử trên cùng trong stack vào localStorage
 	if(tourId == 5){
+	    hideBuyTours();
 		showSuccess1();
 	}else if(tourId == 8){
+	    hideBuyTourss();
 		showSuccess2();
 	}else if(tourId == 10){
+	    hideBuyToursss();
 		showSuccess3();
 	}
 }

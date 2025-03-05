@@ -19,6 +19,7 @@
     href="/img_more/img/img_cart/apple-touch-icon-144x144-precomposed.png">
   <link rel="stylesheet" href="/fonts/themify-icons/themify-icons.css">
   <link rel="stylesheet" href="/fonts_awesome/fontawesome-free-6.4.2-web/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' />
 
   <!-- Vendor CSS Files -->
@@ -342,7 +343,7 @@
                     SubTotal
                   </td>
                   <td class="text-end subtotal">
-                    $2
+                    $0.00
                   </td>
                 </tr>
                 <tr>
@@ -366,7 +367,7 @@
                     VAT
                   </td>
                   <td class="text-end vat">
-                    $34
+                    $0.00
                   </td>
                 </tr>
                 <tr class="total">
@@ -374,7 +375,7 @@
                     Total cost
                   </td>
                   <td class="text-end totalEle">
-                    $154
+                    $0.00
                   </td>
                 </tr>
               </tbody>
@@ -386,7 +387,7 @@
             <i class="icon_set_1_icon-57"></i>
             <h4>Need <span>Help?</span></h4>
             <a href="tel://004542344599" class="phone">+84 966 68 0989</a>
-            <small>Monday to Friday 9.00am - 7.30pm</small>
+            <small>Monday to Friday 8.00am - 5.30pm</small>
           </div>
         </aside>
         <!-- End aside -->
@@ -397,21 +398,40 @@
   </main>
   <!-- End Main -->
 
-  <!-- Sign In Popup -->
+  <!-- Display Popup PAY -->
   <div id="pay-dialog" class="zoom-anim-dialog mfp-hide">
     <div class="small-dialog-header">
       <h3>PAY</h3>
     </div>
     <form>
       <div class="sign-in-wrapper">
-        <a th:href="@{/viettravel/pay}" class="social_bt facebook" target="_blank" id="createVNPay">Payment via VNPay</a>
+        <a class="social_bt facebook" id="createVNPay">Payment via VNPay</a>
         <div class="divider"><span>Or</span></div>
-        <a th:href="@{/viettravel/qrcode}" class="social_bt google" target="_blank">Payment via QRCode Bank</a>
+        <a class="social_bt google" id="createQRCode">Payment via QRCode Bank</a>
+        <div class="divider"><span>Or</span></div>
+        <a class="social_bt crypto" id="createCrypto">Payment via Crypto Currency</a>
       </div>
     </form>
-    <!--form -->
   </div>
-  <!-- /Sign In Popup -->
+  <!-- /Display Popup PAY-->
+
+  <!-- Display Popup CRYPTO-->
+  <div id="pay-dialog-crypto" class="zoom-anim-dialog mfp-hide">
+    <div class="small-dialog-header-crypto">
+      <h3 class="title">PAY BY SMART CONTRACT</h3>
+      <span class="popup-smartContract-close">&times</span>
+    </div>
+    <form>
+      <div class="sign-in-wrapper">
+          <p><i class="fas fa-receipt"></i> TOTAL COST: <span id="total-crypto"></span> ETH with conversion rate 1 ETH = 2080.90 USD</p>
+          <p><i class="fas fa-coins"></i> DEPOSIT(20%): <span id="crypto-payment-first"></span> ETH payment within 1 hour after order confirmation</p>
+          <p><i class="fas fa-clock"></i> REMAINING(80%): <span id="crypto-payment-second"></span> ETH payment 24 hours before check-in date</p>
+          <p><i class="fas fa-envelope"></i> Confirmation information will be sent to your registered email</p>
+          <button class="confirm-button">CONFIRM</button>
+      </div>
+    </form>
+  </div>
+  <!-- /Display Popup CRYPTO-->
 
   <!-- Footer -->
   <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
@@ -498,7 +518,7 @@
   <script src="/js/reset_cart.js"></script>	  
   <script src="/js/search/search_toward.js"></script>
   <script src="/js/js_cart/cart.js"></script>
-  <script src="/js/js_cart/cart_first.js"></script> 
+  <script src="/js/js_cart/cart_first.js"></script>
 
 </body>
 </html>
