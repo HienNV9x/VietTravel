@@ -116,6 +116,7 @@ function changeTotalProduct(id, e) {
 }
 
 // Cập nhật tổng tiền
+var paymentTotalCrypto;
 function updateTotalMoney(arr) {
     // Tính tổng tiền cart
     let totalMoney = 0;
@@ -141,11 +142,33 @@ function updateTotalMoney(arr) {
     const totalCrypto = document.querySelector('#total-crypto');
     const firstPaymentCrypto = document.querySelector('#crypto-payment-first');
     const secondPaymentCrypto = document.querySelector('#crypto-payment-second');
-    const paymentTotalCrypto = (paymentTotal/2080.90).toFixed(4);
+    paymentTotalCrypto = (paymentTotal/2080.90).toFixed(4);
     totalCrypto.innerText = paymentTotalCrypto;
     firstPaymentCrypto.innerText = (paymentTotalCrypto*0.2).toFixed(4);
     secondPaymentCrypto.innerText = (paymentTotalCrypto-paymentTotalCrypto*0.2).toFixed(4);
 }
+
+//Payment Crypto Currency
+var cryptoPaymentApi = 'http://localhost:8080/api/smartcontract/update-room-rent';
+    function createRoomRent(data){
+        var options = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    };
+    fetch(cryptoPaymentApi, options)
+        .then(response => response.json())
+    }
+document.querySelector('.confirm-button').addEventListener('click', function(event) {
+    event.preventDefault();
+    var formData = {
+        roomRent: paymentTotalCrypto
+    };
+    createRoomRent(formData);
+    $.magnificPopup.close();
+});
 
 //window.onload = renderUI(products);
 window.onload = function() {

@@ -40,7 +40,8 @@ public class EmailConfig {
 	
 	@Autowired
 	private RevenueRepository revenueRepository;
-	
+
+    //Send Email via HTML
     @GetMapping("/send_html_email")
     public ResponseEntity<?> sendHTMLEmail() throws MessagingException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -94,7 +95,8 @@ public class EmailConfig {
         mailSender.send(message);       
         return ResponseEntity.ok().body("Email has been sent successfully!");	//Trả về status 200 OK khi gửi email thành công
     }
-    
+
+    //Send Email via PDF
 	@GetMapping("/send_email_attachment")
 	public ResponseEntity<?> sendHTMLEmailWithAttachment() throws MessagingException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -141,4 +143,81 @@ public class EmailConfig {
 		mailSender.send(message);
 		return ResponseEntity.ok().body("Email has been sent successfully!");		
 	}
+
+    //Send Email via Crypto Currency
+    public ResponseEntity<?> sendCryptoEmail(String transactionMessage) throws MessagingException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = "";
+        if (authentication != null) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetails) {
+                currentPrincipalName = ((UserDetails) principal).getUsername();
+            } else if (principal instanceof CustomOAuth2User) {
+                currentPrincipalName = ((CustomOAuth2User) principal).getName();
+            } else {
+                currentPrincipalName = principal.toString();
+            }
+        }
+        User user = userRepository.findByUsername(currentPrincipalName);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        String to = user.getEmail();
+        String from = "viettravel2509@gmail.com";
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        helper.setSubject("Your Information From VietTravel");
+        helper.setFrom(from);
+        helper.setTo(to);
+
+        boolean html = true;
+        helper.setText("<b>Hello " + user.getUsername() + "," + "</b><br>" +
+                "<p>Thank you very much for using VietTravel products! Crypto Currency Payment Information:</p>" +
+                "<p>" + transactionMessage + "</p>" +
+                "<p>If you need immediate assistance, please call us at +84966.68.0989.</p>" +
+                "<p>Best regards.</p>",html);
+        mailSender.send(message);
+        return ResponseEntity.ok().body("Email has been sent successfully!");
+    }
+
+    public ResponseEntity<?> sendCryptoEmailEvent(String transactionMessage) throws MessagingException {
+        System.out.println("Hello3");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("authentication2: " + authentication);
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Không thể xác định người dùng.");
+        }
+        String currentPrincipalName = "";
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof UserDetails) {
+            currentPrincipalName = ((UserDetails) principal).getUsername();
+        } else if (principal instanceof CustomOAuth2User) {
+            currentPrincipalName = ((CustomOAuth2User) principal).getName();
+        } else {
+            currentPrincipalName = principal.toString();
+        }
+        User user = userRepository.findByUsername(currentPrincipalName);
+        System.out.println("user: " + user);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        String to = user.getEmail();
+        String from = "viettravel2509@gmail.com";
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        helper.setSubject("Your Information From VietTravel");
+        helper.setFrom(from);
+        helper.setTo(to);
+
+        boolean html = true;
+        helper.setText("<b>Hello " + user.getUsername() + "," + "</b><br>" +
+                "<p>Thank you very much for using VietTravel products! Crypto Currency Payment Information:</p>" +
+                "<p>" + transactionMessage + "</p>" +
+                "<p>If you need immediate assistance, please call us at +84966.68.0989.</p>" +
+                "<p>Best regards.</p>",html);
+        mailSender.send(message);
+        return ResponseEntity.ok().body("Email has been sent successfully!");
+    }
 }

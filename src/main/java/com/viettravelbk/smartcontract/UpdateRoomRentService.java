@@ -1,5 +1,6 @@
 package com.viettravelbk.smartcontract;
 
+import com.viettravelbk.email.EmailConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
@@ -13,9 +14,11 @@ public class UpdateRoomRentService {
     BigInteger base = BigInteger.valueOf(10);
     BigInteger exponentation = base.pow(18);
     private final Twelve_SmartContract contract;
+    private final EmailConfig emailConfig;
     @Autowired
-    public UpdateRoomRentService(Twelve_SmartContract contract) {
+    public UpdateRoomRentService(Twelve_SmartContract contract, EmailConfig emailConfig) {
         this.contract = contract;
+        this.emailConfig = emailConfig;
     }
 
     public String updateTotalRoomRent(RoomRentCreateRequest createRequest) {
@@ -32,7 +35,10 @@ public class UpdateRoomRentService {
             // Gửi giao dịch tới Smart Contract với địa chỉ người thuê
             //TransactionReceipt receipt = contract.updateTotalRoomRent(newTotalRoomRent, createRequest.getRenterAddress()).send();
 
-            return "Cập nhật thành công số tiền thuê phòng " + amountInEther + " ETH Sepolia thông qua SmartContract trên mạng Ethereum Testnet Sepolia \nHash giao dịch: " + receipt.getTransactionHash();
+            String transactionMessage = "Cập nhật thành công số tiền thuê phòng " + amountInEther + " ETH Sepolia thông qua SmartContract trên mạng Ethereum Testnet Sepolia." +
+            "<br>Hash giao dịch: " + receipt.getTransactionHash();
+            emailConfig.sendCryptoEmail(transactionMessage);
+            return transactionMessage;
         } catch (Exception e) {
             e.printStackTrace();
             return "Lỗi cập nhật: " + e.getMessage();
