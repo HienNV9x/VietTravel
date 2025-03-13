@@ -33,7 +33,7 @@ public class Web3Config {
     public ContractGasProvider gasProvider() {
         return new StaticGasProvider(
                 Convert.toWei("50", Convert.Unit.GWEI).toBigInteger(),
-                BigInteger.valueOf(5000000)
+                BigInteger.valueOf(6000000)
         );
     }
 
@@ -43,8 +43,8 @@ public class Web3Config {
         return TwentySevenPaymentBookingRoom.load(contractAddress, web3j, credentials, gasProvider);
     }*/
     @Bean
-    public Twelve_SmartContract twentyFivePaymentBookingRoom(Web3j web3j, TransactionManager web3TransactionManager, ContractGasProvider gasProvider) {
-        String contractAddress = "0xb1382c94c03a5387b14a472a24321675e5f29ce7";
-        return Twelve_SmartContract.load(contractAddress, web3j, web3TransactionManager, gasProvider);
+    public Fifteen_SmartContract twentyFivePaymentBookingRoom(Web3j web3j, TransactionManager web3TransactionManager, ContractGasProvider gasProvider) {
+        String contractAddress = "0x197c021fe23ab845bb310338993f497377c82267";
+        return Fifteen_SmartContract.load(contractAddress, web3j, web3TransactionManager, gasProvider);
     }
 }

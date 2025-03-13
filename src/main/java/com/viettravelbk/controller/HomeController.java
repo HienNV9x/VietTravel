@@ -113,9 +113,9 @@ public class HomeController {
     }
     
     //QRCode
-    @GetMapping("/viettravel/qrcode")
+    /*@GetMapping("/viettravel/qrcode")
     public String qrcode() {
     	return "admin_user/user/popup_qrcode";
-    }
+    }*/
 
 }

@@ -8643,7 +8643,7 @@ only screen and (min-device-pixel-ratio: 2) and (max-width: 991px) {
     background: #fff;
     padding: 0px 30px 36px 30px;
     text-align: left;
-    max-width: 650px;
+    max-width: 644px;
     margin: 40px auto;
     position: relative;
     box-sizing: border-box;
@@ -8666,6 +8666,11 @@ only screen and (min-device-pixel-ratio: 2) and (max-width: 991px) {
 #pay-dialog-crypto .sign-in-wrapper p i {
     font-size: 18px;
     color: #ff6b6b; /* Màu nổi bật cho icon */
+}
+
+#pay-dialog-crypto .crypto-send-address {
+    width: 375px;
+    font-size: 15px;
 }
 
 .small-dialog-header-crypto {

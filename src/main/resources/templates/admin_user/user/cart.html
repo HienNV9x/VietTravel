@@ -24,7 +24,10 @@
 
   <!-- Vendor CSS Files -->
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"> 	
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- POPUP QRCODE CSS -->
+  <link href="/css/css_cart/popup_qrcode.css" rel="stylesheet">
 
   <!-- COMMON CSS -->
   <link rel="stylesheet" href="/css/message.css">
@@ -48,7 +51,7 @@
         <a href="/" class="logo-dashboard">VietTravel</a>
       </div>
       <div class="slogan">
-        <p>Your one stop gateway to VietNam</p>
+        <p>Vietnam – Timeless Charm</p>
         <img src="/img_more/home/Flag-VN.png" alt="VietNam">
       </div>
 
@@ -415,6 +418,33 @@
   </div>
   <!-- /Display Popup PAY-->
 
+  <!-- Display Popup QRCode -->
+  <div id="qrCodeBox" class="zoom-anim-dialog">
+    <div id="qrCodeSquareFrame">
+      <div class="centered">
+        <div id="qrcode">
+          <img src="/img_more/img/img_cart/QRCode.png" alt="">
+        </div>
+      </div>
+      <div class="text">
+        <p class="one">
+          Beneficiary: VietTravel
+        </p>
+        <p class="two">
+          Bank: MBBank
+        </p>
+        <p class="three">
+          Account: 0966680989
+        </p>
+        <p class="four">
+          Click PAY to receive invoice via Email
+        </p>
+        <button class="btn-pay-qr" id="qrcodeSendEmail">PAY</button>
+      </div>
+    </div>
+  </div>
+  <!-- /Display Popup QRCode-->
+
   <!-- Display Popup CRYPTO-->
   <div id="pay-dialog-crypto" class="zoom-anim-dialog mfp-hide">
     <div class="small-dialog-header-crypto">
@@ -426,6 +456,8 @@
           <p><i class="fas fa-receipt"></i> TOTAL COST: <span id="total-crypto"></span> ETH with conversion rate 1 ETH = 2080.90 USD</p>
           <p><i class="fas fa-coins"></i> DEPOSIT(20%): <span id="crypto-payment-first"></span> ETH payment within 1 hour after order confirmation</p>
           <p><i class="fas fa-clock"></i> REMAINING(80%): <span id="crypto-payment-second"></span> ETH payment 24 hours before check-in date</p>
+          <p><i class="fas fa-file-contract"></i> ETH RECEIVE ADDRESS: 0x197c021fe23ab845bb310338993f497377c82267</p>
+          <p><i class="fas fa-hand-holding-usd"></i> ETH SEND ADDRESS: <span><input class="crypto-send-address" name="crypto-sender" placeholder="Your e-wallet address to confirm transactions"></span> </p>
           <p><i class="fas fa-envelope"></i> Confirmation information will be sent to your registered email in a few minutes</p>
           <button class="confirm-button">CONFIRM</button>
       </div>
@@ -514,7 +546,8 @@
   <script src="/js/js_cart/common_scripts_min.js"></script>
   <script src="/js/js_cart/functions.js"></script>  
   
-  <script src="/js/message.js"></script> 
+  <script src="/js/message.js"></script>
+  <script src="/js/js_cart/qrcode.js"></script>
   <script src="/js/reset_cart.js"></script>	  
   <script src="/js/search/search_toward.js"></script>
   <script src="/js/js_cart/cart.js"></script>

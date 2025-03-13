@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Corben&family=Mulish&family=Outfit&family=Raleway:wght@300&display=swap");
 
-body {
+/*body {
   width: auto;
   height: 100vh;
   display: flex;
@@ -8,7 +8,7 @@ body {
   align-items: center;
   margin: 0px;
   background-color: #d3dfed;
-}
+}*/
 
 #qrCodeBox {
   height: 550px;
@@ -17,6 +17,7 @@ body {
   border: 1px solid #000;
   border-radius: 20px 20px 20px 20px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  margin: 0 auto;
 }
 
 #qrCodeSquareFrame {

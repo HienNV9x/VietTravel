@@ -8,6 +8,10 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+
+import com.viettravelbk.model.UserEmailCrypto;
+import com.viettravelbk.repository.UserEmailCryptoRepository;
+import com.viettravelbk.service.user_email_crypto.UserEmailCryptoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.domain.Page;									
@@ -40,6 +44,12 @@ public class EmailConfig {
 	
 	@Autowired
 	private RevenueRepository revenueRepository;
+
+    @Autowired
+    private UserEmailCryptoRepository userEmailCryptoRepository;
+
+    @Autowired
+    private UserEmailCryptoServiceImpl userEmailCryptoServiceImpl;
 
     //Send Email via HTML
     @GetMapping("/send_html_email")
@@ -80,19 +90,46 @@ public class EmailConfig {
         helper.setTo(to);
 
         boolean html = true;
-        helper.setText("<b>Hello " + user.getUsername() + "," + "</b><br>" +
-        			   "<p>Thank you very much for using VietTravel products! We confirm that you have registered to use the following services:</p>" +
-        			   "<p>Room booked: " + lastRevenue.getTitle_room() + "</p>" +
-        			   "<p>Sites: " + lastRevenue.getCategory_room() + "</p> "     +
-        			   "<p>Cuisine: " + lastRevenue.getCuisineLocal() + "</p>" +
-        			   "<p>Intertainment: " + lastRevenue.getIntertainmentLocal() +
-        			   "<p>Transport: " + lastRevenue.getMoveLocal() + 
-        			   "<p>The mount paid: "+ lastRevenue.getIncome() + " $</p>" +
-        			   "<p>After you Click Button \"PAY\", the payment invoice will be sent to your Email.</p>" + 
-        			   "<p>If you need immediate assistance, please call us at +84966.68.0989.</p>" + 
-        			   "<p>Best regards.</p>",html);
+        StringBuilder emailContent = new StringBuilder();
+        emailContent.append("<div style='font-family: Arial, sans-serif; padding: 20px; color: #333;'>")
+                .append("<h2 style='color: #2E86C1;'>Hello ").append(user.getUsername()).append(",</h2>")
+                .append("<p style='font-size: 16px;'>Thank you very much for using <strong>VietTravel</strong> products!</p>")
+                .append("<p style='font-size: 16px;'>We confirm that you have registered to use the following services:</p>")
+                .append("<hr style='border: 1px solid #ddd;'>");
 
-        mailSender.send(message);       
+        if (lastRevenue.getTitle_room() != null && !lastRevenue.getTitle_room().isEmpty()) {
+            emailContent.append("<p style='font-size: 16px;'><strong>Room booked:</strong> ")
+                    .append(lastRevenue.getTitle_room()).append("</p>");
+        }
+        if (lastRevenue.getCategory_room() != null && !lastRevenue.getCategory_room().isEmpty()) {
+            emailContent.append("<p style='font-size: 16px;'><strong>Sites:</strong> ")
+                    .append(lastRevenue.getCategory_room()).append("</p>");
+        }
+        if (lastRevenue.getCuisineLocal() != null && !lastRevenue.getCuisineLocal().isEmpty()) {
+            emailContent.append("<p style='font-size: 16px;'><strong>Cuisine:</strong> ")
+                    .append(lastRevenue.getCuisineLocal()).append("</p>");
+        }
+        if (lastRevenue.getIntertainmentLocal() != null && !lastRevenue.getIntertainmentLocal().isEmpty()) {
+            emailContent.append("<p style='font-size: 16px;'><strong>Entertainment:</strong> ")
+                    .append(lastRevenue.getIntertainmentLocal()).append("</p>");
+        }
+        if (lastRevenue.getMoveLocal() != null && !lastRevenue.getMoveLocal().isEmpty()) {
+            emailContent.append("<p style='font-size: 16px;'><strong>Transport:</strong> ")
+                    .append(lastRevenue.getMoveLocal()).append("</p>");
+        }
+        if (lastRevenue.getIncome() > 0) {
+            emailContent.append("<p style='font-size: 16px;'><strong>The amount paid:</strong> ")
+                    .append(lastRevenue.getIncome()).append(" $</p>");
+        }
+        emailContent.append("<p style='font-size: 16px;'>Please select the appropriate payment method.</p>")
+                .append("<p style='font-size: 16px;'>If you need immediate assistance, please call us at "
+                        + "<a href='tel:+84966680989' style='color: #E74C3C; text-decoration: none; font-weight: bold;'>+84966.68.0989</a>.</p>")
+                .append("<p style='font-size: 16px;'><strong>Best regards,</strong></p>")
+                .append("<p style='font-size: 16px; color: #2E86C1;'><strong>VietTravel Support Team</strong></p>")
+                .append("</div>");
+
+        helper.setText(emailContent.toString(), true);
+        mailSender.send(message);
         return ResponseEntity.ok().body("Email has been sent successfully!");	//Trả về status 200 OK khi gửi email thành công
     }
 
@@ -145,7 +182,7 @@ public class EmailConfig {
 	}
 
     //Send Email via Crypto Currency
-    public ResponseEntity<?> sendCryptoEmail(String transactionMessage) throws MessagingException {
+    public ResponseEntity<?> sendCryptoEmail(String transactionMessage, String renterAddress) throws MessagingException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = "";
         if (authentication != null) {
@@ -165,6 +202,12 @@ public class EmailConfig {
         String to = user.getEmail();
         String from = "viettravel2509@gmail.com";
 
+        UserEmailCrypto userEmailCrypto = new UserEmailCrypto();
+        userEmailCrypto.setUserName(currentPrincipalName);
+        userEmailCrypto.setEmail(to);
+        userEmailCrypto.setAddressAccount(renterAddress);
+        userEmailCryptoServiceImpl.save(userEmailCrypto);
+
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         helper.setSubject("Your Information From VietTravel");
@@ -172,37 +215,28 @@ public class EmailConfig {
         helper.setTo(to);
 
         boolean html = true;
-        helper.setText("<b>Hello " + user.getUsername() + "," + "</b><br>" +
-                "<p>Thank you very much for using VietTravel products! Crypto Currency Payment Information:</p>" +
-                "<p>" + transactionMessage + "</p>" +
-                "<p>If you need immediate assistance, please call us at +84966.68.0989.</p>" +
-                "<p>Best regards.</p>",html);
+        helper.setText(
+                "<div style='font-family: Arial, sans-serif; padding: 20px; color: #333;'>"
+                        + "<h2 style='color: #2E86C1;'>Hello " + user.getUsername() + ",</h2>"
+                        + "<p style='font-size: 16px;'>Thank you very much for using <strong>VietTravel</strong> products!</p>"
+                        + "<hr style='border: 1px solid #ddd;'>"
+                        + "<h3 style='color: #28B463;'>Crypto Currency Payment Information:</h3>"
+                        + "<p style='font-size: 16px; background: #f8f9fa; padding: 10px; border-left: 4px solid #28B463;'>"
+                        + transactionMessage + "</p>"
+                        + "<p style='font-size: 16px;'>If you need immediate assistance, please call us at "
+                        + "<a href='tel:+84966680989' style='color: #E74C3C; text-decoration: none; font-weight: bold;'>+84966.68.0989</a>.</p>"
+                        + "<p style='font-size: 16px;'><strong>Best regards,</strong></p>"
+                        + "<p style='font-size: 16px; color: #2E86C1;'><strong>VietTravel Support Team</strong></p>"
+                        + "</div>",
+                true);
         mailSender.send(message);
         return ResponseEntity.ok().body("Email has been sent successfully!");
     }
 
-    public ResponseEntity<?> sendCryptoEmailEvent(String transactionMessage) throws MessagingException {
-        System.out.println("Hello3");
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("authentication2: " + authentication);
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Không thể xác định người dùng.");
-        }
-        String currentPrincipalName = "";
-        Object principal = authentication.getPrincipal();
-        if (principal instanceof UserDetails) {
-            currentPrincipalName = ((UserDetails) principal).getUsername();
-        } else if (principal instanceof CustomOAuth2User) {
-            currentPrincipalName = ((CustomOAuth2User) principal).getName();
-        } else {
-            currentPrincipalName = principal.toString();
-        }
-        User user = userRepository.findByUsername(currentPrincipalName);
-        System.out.println("user: " + user);
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-        String to = user.getEmail();
+    //Send Email Event via Crypto Currency
+    public ResponseEntity<?> sendCryptoEmailEvent(String transactionMessage, String payerAddress) throws MessagingException {
+        UserEmailCrypto entity = userEmailCryptoRepository.findUserEmailCrypto(payerAddress);
+        String to = entity.getEmail();
         String from = "viettravel2509@gmail.com";
 
         MimeMessage message = mailSender.createMimeMessage();
@@ -212,11 +246,51 @@ public class EmailConfig {
         helper.setTo(to);
 
         boolean html = true;
-        helper.setText("<b>Hello " + user.getUsername() + "," + "</b><br>" +
-                "<p>Thank you very much for using VietTravel products! Crypto Currency Payment Information:</p>" +
-                "<p>" + transactionMessage + "</p>" +
-                "<p>If you need immediate assistance, please call us at +84966.68.0989.</p>" +
-                "<p>Best regards.</p>",html);
+        helper.setText(
+                "<div style='font-family: Arial, sans-serif; padding: 20px; color: #333;'>"
+                        + "<h2 style='color: #2E86C1;'>Hello " + entity.getUserName() + ",</h2>"
+                        + "<p style='font-size: 16px;'>Thank you very much for using <strong>VietTravel</strong> products!</p>"
+                        + "<hr style='border: 1px solid #ddd;'>"
+                        + "<h3 style='color: #28B463;'>Crypto Currency Payment Information:</h3>"
+                        + "<p style='font-size: 16px; background: #f8f9fa; padding: 10px; border-left: 4px solid #28B463;'>"
+                        + transactionMessage + "</p>"
+                        + "<p style='font-size: 16px;'>If you need immediate assistance, please call us at "
+                        + "<a href='tel:+84966680989' style='color: #E74C3C; text-decoration: none; font-weight: bold;'>+84966.68.0989</a>.</p>"
+                        + "<p style='font-size: 16px;'><strong>Best regards,</strong></p>"
+                        + "<p style='font-size: 16px; color: #2E86C1;'><strong>VietTravel Support Team</strong></p>"
+                        + "</div>",
+                true);
+        mailSender.send(message);
+        return ResponseEntity.ok().body("Email has been sent successfully!");
+    }
+
+    //Send Email Event PDF via Crypto Currency
+    public ResponseEntity<?> sendHTMLEmailWithAttachmentCrypto(String payerAddress) throws MessagingException {
+        UserEmailCrypto entity = userEmailCryptoRepository.findUserEmailCrypto(payerAddress);
+        //Danh sách các File PDF đã lưu
+        String directoryPath = "C:\\Users\\ADMIN\\eclipse-workspace\\VIETTRAVELBK\\src\\main\\resources\\static\\FilePDF\\FileExportPDF";
+        File dir = new File(directoryPath);
+        File[] files = dir.listFiles((d, name) -> name.startsWith("InvoiceVietTravel_" + entity.getUserName()) && name.endsWith(".pdf"));
+        if (files == null || files.length == 0) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No invoice file found for user.");
+        }
+
+        //Sắp xếp lại các File để tìm kiếm File có thời gian muộn nhất
+        File latestFile = Collections.max(Arrays.asList(files), Comparator.comparingLong(File::lastModified));
+
+        String from = "viettravel2509@gmail.com";
+        String to = entity.getEmail();
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setSubject("Your Invoice From VietTravel");
+        helper.setFrom(from);
+        helper.setTo(to);
+        helper.setText("<b>Dear friend</b>,<br><i>Here's your invoice.</i>", true);
+
+        FileSystemResource file = new FileSystemResource(latestFile);
+        helper.addAttachment(latestFile.getName(), file);
+
         mailSender.send(message);
         return ResponseEntity.ok().body("Email has been sent successfully!");
     }

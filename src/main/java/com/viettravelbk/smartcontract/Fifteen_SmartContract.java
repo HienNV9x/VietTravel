@@ -23,15 +23,15 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class Twelve_SmartContract extends Contract{
+public class Fifteen_SmartContract extends Contract{
     private static final String BINARY = "<SMART_CONTRACT_BINARY_HERE>";
 
-    protected Twelve_SmartContract(String contractAddress, Web3j web3j, TransactionManager credentials, ContractGasProvider gasProvider) {
+    protected Fifteen_SmartContract(String contractAddress, Web3j web3j, TransactionManager credentials, ContractGasProvider gasProvider) {
         super(BINARY, contractAddress, web3j, credentials, gasProvider);
     }
 
-    public static RemoteCall<Twelve_SmartContract> deploy(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
-        return deployRemoteCall(Twelve_SmartContract.class, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit), BINARY, "");
+    public static RemoteCall<Fifteen_SmartContract> deploy(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+        return deployRemoteCall(Fifteen_SmartContract.class, web3j, credentials, new StaticGasProvider(gasPrice, gasLimit), BINARY, "");
     }
 
     public RemoteCall<Uint256> totalRoomRent() {
@@ -75,23 +75,23 @@ public class Twelve_SmartContract extends Contract{
     /*public static TwentySevenPaymentBookingRoom load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider gasProvider) {
         return new TwentySevenPaymentBookingRoom(contractAddress, web3j, credentials, gasProvider);
     }*/
-    public static Twelve_SmartContract load(
+    public static Fifteen_SmartContract load(
             String contractAddress,
             Web3j web3j,
             TransactionManager web3TransactionManager,
             ContractGasProvider contractGasProvider
     ) {
-        return new Twelve_SmartContract(contractAddress, web3j, web3TransactionManager, contractGasProvider);
+        return new Fifteen_SmartContract(contractAddress, web3j, web3TransactionManager, contractGasProvider);
     }
 
-    public RemoteCall<TransactionReceipt> updateTotalRoomRent(BigInteger newTotalRoomRent) {
+    /*public RemoteCall<TransactionReceipt> updateTotalRoomRent(BigInteger newTotalRoomRent) {
         return executeRemoteCallTransaction(new org.web3j.abi.datatypes.Function(
                 "updateTotalRoomRent",
                 Arrays.asList(new org.web3j.abi.datatypes.generated.Uint256(newTotalRoomRent)),
                 Collections.emptyList()
         ));
-    }
-    /*public RemoteCall<TransactionReceipt> updateTotalRoomRent(BigInteger newTotalRoomRent, String renterAddress) {
+    }*/
+    public RemoteCall<TransactionReceipt> updateTotalRoomRent(BigInteger newTotalRoomRent, String renterAddress) {
         return executeRemoteCallTransaction(new org.web3j.abi.datatypes.Function(
                 "updateTotalRoomRent",
                 Arrays.asList(
@@ -100,7 +100,7 @@ public class Twelve_SmartContract extends Contract{
                 ),
                 Collections.emptyList()
         ));
-    }*/
+    }
 
     public Event ROOM_RENT_RESET_EVENT = new Event("RoomRentReset",
             Arrays.asList(
@@ -108,20 +108,20 @@ public class Twelve_SmartContract extends Contract{
                     new TypeReference<Uint256>() {}
             )
     );
-    public Flowable<Twelve_SmartContract.RoomRentResetEventResponse> roomRentResetEventFlowable() {
+    public Flowable<Fifteen_SmartContract.RoomRentResetEventResponse> roomRentResetEventFlowable() {
         EthFilter filter = new EthFilter(DefaultBlockParameterName.LATEST, DefaultBlockParameterName.LATEST, getContractAddress());
         filter.addSingleTopic(EventEncoder.encode(ROOM_RENT_RESET_EVENT));
 
         return web3j.ethLogFlowable(filter).map(log -> {
             Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(ROOM_RENT_RESET_EVENT, log);
-            Twelve_SmartContract.RoomRentResetEventResponse response = new Twelve_SmartContract.RoomRentResetEventResponse();
-            response.renter = (String) eventValues.getIndexedValues().get(0).getValue();
+            Fifteen_SmartContract.RoomRentResetEventResponse response = new Fifteen_SmartContract.RoomRentResetEventResponse();
+            response.payer = (String) eventValues.getIndexedValues().get(0).getValue();
             response.time = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
             return response;
         });
     }
     public static class RoomRentResetEventResponse {
-        public String renter;
+        public String payer;
         public BigInteger time;
     }
 
@@ -149,12 +149,12 @@ public class Twelve_SmartContract extends Contract{
     );
 
     // Lắng nghe sự kiện FirstRoomRentPaid
-    public Flowable<Twelve_SmartContract.FirstRoomRentPaidEventResponse> firstRoomRentPaidEventFlowable() {
+    public Flowable<Fifteen_SmartContract.FirstRoomRentPaidEventResponse> firstRoomRentPaidEventFlowable() {
         EthFilter filter = new EthFilter(DefaultBlockParameterName.LATEST, DefaultBlockParameterName.LATEST, getContractAddress());
         filter.addSingleTopic(EventEncoder.encode(FIRST_ROOM_RENT_PAID_EVENT));
         return web3j.ethLogFlowable(filter).map(log -> {
             Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(FIRST_ROOM_RENT_PAID_EVENT, log);
-            Twelve_SmartContract.FirstRoomRentPaidEventResponse response = new Twelve_SmartContract.FirstRoomRentPaidEventResponse();
+            Fifteen_SmartContract.FirstRoomRentPaidEventResponse response = new Fifteen_SmartContract.FirstRoomRentPaidEventResponse();
             response.payer = (String) eventValues.getIndexedValues().get(0).getValue();
             response.amount = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
             response.timestamp = (BigInteger) eventValues.getNonIndexedValues().get(1).getValue();
@@ -163,12 +163,12 @@ public class Twelve_SmartContract extends Contract{
     }
 
     // Lắng nghe sự kiện NotPaidYet
-    public Flowable<Twelve_SmartContract.NotPaidYetEventResponse> notPaidYetEventFlowable() {
+    public Flowable<Fifteen_SmartContract.NotPaidYetEventResponse> notPaidYetEventFlowable() {
         EthFilter filter = new EthFilter(DefaultBlockParameterName.LATEST, DefaultBlockParameterName.LATEST, getContractAddress());
         filter.addSingleTopic(EventEncoder.encode(NOT_PAID_YET_EVENT));
         return web3j.ethLogFlowable(filter).map(log -> {
             Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(NOT_PAID_YET_EVENT, log);
-            Twelve_SmartContract.NotPaidYetEventResponse response = new Twelve_SmartContract.NotPaidYetEventResponse();
+            Fifteen_SmartContract.NotPaidYetEventResponse response = new Fifteen_SmartContract.NotPaidYetEventResponse();
             response.payer = (String) eventValues.getIndexedValues().get(0).getValue();
             response.timestamp = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
             return response;
@@ -176,15 +176,17 @@ public class Twelve_SmartContract extends Contract{
     }
 
     // Lắng nghe sự kiện SecondRoomRentPaid
-    public Flowable<Twelve_SmartContract.SecondRoomRentPaidEventResponse> secondRoomRentPaidEventFlowable() {
+    public Flowable<Fifteen_SmartContract.SecondRoomRentPaidEventResponse> secondRoomRentPaidEventFlowable() {
         EthFilter filter = new EthFilter(DefaultBlockParameterName.LATEST, DefaultBlockParameterName.LATEST, getContractAddress());
         filter.addSingleTopic(EventEncoder.encode(SECOND_ROOM_RENT_PAID_EVENT));
         return web3j.ethLogFlowable(filter).map(log -> {
+            //System.out.println("Đã nhận được log sự kiện từ blockchain: " + log);
             Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(SECOND_ROOM_RENT_PAID_EVENT, log);
-            Twelve_SmartContract.SecondRoomRentPaidEventResponse response = new Twelve_SmartContract.SecondRoomRentPaidEventResponse();
+            Fifteen_SmartContract.SecondRoomRentPaidEventResponse response = new Fifteen_SmartContract.SecondRoomRentPaidEventResponse();
             response.payer = (String) eventValues.getIndexedValues().get(0).getValue();
             response.amount = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
             response.timestamp = (BigInteger) eventValues.getNonIndexedValues().get(1).getValue();
+            //System.out.println("Dữ liệu sự kiện: payer=" + response.payer + ", amount=" + response.amount + ", timestamp=" + response.timestamp);
             return response;
         });
     }

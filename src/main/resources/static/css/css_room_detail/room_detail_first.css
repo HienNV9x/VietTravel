@@ -98,6 +98,7 @@ h5 {
     height: 48px;
     background-color: #f0e7e7;
     position: relative;
+    border-top: 0.2px solid #000;
 }
 
 #nav-first .header-logo {
@@ -126,7 +127,7 @@ h5 {
 
 #nav-first .slogan {
     position: absolute;
-    width: 462px;
+    width: 366px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

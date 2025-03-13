@@ -163,8 +163,10 @@ var cryptoPaymentApi = 'http://localhost:8080/api/smartcontract/update-room-rent
     }
 document.querySelector('.confirm-button').addEventListener('click', function(event) {
     event.preventDefault();
+    var sender = document.querySelector('input[name="crypto-sender"]').value;
     var formData = {
-        roomRent: paymentTotalCrypto
+        roomRent: paymentTotalCrypto,
+        renterAddress: sender
     };
     createRoomRent(formData);
     $.magnificPopup.close();
@@ -714,10 +716,44 @@ document.querySelector('#createVNPay').addEventListener('click', function(event)
     handlePayment('/viettravel/pay');
     //sendEmail();                                                        //Gửi InvoicePDF
 });
-document.querySelector('#createQRCode').addEventListener('click', function(event) {
+
+/*document.querySelector('#createQRCode').addEventListener('click', function(event) {
     event.preventDefault();
     handlePayment('/viettravel/qrcode');
+});*/
+
+document.querySelector('#createQRCode').addEventListener('click', function(event) {
+    event.preventDefault();
+    fetch('/api/userId')
+        .then(response => {
+            if(!response.ok) {
+                throw new Error('User not authenticated');
+            }
+            return response.json();
+        })
+        .then(() => {
+            if(clickConfirm && quantityProducts != 0) {
+                $.magnificPopup.close();
+                setTimeout(() => {
+                    $.magnificPopup.open({
+                        items: {
+                            src: '#qrCodeBox'
+                        },
+                        type: 'inline',
+                        midClick: true
+                    });
+                }, 300);
+            } else {
+                showWarningFirt_Confirm();
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user ID:', error);
+            showErrorToast();
+        });
+    //handlePayment('/viettravel/qrcode');
 });
+
 document.querySelector('#createCrypto').addEventListener('click', function(event) {
     event.preventDefault();
     fetch('/api/userId')
