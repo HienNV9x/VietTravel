@@ -1,20 +1,19 @@
-package com.viettravelbk.service;
+package com.viettravelbk.service.user;
 
 import java.util.Collections;
-import java.util.HashSet;
 
+import com.viettravelbk.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
 import com.viettravelbk.model.User;
-import com.viettravelbk.model.User_OAuth2;
 import com.viettravelbk.repository.RoleRepository;
 import com.viettravelbk.repository.UserRepository;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 	@Autowired
     private UserRepository userRepository;
     @Autowired

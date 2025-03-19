@@ -13,7 +13,6 @@ function fetchUserIdAndSave() {
         })
         .then(newUserId => {												//User đã đăng nhập
             if (newUserId !== null) {
-                console.log("newUserId: " + newUserId);
                 const currentUserId = localStorage.getItem('userId');
                 if (currentUserId !== newUserId.toString()) {
                     localStorage.setItem('userId', newUserId); 		
@@ -37,7 +36,7 @@ function resetCart() {														// Xóa hoặc reset giỏ hàng
    // Xóa các thuộc tính của Object Move
    localStorage.removeItem('touristCar');
    localStorage.removeItem('car');
-   localStorage.removeItem('motorbike');		
+   localStorage.removeItem('motorbike');
 }
 
 fetchUserIdAndSave();

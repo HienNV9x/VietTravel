@@ -15,18 +15,17 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated; 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody; 
 import org.springframework.web.bind.annotation.RequestParam; 
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.viettravelbk.service.CustomUserDetails;
+import com.viettravelbk.service.user.CustomUserDetails;
 import com.viettravelbk.model.User;
-import com.viettravelbk.service.SecurityService;
-import com.viettravelbk.service.UserService;
+import com.viettravelbk.service.user.SecurityService;
+import com.viettravelbk.service.user.UserService;
 
-import static java.util.Map.*;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class UserController {
@@ -35,6 +34,9 @@ public class UserController {
 
 	@Autowired
 	private SecurityService securityService;
+
+	@Autowired
+	WebSecurityConfig webSecurityConfig;
 
 	@GetMapping("/viettravel/registration")
 	public String registration(Model model) {
@@ -70,8 +72,23 @@ public class UserController {
 		return ResponseEntity.ok().build();
 	}
 
-	@GetMapping("/login")
+	/*@GetMapping("/login")
 	public String login(Model model, @RequestParam(name = "error", required = false) String error) {
+		if (securityService.isAuthenticated()) {
+			return "redirect:/";
+		} else if (error != null) {
+			model.addAttribute("error", "Your username and password is invalid");
+		}
+		return "login";
+	}*/
+	@GetMapping("/login")
+	public String login(HttpServletRequest request, Model model, @RequestParam(name = "error", required = false) String error) {
+		// Lưu lại URL trước khi vào Login nếu chưa được lưu
+		String refererUrl = request.getHeader("Referer");
+		if (refererUrl != null && !refererUrl.contains("/login")) {
+			request.getSession().setAttribute("prevPage", refererUrl);
+		}
+
 		if (securityService.isAuthenticated()) {
 			return "redirect:/";
 		} else if (error != null) {

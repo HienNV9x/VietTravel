@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 public class RoomRentCreateRequest {
     private String roomRent;
 
-    @NotBlank(message = "Account Address cannot be blank")
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Invalid Account Address")
+    @NotBlank(message = "Account Address cannot be blank")
     private String renterAddress;
 }

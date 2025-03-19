@@ -64,13 +64,13 @@ function getDailyIncome() {
                     document.querySelector('#daily-income').innerHTML = `${dailyIncome.toFixed(2)} $`;
                 } else {
                     // Nếu dailyIncome là null, hiển thị thông báo ngày không hợp lệ
-                    document.querySelector('#daily-income').innerHTML = `Ngày không có doanh thu.`;
+                    document.querySelector('#daily-income').innerHTML = `0.00 $`;
                 }
             })
             .catch(error => {
                 console.error('There has been a problem with your fetch operation:', error);
                 // Hiển thị thông báo lỗi hoặc ngày không hợp lệ nếu có lỗi xảy ra
-                document.querySelector('#daily-income').innerHTML = `Ngày không có doanh thu.`;
+                document.querySelector('#daily-income').innerHTML = `0.00 $`;
             });
 	};
 }

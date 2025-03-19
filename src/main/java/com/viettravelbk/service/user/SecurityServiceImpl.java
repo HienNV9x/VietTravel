@@ -1,4 +1,4 @@
-package com.viettravelbk.service;
+package com.viettravelbk.service.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SecurityServiceImpl implements SecurityService{
+public class SecurityServiceImpl implements SecurityService {
 	@Autowired
     private AuthenticationManager authenticationManager;
 

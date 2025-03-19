@@ -57,7 +57,7 @@ function renderUI(arr) {
                   <strong id="quantity-money-${p.id}">$${totalPrice.toFixed(2)}</strong>
                 </td>
                 <td class="options">
-                  <a href="#" onclick="removeItem(${p.id})"><i class=" icon-trash"></i></a>
+                  <a href="#" onclick="removeItem(${p.id}); return false;"><i class=" icon-trash"></i></a>
                 </td>
               </tr>
    		 `;
@@ -100,6 +100,7 @@ function removeItem(id) {
     // Cập nhật lại localStorage sau khi xóa sản phẩm
     localStorage.setItem('cart', JSON.stringify(products)); // Lưu lại dữ liệu mới vào localStorage
     renderUI(products);										// Cập nhật lại UI
+    location.reload();                                      // Tải lại trang ngay lập tức sau khi xóa
 }
 
 // Thay đổi số lượng sản phẩm
@@ -180,7 +181,7 @@ window.onload = function() {
 
 //End: JS Render Room
 
-//=============================================Begin: JS Chọn lịch ngày In Room - Out Room==============================
+//=============================================Begin: JS Chọn lịch ngày In Room - Out Room =============================
 
   function attachDatePickers() {
     //Lặp qua mỗi phòng để thực hiện các thay đổi linh hoạt
@@ -190,10 +191,14 @@ window.onload = function() {
         const endDateDiv = document.getElementById(`day-end-${roomId}`);
         const quantityInput = document.getElementById(`quantity_${roomId}`);
         const totalPriceElement = document.querySelector(`#quantity-money-${roomId}`);
-        
+
         //Hiển thị ngày đã lưu từ localStorage
         startDateDiv.textContent = room.startDate ? room.startDate : '--/--/----';
         endDateDiv.textContent = room.endDate ? room.endDate : '--/--/----';
+        //const storedStartDate = localStorage.getItem('startDate-${roomId}');
+        //const storedEndDate = localStorage.getItem('endDate-${roomId}');
+        //startDateDiv.textContent = storedStartDate ? storedStartDate : '--/--/----';
+        //endDateDiv.textContent = storedEndDate ? storedEndDate : '--/--/----';
         
 		function updateDaysCount(quantityInput) {
 			const start = startDateDiv.textContent.split("/").reverse().join("-");
@@ -228,8 +233,8 @@ window.onload = function() {
 			for (let i = 0; i < products.length; i++) {
 				if (products[i].id == roomId) {
 					products[i].count = daysDiff >= 0 ? daysDiff : 0;
-					products[i].startDate = startDateDiv.textContent; // Thêm
-                    products[i].endDate = endDateDiv.textContent;     // Thêm
+					products[i].startDate = startDateDiv.textContent;   // Thêm
+                    products[i].endDate = endDateDiv.textContent;       // Thêm
 					break;
 				}
 			}
@@ -248,6 +253,7 @@ window.onload = function() {
 			onChange: function(selectedDates, dateStr, instance) {
 				startDateDiv.textContent = dateStr;
 				const quantityInput = document.getElementById(`quantity-${roomId}`); // Lấy lại quantityInput
+				//localStorage.setItem('startDate-${roomId}', dateStr);                // Lưu vào localStorage
 				updateDaysCount(quantityInput); 									 // Cập nhật số ngày
 			}
 		});
@@ -258,6 +264,7 @@ window.onload = function() {
 			onChange: function(selectedDates, dateStr, instance) {
 				endDateDiv.textContent = dateStr;
 				const quantityInput = document.getElementById(`quantity-${roomId}`); // Lấy lại quantityInput
+				//localStorage.setItem('endDate-${roomId}', dateStr);                  // Lưu vào localStorage
 				updateDaysCount(quantityInput); 									 // Cập nhật số ngày
 			}
 		});
@@ -316,7 +323,7 @@ function renderUIFOOD(arrFood) {
                   <strong>&#8582;10%</strong>
                 </td>
                 <td class="options">
-                  <a href="#" onclick="removeItemFood(${pFood.id})"><i class=" icon-trash"></i></a>
+                  <a href="#" onclick="removeItemFood(${pFood.id}); return false;"><i class=" icon-trash"></i></a>
                 </td>
               </tr>
         `;
@@ -333,6 +340,7 @@ function removeItemFood(id) {
     }														// Cập nhật lại localStorage sau khi xóa sản phẩm
     localStorage.setItem('food', JSON.stringify(cuisines)); // Lưu lại dữ liệu mới vào localStorage
     renderUIFOOD(cuisines);									// Cập nhật lại UI
+    location.reload();
 }	
 window.onload = renderUIFOOD(cuisines);
 
@@ -380,7 +388,7 @@ function renderUIINTER(arrInter) {
                   <strong>&#8582;10%</strong>
                 </td>
                 <td class="options">
-                  <a href="#" onclick="removeItemInter(${pInter.id})"><i class=" icon-trash"></i></a>
+                  <a href="#" onclick="removeItemInter(${pInter.id}); return false;"><i class=" icon-trash"></i></a>
                 </td>
               </tr>
         `;
@@ -397,6 +405,7 @@ function removeItemInter(id) {
     }																// Cập nhật lại localStorage sau khi xóa sản phẩm
     localStorage.setItem('inter', JSON.stringify(intertainments));  // Lưu lại dữ liệu mới vào localStorage
     renderUIINTER(intertainments);									// Cập nhật lại UI
+    location.reload();
 }	
 window.onload = renderUIINTER(intertainments);
 
@@ -459,7 +468,7 @@ function renderUIMOVE(arrMove_item) {
                   <strong>&#8582;5%</strong>
                 </td>
                 <td class="options">
-                  <a href="#" onclick="removeItemMove('${pMove_item.type}')"><i class=" icon-trash"></i></a>
+                  <a href="#" onclick="removeItemMove('${pMove_item.type}'); return false;"><i class=" icon-trash"></i></a>
                 </td>
               </tr>
         `;
@@ -471,6 +480,7 @@ function removeItemMove(type) {
     localStorage.removeItem(type);
     moves = moves.filter(move => move.type !== type);
     renderUIMOVE(moves);
+    location.reload();
 }
 window.onload = renderUIMOVE(moves);
 
@@ -714,13 +724,7 @@ document.querySelector('#confirm').addEventListener('click', function(event) {
 document.querySelector('#createVNPay').addEventListener('click', function(event) {
     event.preventDefault();
     handlePayment('/viettravel/pay');
-    //sendEmail();                                                        //Gửi InvoicePDF
 });
-
-/*document.querySelector('#createQRCode').addEventListener('click', function(event) {
-    event.preventDefault();
-    handlePayment('/viettravel/qrcode');
-});*/
 
 document.querySelector('#createQRCode').addEventListener('click', function(event) {
     event.preventDefault();
@@ -751,7 +755,6 @@ document.querySelector('#createQRCode').addEventListener('click', function(event
             console.error('Error fetching user ID:', error);
             showErrorToast();
         });
-    //handlePayment('/viettravel/qrcode');
 });
 
 document.querySelector('#createCrypto').addEventListener('click', function(event) {

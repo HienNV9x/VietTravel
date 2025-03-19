@@ -419,7 +419,7 @@
   <!-- /Display Popup PAY-->
 
   <!-- Display Popup QRCode -->
-  <div id="qrCodeBox" class="zoom-anim-dialog">
+  <div id="qrCodeBox" class="zoom-anim-dialog mfp-hide">
     <div id="qrCodeSquareFrame">
       <div class="centered">
         <div id="qrcode">
@@ -458,6 +458,7 @@
           <p><i class="fas fa-clock"></i> REMAINING(80%): <span id="crypto-payment-second"></span> ETH payment 24 hours before check-in date</p>
           <p><i class="fas fa-file-contract"></i> ETH RECEIVE ADDRESS: 0x197c021fe23ab845bb310338993f497377c82267</p>
           <p><i class="fas fa-hand-holding-usd"></i> ETH SEND ADDRESS: <span><input class="crypto-send-address" name="crypto-sender" placeholder="Your e-wallet address to confirm transactions"></span> </p>
+          <span class="has-error-crypto"></span>
           <p><i class="fas fa-envelope"></i> Confirmation information will be sent to your registered email in a few minutes</p>
           <button class="confirm-button">CONFIRM</button>
       </div>
@@ -548,7 +549,7 @@
   
   <script src="/js/message.js"></script>
   <script src="/js/js_cart/qrcode.js"></script>
-  <script src="/js/reset_cart.js"></script>	  
+  <script src="/js/reset_cart.js"></script>
   <script src="/js/search/search_toward.js"></script>
   <script src="/js/js_cart/cart.js"></script>
   <script src="/js/js_cart/cart_first.js"></script>

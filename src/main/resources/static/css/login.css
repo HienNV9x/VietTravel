@@ -155,6 +155,9 @@
         	font-weight: normal;
         	font-size: 14px;
         }
+        .form-register a:hover {
+            color: red;
+        }
 
         /*Login Google - OAuth2*/
         .oauth2 {

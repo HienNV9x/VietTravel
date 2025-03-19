@@ -1,4 +1,4 @@
-package com.viettravelbk.service;
+package com.viettravelbk.service.user;
 
 import java.util.Collection;
 import java.util.Collections;

@@ -1,6 +1,8 @@
 package com.viettravelbk.vnpay;
 
 import javax.servlet.http.HttpServletRequest;
+
+import com.viettravelbk.email.EmailConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,8 @@ public class WebController {
     @Autowired
     private VNPayService vnPayService;
 
+    @Autowired
+    EmailConfig emailConfig;
 
     @GetMapping("/viettravel/pay")
     public String home(){
@@ -42,6 +46,13 @@ public class WebController {
         model.addAttribute("paymentTime", paymentTime);
         model.addAttribute("transactionId", transactionId);
 
+        if(paymentStatus == 1) {
+            try {
+                emailConfig.sendHTMLEmailWithAttachment();                          //Gửi InvoicePDF
+            }catch (Exception e){
+                throw new IllegalStateException("Transaction failed");
+            }
+        }
         return paymentStatus == 1 ? "vnpay/ordersuccess" : "vnpay/orderfail";
     }
 }

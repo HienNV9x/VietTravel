@@ -1,4 +1,4 @@
-package com.viettravelbk.service;
+package com.viettravelbk.service.user;
 
 public interface SecurityService {
     boolean isAuthenticated();
