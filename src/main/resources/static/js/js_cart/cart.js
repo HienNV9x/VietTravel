@@ -145,8 +145,8 @@ function updateTotalMoney(arr) {
     const secondPaymentCrypto = document.querySelector('#crypto-payment-second');
     paymentTotalCrypto = (paymentTotal/2080.90).toFixed(4);
     totalCrypto.innerText = paymentTotalCrypto;
-    firstPaymentCrypto.innerText = (paymentTotalCrypto*0.2).toFixed(4);
-    secondPaymentCrypto.innerText = (paymentTotalCrypto-paymentTotalCrypto*0.2).toFixed(4);
+    firstPaymentCrypto.innerText = (paymentTotalCrypto*0.2).toFixed(5);
+    secondPaymentCrypto.innerText = (paymentTotalCrypto-paymentTotalCrypto*0.2).toFixed(5);
 }
 
 //Payment Crypto Currency
